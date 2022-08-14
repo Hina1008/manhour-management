@@ -81,3 +81,21 @@ document.addEventListener('click', async (e) =>{
         bg.Mock(e.target.className);
     }
  });
+
+ document.addEventListener('mouseover', async (e) =>{
+    let iconElement = document.getElementById(e.target.id);
+    if(e.target.id.indexOf("start") != -1){
+        iconElement.setAttribute("src", "/img/popup/start/start_white.png");
+    }else if (e.target.id.indexOf("stop") != -1){
+        iconElement.setAttribute("src", "/img/popup/stop/stop_white.png");
+    }
+ });
+
+ document.addEventListener("mouseout", async (e) =>{
+    let iconElement = document.getElementById(e.target.id);
+    if(e.target.id.indexOf("start") != -1){
+        iconElement.setAttribute("src", "/img/popup/start/start.png");
+    }else if (e.target.id.indexOf("stop") != -1){
+        iconElement.setAttribute("src", "/img/popup/stop/stop.png");
+    }
+ });
