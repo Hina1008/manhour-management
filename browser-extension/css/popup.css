@@ -1,0 +1,75 @@
+body {
+    width: 400px;
+    background-color: #333333;
+    font-family: "Palatino" ;
+}
+
+#title {
+    text-align:center;
+    color:#708090;
+ }
+
+.test {
+    width: 100%;
+    margin:0;
+}
+
+.add{
+    margin:0;
+    text-align:center;
+    color:#708090;
+    background-color: #333333;
+    margin-bottom: 5px;
+}
+
+.manHour-paragraph{
+    color:#708090;
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.time{
+    color:#c0c0c0;
+    font-size: 32px;
+    text-align: right;
+    margin-top: 0;
+    margin-bottom:0;
+    margin-left:3px;
+    display:inline-block;
+}
+
+#addTitle{
+    color:#708090;
+    margin-right:10px;
+}
+
+.start{
+    margin-right: 2px;
+    text-align: left;
+}
+
+.stop{
+    margin-right: 10px;
+    text-align: left;
+}
+
+#manHour2Time{
+    display: inline-block;
+    margin-right:10px;
+}
+
+.controller-icon{
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    text-align: left;
+}
+
+.manHour-frame{
+
+}
+
+.manHour-controller{
+    text-align:right;
+}

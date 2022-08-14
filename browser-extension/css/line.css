@@ -1,0 +1,31 @@
+/*点線*/
+
+.hr1 {
+    height: 3px;
+      border-width: 0;
+      background-color: #333333;
+      background-image: -webkit-linear-gradient(right,
+      #333333 5px,#9b9898 5px);
+      background-image: linear-gradient(-90deg,
+      #333333 5px,#9b9898 5px);
+      background-size: 10px 10px;
+  }
+
+/* グラデーション */
+.hr2 {
+    position: relative;
+      height: 3px;
+      border-width: 0;
+      background-color: #00bcd4;
+      background-image: -webkit-linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+      background-image: linear-gradient( 135deg, #FD6585 10%, #0D25B9 100%);
+  }
+
+.hr3 {
+  position: relative;
+      height: 2px;
+      border-width: 0;
+      background-color: #00bcd4;
+      background-image: -webkit-linear-gradient( 135deg, #827c84 10%, #b9b9b9 100%);
+      background-image: linear-gradient( 135deg, #827c84 10%, #b9b9b9 100%);
+}
