@@ -62,6 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('click', async (e) =>{
+    let iconElement = document.getElementById(e.target.id);
     if(e.target.className.indexOf("start") != -1){
         // 再生ボタンを押したときの処理
         // 現在のタイマーをstorageに保存
@@ -80,6 +81,11 @@ document.addEventListener('click', async (e) =>{
     }else if(e.target.className.indexOf("delete") != -1){
         bg.Mock(e.target.className);
     }
+    iconElement.style.position = 'relative';
+    iconElement.style.top = "2px";
+    setTimeout(() => {
+        iconElement.style.top = "0px";
+    }, 100);
  });
 
  document.addEventListener('mouseover', async (e) =>{
