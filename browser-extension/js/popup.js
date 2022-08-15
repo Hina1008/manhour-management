@@ -77,6 +77,10 @@ document.addEventListener('click', async (e) =>{
             clearInterval(intervalForTimer);
 
             await bg.clickStopButton();
+        }else if(e.target.className.includes("delete")){
+            // 削除ボタンを押したときの処理
+            let manHourName = document.getElementById("manHourParagraph" + e.target.name).innerHTML;
+            await bg.clickDeleteButton(manHourName);
         }
         iconElement.style.position = 'relative';
         iconElement.style.top = "2px";

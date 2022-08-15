@@ -14,6 +14,13 @@ const getLocalStorage = (key = null) => new Promise(resolve => {
 	chrome.storage.local.get(key, (data) => {resolve(data)});
   });
 
+const removeLocalStorage = (key) => new Promise((resolve, reject) => {
+	chrome.storage.local.remove(key, () =>{
+		console.log("delete:"+key);
+		resolve(true);
+	})
+});
+
 let createContextMenus = (title) => {
 	chrome.contextMenus.create({
 		"title" : title,
@@ -23,6 +30,22 @@ let createContextMenus = (title) => {
 		"onclick" : getClickHandler()
 	});
 }
+
+let removeContextMenus = (id) => {
+	console.log("call removeContextMenus");
+	console.log("id:" + id);
+	return new Promise((resolve, reject) => {
+		chrome.contextMenus.remove(id, () => {
+			if (chrome.runtime.lastError) {
+				console.log("error removing item:", chrome.runtime.lastError)
+				reject(err);
+			} else {
+				console.log(id + " removed successfully")
+				resolve();
+			}
+		});
+	});
+};
 
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
     if (info.menuItemId == "some-command") {
@@ -82,6 +105,18 @@ bg.clickStopButton = async() => {
 	count = 0;
 	currentNo = null;
 };
+
+bg.clickDeleteButton = async(name) => {
+	console.log("call clickDeleteButton");
+	let currentManHour = await getLocalStorage("name");
+	if(currentManHour["name"] == name){
+		clearInterval(intervalForTimer);
+		count = 0;
+		currentNo = null;
+	}
+	await removeLocalStorage(name);
+	await removeContextMenus(name);
+}
 
 bg.clickAddButton = async(value) => {
 	// 現在の時間を保存
