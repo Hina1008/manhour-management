@@ -43,6 +43,15 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
             manHourControllerDiv,
             manHourDiv);
 
+    // 削除アイコンの追加
+    let deleteImg = document.createElement("img"); // img要素作成
+    embeddingIcons("/img/popup/delete/delete.png",
+            "delete" + no,
+            "controller-icon delete",
+                no,
+            deleteImg,
+            manHourControllerDiv);
+
     // 再生アイコンの追加
     let startImg = document.createElement("img"); // img要素作成
     embeddingIcons("/img/popup/start/start.png",

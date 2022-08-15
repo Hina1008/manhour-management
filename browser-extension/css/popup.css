@@ -44,6 +44,13 @@ body {
     margin-right:10px;
 }
 
+.controller-icon{
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    text-align: left;
+}
+
 .start{
     margin-right: 2px;
     text-align: left;
@@ -54,16 +61,16 @@ body {
     text-align: left;
 }
 
+.delete{
+    margin-right: 200px;
+    text-align: left;
+    height: 16px;
+    width: 16px;
+}
+
 #manHour2Time{
     display: inline-block;
     margin-right:10px;
-}
-
-.controller-icon{
-    display: inline-block;
-    height: 20px;
-    width: 20px;
-    text-align: left;
 }
 
 .manHour-frame{
