@@ -88,22 +88,22 @@ document.addEventListener('click', async (e) =>{
 
  document.addEventListener('mouseover', async (e) =>{
     let iconElement = document.getElementById(e.target.id);
-    if(e.target.id.indexOf("start") != -1){
+    if(e.target.id.includes("start")){
         iconElement.setAttribute("src", "/img/popup/start/start_white.png");
-    }else if (e.target.id.indexOf("stop") != -1){
+    }else if (e.target.id.includes("stop")){
         iconElement.setAttribute("src", "/img/popup/stop/stop_white.png");
-    }else if (e.target.id.indexOf("delete") != -1){
+    }else if (e.target.id.includes("delete")){
         iconElement.setAttribute("src", "/img/popup/delete/delete_white.png");
     }
  });
 
  document.addEventListener("mouseout", async (e) =>{
     let iconElement = document.getElementById(e.target.id);
-    if(e.target.id.indexOf("start") != -1){
+    if(e.target.id.includes("start")){
         iconElement.setAttribute("src", "/img/popup/start/start.png");
-    }else if (e.target.id.indexOf("stop") != -1){
+    }else if (e.target.id.includes("stop")){
         iconElement.setAttribute("src", "/img/popup/stop/stop.png");
-    }else if (e.target.id.indexOf("delete") != -1){
+    }else if (e.target.id.includes("delete")){
         iconElement.setAttribute("src", "/img/popup/delete/delete.png");
     }
  });
