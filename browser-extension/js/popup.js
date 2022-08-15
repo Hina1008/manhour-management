@@ -92,6 +92,8 @@ document.addEventListener('click', async (e) =>{
         iconElement.setAttribute("src", "/img/popup/start/start_white.png");
     }else if (e.target.id.indexOf("stop") != -1){
         iconElement.setAttribute("src", "/img/popup/stop/stop_white.png");
+    }else if (e.target.id.indexOf("delete") != -1){
+        iconElement.setAttribute("src", "/img/popup/delete/delete_white.png");
     }
  });
 
@@ -101,5 +103,7 @@ document.addEventListener('click', async (e) =>{
         iconElement.setAttribute("src", "/img/popup/start/start.png");
     }else if (e.target.id.indexOf("stop") != -1){
         iconElement.setAttribute("src", "/img/popup/stop/stop.png");
+    }else if (e.target.id.indexOf("delete") != -1){
+        iconElement.setAttribute("src", "/img/popup/delete/delete.png");
     }
  });
