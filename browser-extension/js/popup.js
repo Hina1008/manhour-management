@@ -62,30 +62,33 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('click', async (e) =>{
-    let iconElement = document.getElementById(e.target.id);
-    if(e.target.className.indexOf("start") != -1){
-        // 再生ボタンを押したときの処理
-        // 現在のタイマーをstorageに保存
-        // カウントを初期化
-        // 現在の設定をstorageに保存
-        let manHourName = document.getElementById("manHourParagraph" + e.target.name).innerHTML;
-        await bg.Mock(e.target.name);
-        await bg.clickStartButton(manHourName, e.target.name);
-        // intervalForTimerを再開する
-        clearInterval(intervalForTimer);
-        intervalForTimer = setInterval(intervalForMinute, 1000);
-    }else if(e.target.className.indexOf("stop") != -1){
-        // intervalForTimerを停止する
-        clearInterval(intervalForTimer);
-        await bg.clickStopButton();
-    }else if(e.target.className.indexOf("delete") != -1){
-        bg.Mock(e.target.className);
+    // アイコンである場合の処理
+    if(e.target.className.includes("controller-icon")){
+        let iconElement = document.getElementById(e.target.id);
+        if(e.target.className.indexOf("start") != -1){
+            // 再生ボタンを押したときの処理
+            // 現在のタイマーをstorageに保存
+            // カウントを初期化
+            // 現在の設定をstorageに保存
+            let manHourName = document.getElementById("manHourParagraph" + e.target.name).innerHTML;
+            await bg.Mock(e.target.name);
+            await bg.clickStartButton(manHourName, e.target.name);
+            // intervalForTimerを再開する
+            clearInterval(intervalForTimer);
+            intervalForTimer = setInterval(intervalForMinute, 1000);
+        }else if(e.target.className.indexOf("stop") != -1){
+            // intervalForTimerを停止する
+            clearInterval(intervalForTimer);
+            await bg.clickStopButton();
+        }else if(e.target.className.indexOf("delete") != -1){
+            bg.Mock(e.target.className);
+        }
+        iconElement.style.position = 'relative';
+        iconElement.style.top = "2px";
+        setTimeout(() => {
+            iconElement.style.top = "0px";
+        }, 100);
     }
-    iconElement.style.position = 'relative';
-    iconElement.style.top = "2px";
-    setTimeout(() => {
-        iconElement.style.top = "0px";
-    }, 100);
  });
 
  document.addEventListener('mouseover', async (e) =>{
