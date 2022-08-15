@@ -65,6 +65,12 @@ document.addEventListener('click', async (e) =>{
     // アイコンである場合の処理
     if(e.target.className.includes("controller-icon")){
         let iconElement = document.getElementById(e.target.id);
+        iconElement.style.position = 'relative';
+        iconElement.style.top = "2px";
+        setTimeout(() => {
+            iconElement.style.top = "0px";
+        }, 100);
+
         if(e.target.className.includes("start")){
             // 再生ボタンを押したときの処理
             let manHourName = document.getElementById("manHourParagraph" + e.target.name).innerHTML;
@@ -81,12 +87,9 @@ document.addEventListener('click', async (e) =>{
             // 削除ボタンを押したときの処理
             let manHourName = document.getElementById("manHourParagraph" + e.target.name).innerHTML;
             await bg.clickDeleteButton(manHourName);
+            let deleteManHourDiv = document.getElementById("manHour" + e.target.name);
+            deleteManHourDiv.remove();
         }
-        iconElement.style.position = 'relative';
-        iconElement.style.top = "2px";
-        setTimeout(() => {
-            iconElement.style.top = "0px";
-        }, 100);
     }
  });
 
