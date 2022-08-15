@@ -76,6 +76,22 @@ bg.pageCallUpdateInfo = async() => {
 	});
 };
 
+bg.clickResetButton = async() => {
+	console.log("call clickResetButton");
+	clearInterval(intervalForTimer);
+	count = 0;
+	currentNo = null;
+	let manHourInfo = await getLocalStorage();
+	const keys = Object.keys(manHourInfo);
+	for (let key of keys){
+		if(key == "name"){
+			await setLocalStorage(key, null);
+		}else{
+			await setLocalStorage(key, {"time":0, "no":manHourInfo[key]["no"]});
+		}
+	}
+};
+
 bg.clickStartButton = async(manHourName, no) => {
 	// 現在の時間を保存
 	console.log("call clickStartButton");

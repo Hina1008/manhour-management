@@ -59,6 +59,12 @@ document.addEventListener('DOMContentLoaded', function() {
             bg.notification(value,"すでに登録されています");
         });
     });
+
+    // リセットボタンを押したとき
+    document.querySelector('.reset').addEventListener('click', async ()=>{
+        await bg.clickResetButton();
+        clearInterval(intervalForTimer);
+    });
 });
 
 document.addEventListener('click', async (e) =>{
