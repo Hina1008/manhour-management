@@ -86,7 +86,9 @@ document.addEventListener('click', async (e) =>{
     }
  });
 
+ // マウスが要素上にあるときの処理
  document.addEventListener('mouseover', async (e) =>{
+    // アイコンである場合の処理
     let iconElement = document.getElementById(e.target.id);
     if(e.target.id.includes("start")){
         iconElement.setAttribute("src", "/img/popup/start/start_white.png");
@@ -97,7 +99,9 @@ document.addEventListener('click', async (e) =>{
     }
  });
 
+ // マウスが要素から出るときの処理
  document.addEventListener("mouseout", async (e) =>{
+    // アイコンである場合の処理
     let iconElement = document.getElementById(e.target.id);
     if(e.target.id.includes("start")){
         iconElement.setAttribute("src", "/img/popup/start/start.png");
