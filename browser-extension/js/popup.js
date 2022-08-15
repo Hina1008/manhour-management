@@ -22,6 +22,18 @@ let intervalForTimer;
     });
 })();
 
+let emmbedingHtml = (manHourInfo) =>{
+    const keys = Object.keys(manHourInfo);
+    for (let key of keys) {
+        if(key != "name" && key != "time") {
+            let manHourTime = document.getElementById("manHourTime" + manHourInfo[key]["no"]);
+            if(manHourTime){
+                manHourTime.innerHTML = getTime(manHourInfo[key]["time"]);
+            }
+        }
+    }
+}
+
 let intervalForMinute = () => {
     bg.countTime().then((count) => {
         bg.getSelectManHour().then((manHourName) => {
@@ -62,8 +74,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // リセットボタンを押したとき
     document.querySelector('.reset').addEventListener('click', async ()=>{
-        await bg.clickResetButton();
         clearInterval(intervalForTimer);
+        await bg.clickResetButton().then((manHourInfo) =>{
+            emmbedingHtml(manHourInfo);
+        });
     });
 });
 

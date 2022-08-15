@@ -81,15 +81,18 @@ bg.clickResetButton = async() => {
 	clearInterval(intervalForTimer);
 	count = 0;
 	currentNo = null;
-	let manHourInfo = await getLocalStorage();
-	const keys = Object.keys(manHourInfo);
-	for (let key of keys){
-		if(key == "name"){
-			await setLocalStorage(key, null);
-		}else{
-			await setLocalStorage(key, {"time":0, "no":manHourInfo[key]["no"]});
+	return new Promise(async(resolve) =>{
+		let manHourInfo = await getLocalStorage();
+		const keys = Object.keys(manHourInfo);
+		for (let key of keys){
+			if(key == "name"){
+				await setLocalStorage(key, null);
+			}else{
+				await setLocalStorage(key, {"time":0, "no":manHourInfo[key]["no"]});
+			}
 		}
-	}
+		resolve(await getLocalStorage());
+	});
 };
 
 bg.clickStartButton = async(manHourName, no) => {
