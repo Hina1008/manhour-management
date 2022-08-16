@@ -11,21 +11,22 @@ let intervalForTimer;
         // 親要素（div）への参照を取得
         const rootDiv = document.getElementById("root");
         for (let key of keys) {
-            if(key != "name" && key != "time") {
+            if(key != "name" && key != "time" && key != "localStorage") {
                 embeddingManHour(key, 
                     manHourInfo[key]["no"], 
                     getTime(manHourInfo[key]["time"]), 
                     rootDiv);
             }
         }
-        intervalForTimer = setInterval(intervalForMinute, 1000);
+        // clearInterval(intervalForTimer);
+        // intervalForTimer = setInterval(intervalForMinute, 1000);
     });
 })();
 
 let emmbedingHtml = (manHourInfo) =>{
     const keys = Object.keys(manHourInfo);
     for (let key of keys) {
-        if(key != "name" && key != "time") {
+        if(key != "name" && key != "time" && key != "localStorage") {
             let manHourTime = document.getElementById("manHourTime" + manHourInfo[key]["no"]);
             if(manHourTime){
                 manHourTime.innerHTML = getTime(manHourInfo[key]["time"]);

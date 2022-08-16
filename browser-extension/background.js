@@ -138,26 +138,19 @@ bg.clickDeleteButton = async(name) => {
 }
 
 bg.clickAddButton = async(value) => {
-	// 現在の時間を保存
-	console.log(value);
-	if(currentNo){
-		let currentManHour = await getLocalStorage("name");
-		setLocalStorage(currentManHour["name"],{"time":count,"no":currentNo})
-	}
-
-	// 名前を変更
-	await setLocalStorage("name", value);
+	console.log("call clickAddButton");
 	return new Promise(async (resolve, reject) => {
-		let canSet = await setLocalStorage(value, {"time":0, "no":storageNum});
-		if(canSet){
-			count = 0;
-			currentNo = storageNum;
-			createContextMenus(value);
-			resolve(storageNum);
-			storageNum+=1;
-		}else{
-			reject(false);
+		let storageNo = await getLocalStorage("localStorage");
+		if (typeof storageNo["localStorage"] === "undefined"){
+			await setLocalStorage("localStorage", 1);
+			storageNo = await getLocalStorage("localStorage");
 		}
+		storageNo = storageNo["localStorage"];
+		await setLocalStorage(value, {"time":0, "no":storageNo});
+		await setLocalStorage("localStorage", storageNo + 1);
+		createContextMenus(value);
+		console.log(storageNo);
+		resolve(storageNo);
 	});
 };
 
@@ -181,8 +174,8 @@ let getClickHandler = () => {
 bg.countTime = async() => {
 	return new Promise(async(resolve) => {
 		let time = await getLocalStorage("time");
-		console.log("time:" + time["time"]["time"]);
-		resolve(getTime(time["time"]["time"]));	
+		console.log("time:" + time["time"]);
+		resolve(getTime(time["time"]));	
 	})
 };
 
@@ -225,7 +218,7 @@ let getTime =(time) => {
 
 let Time = async () =>{
     count += 1000;
-	setLocalStorage("time", {"time":count, "no":0});
+	setLocalStorage("time", count);
 	if(currentNo){
 		let currentManHour = await getLocalStorage("name");
 		setLocalStorage(currentManHour["name"],{"time":count,"no":currentNo})
