@@ -19,8 +19,6 @@ let intervalForTimer;
             }
         }
         intervalForMinute();
-        clearInterval(intervalForTimer);
-        intervalForTimer = setInterval(intervalForMinute, 1000);
     });
 })();
 
@@ -48,6 +46,8 @@ let intervalForMinute = () => {
             });
         }
     });
+    clearInterval(intervalForTimer);
+    intervalForTimer = setInterval(intervalForMinute, 1000);
 };
 
 let getTime =(time) => {
@@ -106,8 +106,7 @@ document.addEventListener('click', async (e) =>{
             let manHourName = document.getElementById("manHourParagraph" + e.target.name).innerHTML;
             await bg.clickStartButton(manHourName, e.target.name);
 
-            clearInterval(intervalForTimer);
-            intervalForTimer = setInterval(intervalForMinute, 1000);
+            intervalForMinute();
         }else if(e.target.className.includes("stop")){
             let isCurrentManHour = await bg.clickStopButton(e.target.name);
             if(isCurrentManHour){
