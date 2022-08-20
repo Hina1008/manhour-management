@@ -9,11 +9,6 @@ body {
     color:#708090;
  }
 
-.test {
-    width: 100%;
-    margin:0;
-}
-
 .button{
     margin:0;
     text-align:center;
@@ -66,15 +61,6 @@ body {
     text-align: left;
     height: 16px;
     width: 16px;
-}
-
-#manHour2Time{
-    display: inline-block;
-    margin-right:10px;
-}
-
-.manHour-frame{
-
 }
 
 .manHour-controller{
