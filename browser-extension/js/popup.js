@@ -11,25 +11,26 @@ let intervalForTimer;
         // 親要素（div）への参照を取得
         const rootDiv = document.getElementById("root");
         for (let key of keys) {
-            if(key != "name" && key != "time" && key != "localStorage") {
+            if(key != "name" && key != "time" && key != "localStorage" && key != "startTime") {
                 embeddingManHour(key, 
                     manHourInfo[key]["no"], 
-                    getTime(manHourInfo[key]["time"]), 
+                    getTime(manHourInfo[key]["time"]+manHourInfo[key]["diffTime"]), 
                     rootDiv);
             }
         }
-        // clearInterval(intervalForTimer);
-        // intervalForTimer = setInterval(intervalForMinute, 1000);
+        intervalForMinute();
+        clearInterval(intervalForTimer);
+        intervalForTimer = setInterval(intervalForMinute, 1000);
     });
 })();
 
 let emmbedingHtml = (manHourInfo) =>{
     const keys = Object.keys(manHourInfo);
     for (let key of keys) {
-        if(key != "name" && key != "time" && key != "localStorage") {
+        if(key != "name" && key != "time" && key != "localStorage" && key != "startTime") {
             let manHourTime = document.getElementById("manHourTime" + manHourInfo[key]["no"]);
             if(manHourTime){
-                manHourTime.innerHTML = getTime(manHourInfo[key]["time"]);
+                manHourTime.innerHTML = getTime(manHourInfo[key]["time"] + manHourInfo[key]["diffTime"]);
             }
         }
     }
@@ -37,13 +38,15 @@ let emmbedingHtml = (manHourInfo) =>{
 
 let intervalForMinute = () => {
     bg.countTime().then((count) => {
-        bg.getSelectManHour().then((manHourName) => {
-            bg.getManHourInfo(manHourName).then((no) => {
-                document.getElementById("manHourTime" + no).innerHTML = count;
-            })
-        }).catch((error) => {
-            // nop
-        });
+        if(count){
+            bg.getSelectManHour().then((manHourName) => {
+                bg.getManHourInfo(manHourName).then((no) => {
+                    document.getElementById("manHourTime" + no).innerHTML = count;
+                })
+            }).catch((error) => {
+                // nop
+            });
+        }
     });
 };
 

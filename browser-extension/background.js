@@ -5,7 +5,6 @@ const setLocalStorage = (name, value) => new Promise ((resolve, reject) => {
 	let jsonFile = {};
 	jsonFile[name] = value;
 	chrome.storage.local.set(jsonFile, ()=>{
-		console.log("storageNum:"+storageNum + ":name:" + name);
 		resolve(true);
 	});
 });
@@ -70,83 +69,97 @@ let notification = async(title, description) => {
 bg.pageCallUpdateInfo = async() => {
 	return new Promise(async (resolve) => {
 		console.log("call pageCallUpdateInfo");
+		await Time();
 		let manHourInfo = await getLocalStorage();
 		console.log(manHourInfo);
 		resolve(manHourInfo);
 	});
 };
-
-bg.clickResetButton = async() => {
+ // 1:30
+bg.clickResetButton = async(undefined) => {
 	console.log("call clickResetButton");
-	clearInterval(intervalForTimer);
-	count = 0;
-	currentNo = null;
+	// clearInterval(intervalForTimer);
+	// chrome.alarms.clear("Time")
 	return new Promise(async(resolve) =>{
 		let manHourInfo = await getLocalStorage();
 		const keys = Object.keys(manHourInfo);
 		for (let key of keys){
 			if(key == "name"){
-				await setLocalStorage(key, null);
+				await removeLocalStorage(key);
+			}else if(key == "localStorage" || key == "startTime"){
+				// nop
 			}else{
-				await setLocalStorage(key, {"time":0, "no":manHourInfo[key]["no"]});
+				await setLocalStorage(key, {"time":0, "no":manHourInfo[key]["no"], "diffTime":0});
 			}
 		}
 		resolve(await getLocalStorage());
 	});
 };
 
-bg.clickStartButton = async(manHourName, no) => {
+bg.clickStartButton = async(manHourName, no, undefined) => {
 	// 現在の時間を保存
 	console.log("call clickStartButton");
 	console.log(manHourName);
 	console.log(no);
-	if(currentNo){
-		let currentManHour = await getLocalStorage("name");
-		await setLocalStorage(currentManHour["name"],{"time":count,"no":currentNo})
+	let currentManHour = await getLocalStorage("name");
+	if(currentManHour["name"] !== undefined){
+		let manHourInfo = await getLocalStorage(currentManHour["name"]);
+		let time = manHourInfo[currentManHour["name"]]["time"] + manHourInfo[currentManHour["name"]]["diffTime"];
+		let cNo = manHourInfo[currentManHour["name"]]["no"];
+		await setLocalStorage(currentManHour["name"],{"time":time,"no":cNo,"diffTime":0});
 	}
 
 	// 名前を変更
 	await setLocalStorage("name", manHourName);
-	let manHourInfo = await getLocalStorage(manHourName);
-	count = manHourInfo[manHourName]["time"];
-	currentNo = manHourInfo[manHourName]["no"];
-	clearInterval(intervalForTimer);
-	intervalForTimer = setInterval(Time, 1000);
+	await setLocalStorage("startTime", new Date().getTime());
+	// clearInterval(intervalForTimer);
+	chrome.alarms.clear("Time")
+	Time();
+	// chrome.alarms.create("Time", {
+	// 	when: Date.now() + 1000
+	// });
+	// intervalForTimer = setInterval(Time, 1000);
 };
 
-bg.clickStopButton = async() => {
+bg.clickStopButton = async(undefined) => {
 	console.log("call clickStopButton");
-	clearInterval(intervalForTimer);
-	if(currentNo){
-		let currentManHour = await getLocalStorage("name");
-		setLocalStorage(currentManHour["name"],{"time":count,"no":currentNo})
+	// clearInterval(intervalForTimer);
+	// 現在の時間を保存
+	let currentManHour = await getLocalStorage("name");
+	if(currentManHour["name"] !== undefined){
+		let manHourInfo = await getLocalStorage(currentManHour["name"]);
+		let time = manHourInfo[currentManHour["name"]]["time"] + manHourInfo[currentManHour["name"]]["diffTime"];
+		let no = manHourInfo[currentManHour["name"]]["no"];
+		await setLocalStorage(currentManHour["name"],{"time":time,"no":no,"diffTime":0});
+	}else{
+		console.log("is empty");
 	}
-	count = 0;
-	currentNo = null;
+
+	// setLocalStorage("name", undefined);
+	await removeLocalStorage("name");
+	console.log(currentManHour);
 };
 
-bg.clickDeleteButton = async(name) => {
+bg.clickDeleteButton = async(name, undefined) => {
 	console.log("call clickDeleteButton");
 	let currentManHour = await getLocalStorage("name");
 	if(currentManHour["name"] == name){
-		clearInterval(intervalForTimer);
-		count = 0;
-		currentNo = null;
+		setLocalStorage("name", undefined)
 	}
 	await removeLocalStorage(name);
 	await removeContextMenus(name);
 }
 
-bg.clickAddButton = async(value) => {
+bg.clickAddButton = async(value, undefined) => {
 	console.log("call clickAddButton");
 	return new Promise(async (resolve, reject) => {
-		let storageNo = await getLocalStorage("localStorage");
-		if (typeof storageNo["localStorage"] === "undefined"){
+		let storage = await getLocalStorage("localStorage");
+		if (storage["localStorage"] === undefined){
 			await setLocalStorage("localStorage", 1);
-			storageNo = await getLocalStorage("localStorage");
+			storage = await getLocalStorage("localStorage");
 		}
-		storageNo = storageNo["localStorage"];
-		await setLocalStorage(value, {"time":0, "no":storageNo});
+		let storageNo = storage["localStorage"];
+		await setLocalStorage(value, {"time":0, "no":storageNo, "diffTime":0});
 		await setLocalStorage("localStorage", storageNo + 1);
 		createContextMenus(value);
 		console.log(storageNo);
@@ -171,19 +184,27 @@ bg.notification = async(title, description) => {
 let getClickHandler = () => {
 };
 
-bg.countTime = async() => {
+bg.countTime = async(undefined) => {
 	return new Promise(async(resolve) => {
-		let time = await getLocalStorage("time");
-		console.log("time:" + time["time"]);
-		resolve(getTime(time["time"]));	
+		let currentManHour = await getLocalStorage("name");
+		if (currentManHour["name"] === undefined){
+			resolve(false);
+			return;
+		}
+		let manHourInfo = await getLocalStorage(currentManHour["name"]);
+
+		let time = manHourInfo[currentManHour["name"]]["time"] + manHourInfo[currentManHour["name"]]["diffTime"];
+		console.log("time:" + time);
+		resolve(getTime(time));	
 	})
 };
 
 bg.getManHourInfo = async (name) => {
+	Time();
 	return new Promise(async(resolve, reject) =>{
 		let manHourInfo = await getLocalStorage(name);
 		if(manHourInfo[name]){
-			console.log("no:" + manHourInfo[name]["no"] + ",time:" + manHourInfo["time"])
+			console.log("no:" + manHourInfo[name]["no"] + ",time:" + manHourInfo[name]["time"])
 			resolve(manHourInfo[name]["no"]);
 		}else{
 			console.log("reject");
@@ -216,24 +237,25 @@ let getTime =(time) => {
 	return text;
 };
 
-let Time = async () =>{
-    count += 1000;
-	setLocalStorage("time", count);
-	if(currentNo){
-		let currentManHour = await getLocalStorage("name");
-		setLocalStorage(currentManHour["name"],{"time":count,"no":currentNo})
+let Time = async (undefined) =>{
+    let storage = await getLocalStorage("name");
+	if (storage["name"] === undefined){
+		return;
 	}
-	console.log(count);
+	else{
+		let currentManHour = await getLocalStorage(storage["name"]);
+		let startTime = await getLocalStorage("startTime");
+		const time = currentManHour[storage["name"]]["time"];
+		const no = currentManHour[storage["name"]]["no"];
+		const diffTime = new Date().getTime() - startTime["startTime"];
+		setLocalStorage(storage["name"],{"time":time, "no":no, "diffTime": diffTime})
+		console.log("backgournd time:" + time + diffTime);
+	}
 }
 
 chrome.runtime.onInstalled.addListener(detail => {
 	if (detail.reason == "install" || detail.reason == "update") {
 		createContextMenus("工数管理");
-		chrome.storage.local.clear()
+		chrome.storage.local.clear();
 	}
 });
-
-let count = 0;
-let storageNum = 2;
-let currentNo;
-let intervalForTimer = setInterval(Time, 1000);
