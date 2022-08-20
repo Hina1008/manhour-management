@@ -75,11 +75,9 @@ bg.pageCallUpdateInfo = async() => {
 		resolve(manHourInfo);
 	});
 };
- // 1:30
+
 bg.clickResetButton = async(undefined) => {
 	console.log("call clickResetButton");
-	// clearInterval(intervalForTimer);
-	// chrome.alarms.clear("Time")
 	return new Promise(async(resolve) =>{
 		let manHourInfo = await getLocalStorage();
 		const keys = Object.keys(manHourInfo);
@@ -115,29 +113,28 @@ bg.clickStartButton = async(manHourName, no, undefined) => {
 	// clearInterval(intervalForTimer);
 	chrome.alarms.clear("Time")
 	Time();
-	// chrome.alarms.create("Time", {
-	// 	when: Date.now() + 1000
-	// });
-	// intervalForTimer = setInterval(Time, 1000);
 };
 
-bg.clickStopButton = async(undefined) => {
+bg.clickStopButton = async(name, undefined) => {
 	console.log("call clickStopButton");
-	// clearInterval(intervalForTimer);
-	// 現在の時間を保存
-	let currentManHour = await getLocalStorage("name");
-	if(currentManHour["name"] !== undefined){
-		let manHourInfo = await getLocalStorage(currentManHour["name"]);
-		let time = manHourInfo[currentManHour["name"]]["time"] + manHourInfo[currentManHour["name"]]["diffTime"];
-		let no = manHourInfo[currentManHour["name"]]["no"];
-		await setLocalStorage(currentManHour["name"],{"time":time,"no":no,"diffTime":0});
-	}else{
-		console.log("is empty");
-	}
-
-	// setLocalStorage("name", undefined);
-	await removeLocalStorage("name");
-	console.log(currentManHour);
+	return new Promise(async(resolve) =>{
+		// 現在の時間を保存
+		let currentManHour = await getLocalStorage("name");
+		if(currentManHour["name"] !== undefined){
+			let manHourInfo = await getLocalStorage(currentManHour["name"]);
+			if(name == manHourInfo[currentManHour["name"]]["no"]){
+				let time = manHourInfo[currentManHour["name"]]["time"] + manHourInfo[currentManHour["name"]]["diffTime"];
+				let no = manHourInfo[currentManHour["name"]]["no"];
+				await setLocalStorage(currentManHour["name"],{"time":time,"no":no,"diffTime":0});
+				await removeLocalStorage("name");
+				resolve(true);
+				return;
+			}
+		}else{
+			console.log("is empty");
+		}
+		resolve(false);
+	});
 };
 
 bg.clickDeleteButton = async(name, undefined) => {
