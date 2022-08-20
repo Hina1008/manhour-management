@@ -103,10 +103,11 @@ document.addEventListener('click', async (e) =>{
             clearInterval(intervalForTimer);
             intervalForTimer = setInterval(intervalForMinute, 1000);
         }else if(e.target.className.includes("stop")){
-            // 停止ボタンを押したときの処理
-            clearInterval(intervalForTimer);
-
-            await bg.clickStopButton();
+            let isCurrentManHour = await bg.clickStopButton(e.target.name);
+            if(isCurrentManHour){
+                // 停止ボタンを押したときの処理
+                clearInterval(intervalForTimer);
+            }
         }else if(e.target.className.includes("delete")){
             // 削除ボタンを押したときの処理
             let manHourName = document.getElementById("manHourParagraph" + e.target.name).innerHTML;

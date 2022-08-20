@@ -115,21 +115,26 @@ bg.clickStartButton = async(manHourName, no, undefined) => {
 	Time();
 };
 
-bg.clickStopButton = async(undefined) => {
+bg.clickStopButton = async(name, undefined) => {
 	console.log("call clickStopButton");
-	// 現在の時間を保存
-	let currentManHour = await getLocalStorage("name");
-	if(currentManHour["name"] !== undefined){
-		let manHourInfo = await getLocalStorage(currentManHour["name"]);
-		let time = manHourInfo[currentManHour["name"]]["time"] + manHourInfo[currentManHour["name"]]["diffTime"];
-		let no = manHourInfo[currentManHour["name"]]["no"];
-		await setLocalStorage(currentManHour["name"],{"time":time,"no":no,"diffTime":0});
-	}else{
-		console.log("is empty");
-	}
-
-	await removeLocalStorage("name");
-	console.log(currentManHour);
+	return new Promise(async(resolve) =>{
+		// 現在の時間を保存
+		let currentManHour = await getLocalStorage("name");
+		if(currentManHour["name"] !== undefined){
+			let manHourInfo = await getLocalStorage(currentManHour["name"]);
+			if(name == manHourInfo[currentManHour["name"]]["no"]){
+				let time = manHourInfo[currentManHour["name"]]["time"] + manHourInfo[currentManHour["name"]]["diffTime"];
+				let no = manHourInfo[currentManHour["name"]]["no"];
+				await setLocalStorage(currentManHour["name"],{"time":time,"no":no,"diffTime":0});
+				await removeLocalStorage("name");
+				resolve(true);
+				return;
+			}
+		}else{
+			console.log("is empty");
+		}
+		resolve(false);
+	});
 };
 
 bg.clickDeleteButton = async(name, undefined) => {
