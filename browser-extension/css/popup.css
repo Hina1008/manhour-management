@@ -9,20 +9,7 @@ body {
     color:#708090;
  }
 
-.test {
-    width: 100%;
-    margin:0;
-}
-
-.add{
-    margin:0;
-    text-align:center;
-    color:#708090;
-    background-color: #333333;
-    margin-bottom: 5px;
-}
-
-.reset{
+.button{
     margin:0;
     text-align:center;
     color:#708090;
@@ -74,15 +61,6 @@ body {
     text-align: left;
     height: 16px;
     width: 16px;
-}
-
-#manHour2Time{
-    display: inline-block;
-    margin-right:10px;
-}
-
-.manHour-frame{
-
 }
 
 .manHour-controller{
