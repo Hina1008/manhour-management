@@ -75,11 +75,9 @@ bg.pageCallUpdateInfo = async() => {
 		resolve(manHourInfo);
 	});
 };
- // 1:30
+
 bg.clickResetButton = async(undefined) => {
 	console.log("call clickResetButton");
-	// clearInterval(intervalForTimer);
-	// chrome.alarms.clear("Time")
 	return new Promise(async(resolve) =>{
 		let manHourInfo = await getLocalStorage();
 		const keys = Object.keys(manHourInfo);
@@ -115,15 +113,10 @@ bg.clickStartButton = async(manHourName, no, undefined) => {
 	// clearInterval(intervalForTimer);
 	chrome.alarms.clear("Time")
 	Time();
-	// chrome.alarms.create("Time", {
-	// 	when: Date.now() + 1000
-	// });
-	// intervalForTimer = setInterval(Time, 1000);
 };
 
 bg.clickStopButton = async(undefined) => {
 	console.log("call clickStopButton");
-	// clearInterval(intervalForTimer);
 	// 現在の時間を保存
 	let currentManHour = await getLocalStorage("name");
 	if(currentManHour["name"] !== undefined){
@@ -135,7 +128,6 @@ bg.clickStopButton = async(undefined) => {
 		console.log("is empty");
 	}
 
-	// setLocalStorage("name", undefined);
 	await removeLocalStorage("name");
 	console.log(currentManHour);
 };
