@@ -66,6 +66,13 @@ let notification = async(title, description) => {
 	}
 }
 
+let stopCurrentManHour = async (manHourInfo, currentManHourName) => {
+	let time = manHourInfo[currentManHourName]["time"] + manHourInfo[currentManHourName]["diffTime"];
+	let no = manHourInfo[currentManHourName]["no"];
+	await setLocalStorage(currentManHourName,{"time":time,"no":no,"diffTime":0});
+	await removeLocalStorage("name");
+}
+
 bg.pageCallUpdateInfo = async() => {
 	return new Promise(async (resolve) => {
 		console.log("call pageCallUpdateInfo");
@@ -93,6 +100,15 @@ bg.clickResetButton = async(undefined) => {
 		resolve(await getLocalStorage());
 	});
 };
+
+bg.clickAllStopButton = async(undefined) => {
+	// 現在の時間を保存
+	let currentManHour = await getLocalStorage("name");
+	if(currentManHour["name"] !== undefined){
+		let manHourInfo = await getLocalStorage(currentManHour["name"]);
+		stopCurrentManHour(manHourInfo, currentManHour["name"]);
+	}
+}
 
 bg.clickStartButton = async(manHourName, no, undefined) => {
 	// 現在の時間を保存
@@ -123,10 +139,7 @@ bg.clickStopButton = async(name, undefined) => {
 		if(currentManHour["name"] !== undefined){
 			let manHourInfo = await getLocalStorage(currentManHour["name"]);
 			if(name == manHourInfo[currentManHour["name"]]["no"]){
-				let time = manHourInfo[currentManHour["name"]]["time"] + manHourInfo[currentManHour["name"]]["diffTime"];
-				let no = manHourInfo[currentManHour["name"]]["no"];
-				await setLocalStorage(currentManHour["name"],{"time":time,"no":no,"diffTime":0});
-				await removeLocalStorage("name");
+				stopCurrentManHour(manHourInfo, currentManHour["name"]);
 				resolve(true);
 				return;
 			}

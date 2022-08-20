@@ -83,6 +83,12 @@ document.addEventListener('DOMContentLoaded', function() {
             emmbedingHtml(manHourInfo);
         });
     });
+
+    // 停止ボタンを押した時
+    document.querySelector('.all-stop').addEventListener('click', async ()=>{
+        clearInterval(intervalForTimer);
+        await bg.clickAllStopButton();
+    });
 });
 
 document.addEventListener('click', async (e) =>{
