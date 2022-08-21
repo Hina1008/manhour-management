@@ -194,31 +194,13 @@ bg.notification = async(title, description) => {
 let getClickHandler = () => {
 };
 
-bg.countTime = async(undefined) => {
-	return new Promise(async(resolve) => {
-		let currentManHour = await getLocalStorage("name");
-		if (currentManHour["name"] === undefined){
-			resolve(false);
-			return;
-		}
-		let manHourInfo = await getLocalStorage(currentManHour["name"]);
-
-		let time = manHourInfo[currentManHour["name"]]["time"] + manHourInfo[currentManHour["name"]]["diffTime"];
-		console.log("time:" + time);
-		resolve(getTime(time));	
-	})
-};
-
 bg.getManHourInfo = async (name) => {
 	Time();
-	return new Promise(async(resolve, reject) =>{
+	return new Promise(async(resolve) =>{
 		let manHourInfo = await getLocalStorage(name);
 		if(manHourInfo[name]){
 			console.log("no:" + manHourInfo[name]["no"] + ",time:" + manHourInfo[name]["time"])
-			resolve(manHourInfo[name]["no"]);
-		}else{
-			console.log("reject");
-			reject(0)
+			resolve(manHourInfo[name]);
 		}
 	})
 };
@@ -238,14 +220,6 @@ bg.Mock = async(message) => {
 		resolve();
 	})
 }
-
-let getTime =(time) => {
-	let hour  = ("0" + Math.trunc(time / (60 * 60 * 1000) % 24)).slice(-2);
-	let minutes  = ("0" + Math.trunc(time / (60 * 1000) % 60)).slice(-2);
-	let seconds = ("0" + Math.trunc(time / 1000 % 60)).slice(-2);
-	let text = hour + ":" + minutes + ":" + seconds;
-	return text;
-};
 
 let Time = async (undefined) =>{
     let storage = await getLocalStorage("name");

@@ -35,16 +35,14 @@ let emmbedingHtml = (manHourInfo) =>{
 }
 
 let intervalForMinute = () => {
-    bg.countTime().then((count) => {
-        if(count){
-            bg.getSelectManHour().then((manHourName) => {
-                bg.getManHourInfo(manHourName).then((no) => {
-                    document.getElementById("manHourTime" + no).innerHTML = count;
-                })
-            }).catch((error) => {
-                // nop
-            });
-        }
+    bg.getSelectManHour().then((manHourName) => {
+        bg.getManHourInfo(manHourName).then((manHourInfo) => {
+            let no = manHourInfo["no"];
+            let time = manHourInfo["time"] + manHourInfo["diffTime"];
+            document.getElementById("manHourTime" + no).innerHTML = getTime(time);
+        })
+    }).catch((error) => {
+        // nop
     });
     clearInterval(intervalForTimer);
     intervalForTimer = setInterval(intervalForMinute, 1000);
