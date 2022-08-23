@@ -35,6 +35,8 @@ let emmbedingHtml = (manHourInfo) =>{
 }
 
 let intervalForMinute = () => {
+    clearInterval(intervalForTimer);
+    intervalForTimer = setInterval(intervalForMinute, 1000);
     bg.getSelectManHour().then((manHourName) => {
         bg.getManHourInfo(manHourName).then((manHourInfo) => {
             let no = manHourInfo["no"];
@@ -44,8 +46,6 @@ let intervalForMinute = () => {
     }).catch((error) => {
         // nop
     });
-    clearInterval(intervalForTimer);
-    intervalForTimer = setInterval(intervalForMinute, 1000);
 };
 
 let getTime =(time) => {
