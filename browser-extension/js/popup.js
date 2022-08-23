@@ -19,8 +19,6 @@ let intervalForTimer;
             }
         }
         intervalForMinute();
-        clearInterval(intervalForTimer);
-        intervalForTimer = setInterval(intervalForMinute, 1000);
     });
 })();
 
@@ -37,16 +35,16 @@ let emmbedingHtml = (manHourInfo) =>{
 }
 
 let intervalForMinute = () => {
-    bg.countTime().then((count) => {
-        if(count){
-            bg.getSelectManHour().then((manHourName) => {
-                bg.getManHourInfo(manHourName).then((no) => {
-                    document.getElementById("manHourTime" + no).innerHTML = count;
-                })
-            }).catch((error) => {
-                // nop
-            });
-        }
+    clearInterval(intervalForTimer);
+    intervalForTimer = setInterval(intervalForMinute, 1000);
+    bg.getSelectManHour().then((manHourName) => {
+        bg.getManHourInfo(manHourName).then((manHourInfo) => {
+            let no = manHourInfo["no"];
+            let time = manHourInfo["time"] + manHourInfo["diffTime"];
+            document.getElementById("manHourTime" + no).innerHTML = getTime(time);
+        })
+    }).catch((error) => {
+        // nop
     });
 };
 
@@ -106,8 +104,7 @@ document.addEventListener('click', async (e) =>{
             let manHourName = document.getElementById("manHourParagraph" + e.target.name).innerHTML;
             await bg.clickStartButton(manHourName, e.target.name);
 
-            clearInterval(intervalForTimer);
-            intervalForTimer = setInterval(intervalForMinute, 1000);
+            intervalForMinute();
         }else if(e.target.className.includes("stop")){
             let isCurrentManHour = await bg.clickStopButton(e.target.name);
             if(isCurrentManHour){

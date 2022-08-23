@@ -74,6 +74,7 @@ let stopCurrentManHour = async (manHourInfo, currentManHourName) => {
 }
 
 bg.pageCallUpdateInfo = async() => {
+	console.log("call bg.pageCallUpdateInfo");
 	return new Promise(async (resolve) => {
 		console.log("call pageCallUpdateInfo");
 		await Time();
@@ -84,7 +85,7 @@ bg.pageCallUpdateInfo = async() => {
 };
 
 bg.clickResetButton = async(undefined) => {
-	console.log("call clickResetButton");
+	console.log("call bg.clickResetButton");
 	return new Promise(async(resolve) =>{
 		let manHourInfo = await getLocalStorage();
 		const keys = Object.keys(manHourInfo);
@@ -102,6 +103,7 @@ bg.clickResetButton = async(undefined) => {
 };
 
 bg.clickAllStopButton = async(undefined) => {
+	console.log("call bg.clickAllStopButton");
 	// 現在の時間を保存
 	let currentManHour = await getLocalStorage("name");
 	if(currentManHour["name"] !== undefined){
@@ -112,7 +114,7 @@ bg.clickAllStopButton = async(undefined) => {
 
 bg.clickStartButton = async(manHourName, no, undefined) => {
 	// 現在の時間を保存
-	console.log("call clickStartButton");
+	console.log("call bg.clickStartButton");
 	console.log(manHourName);
 	console.log(no);
 	let currentManHour = await getLocalStorage("name");
@@ -132,7 +134,7 @@ bg.clickStartButton = async(manHourName, no, undefined) => {
 };
 
 bg.clickStopButton = async(name, undefined) => {
-	console.log("call clickStopButton");
+	console.log("call bg.clickStopButton");
 	return new Promise(async(resolve) =>{
 		// 現在の時間を保存
 		let currentManHour = await getLocalStorage("name");
@@ -154,9 +156,10 @@ bg.clickDeleteButton = async(name, undefined) => {
 	console.log("call clickDeleteButton");
 	let currentManHour = await getLocalStorage("name");
 	if(currentManHour["name"] == name){
-		setLocalStorage("name", undefined)
+		await removeLocalStorage("name");
 	}
 	await removeLocalStorage(name);
+
 	await removeContextMenus(name);
 }
 
@@ -178,6 +181,7 @@ bg.clickAddButton = async(value, undefined) => {
 };
 
 bg.notification = async(title, description) => {
+	console.log("call bg.notification");
 	return new Promise((resolve, reject) => {
 		let canNotify = notification(title, description);
 		if(canNotify){
@@ -194,36 +198,20 @@ bg.notification = async(title, description) => {
 let getClickHandler = () => {
 };
 
-bg.countTime = async(undefined) => {
-	return new Promise(async(resolve) => {
-		let currentManHour = await getLocalStorage("name");
-		if (currentManHour["name"] === undefined){
-			resolve(false);
-			return;
-		}
-		let manHourInfo = await getLocalStorage(currentManHour["name"]);
-
-		let time = manHourInfo[currentManHour["name"]]["time"] + manHourInfo[currentManHour["name"]]["diffTime"];
-		console.log("time:" + time);
-		resolve(getTime(time));	
-	})
-};
-
 bg.getManHourInfo = async (name) => {
+	console.log("call bg.getManHourInfo");
 	Time();
-	return new Promise(async(resolve, reject) =>{
+	return new Promise(async(resolve) =>{
 		let manHourInfo = await getLocalStorage(name);
 		if(manHourInfo[name]){
 			console.log("no:" + manHourInfo[name]["no"] + ",time:" + manHourInfo[name]["time"])
-			resolve(manHourInfo[name]["no"]);
-		}else{
-			console.log("reject");
-			reject(0)
+			resolve(manHourInfo[name]);
 		}
 	})
 };
 
 bg.getSelectManHour = async() =>{
+	console.log("call bg.getSelectManHour");
 	return new Promise(async(resolve) =>{
 		let selectManHour = await getLocalStorage("name");
 		resolve(selectManHour["name"]);
@@ -238,14 +226,6 @@ bg.Mock = async(message) => {
 		resolve();
 	})
 }
-
-let getTime =(time) => {
-	let hour  = ("0" + Math.trunc(time / (60 * 60 * 1000) % 24)).slice(-2);
-	let minutes  = ("0" + Math.trunc(time / (60 * 1000) % 60)).slice(-2);
-	let seconds = ("0" + Math.trunc(time / 1000 % 60)).slice(-2);
-	let text = hour + ":" + minutes + ":" + seconds;
-	return text;
-};
 
 let Time = async (undefined) =>{
     let storage = await getLocalStorage("name");
