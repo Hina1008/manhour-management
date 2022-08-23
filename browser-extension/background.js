@@ -156,9 +156,10 @@ bg.clickDeleteButton = async(name, undefined) => {
 	console.log("call clickDeleteButton");
 	let currentManHour = await getLocalStorage("name");
 	if(currentManHour["name"] == name){
-		setLocalStorage("name", undefined)
+		await removeLocalStorage("name");
 	}
 	await removeLocalStorage(name);
+
 	await removeContextMenus(name);
 }
 
