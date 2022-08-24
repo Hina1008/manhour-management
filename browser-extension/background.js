@@ -25,10 +25,27 @@ let createContextMenus = (title) => {
 		"title" : title,
 		"id": title,
 		"type" : "normal",
-		"contexts" : ["all"],
-		"onclick" : getClickHandler()
+		"contexts" : ["all"]
 	});
 }
+
+chrome.contextMenus.onClicked.addListener((info) => {
+	switch (info.menuItemId) {
+		case "stop":
+			// stop処理
+			console.log("call contextMenus stop")
+			stop();
+			return;
+		case "工数管理":
+			// nop
+			return ;
+		default:
+			// 工数名を押した時の処理
+			console.log("call contextMenus " + info.menuItemId)
+			start(info.menuItemId);
+			return;
+	}
+});
 
 let removeContextMenus = (id) => {
 	console.log("call removeContextMenus");
@@ -64,6 +81,32 @@ let notification = async(title, description) => {
 	} catch (error) {
 		return false;
 	}
+}
+
+let stop = async (undefined) =>{
+	// 現在の時間を保存
+	let currentManHour = await getLocalStorage("name");
+	if(currentManHour["name"] !== undefined){
+		let manHourInfo = await getLocalStorage(currentManHour["name"]);
+		stopCurrentManHour(manHourInfo, currentManHour["name"]);
+	}
+}
+
+let start = async (manHourName, undefined) => {
+	let currentManHour = await getLocalStorage("name");
+	if(currentManHour["name"] !== undefined){
+		let manHourInfo = await getLocalStorage(currentManHour["name"]);
+		let time = manHourInfo[currentManHour["name"]]["time"] + manHourInfo[currentManHour["name"]]["diffTime"];
+		let cNo = manHourInfo[currentManHour["name"]]["no"];
+		await setLocalStorage(currentManHour["name"],{"time":time,"no":cNo,"diffTime":0});
+	}
+
+	// 名前を変更
+	await setLocalStorage("name", manHourName);
+	await setLocalStorage("startTime", new Date().getTime());
+	// clearInterval(intervalForTimer);
+	chrome.alarms.clear("Time")
+	Time();
 }
 
 let stopCurrentManHour = async (manHourInfo, currentManHourName) => {
@@ -105,32 +148,14 @@ bg.clickResetButton = async(undefined) => {
 bg.clickAllStopButton = async(undefined) => {
 	console.log("call bg.clickAllStopButton");
 	// 現在の時間を保存
-	let currentManHour = await getLocalStorage("name");
-	if(currentManHour["name"] !== undefined){
-		let manHourInfo = await getLocalStorage(currentManHour["name"]);
-		stopCurrentManHour(manHourInfo, currentManHour["name"]);
-	}
+	await stop();
 }
 
-bg.clickStartButton = async(manHourName, no, undefined) => {
+bg.clickStartButton = async(manHourName) => {
 	// 現在の時間を保存
 	console.log("call bg.clickStartButton");
 	console.log(manHourName);
-	console.log(no);
-	let currentManHour = await getLocalStorage("name");
-	if(currentManHour["name"] !== undefined){
-		let manHourInfo = await getLocalStorage(currentManHour["name"]);
-		let time = manHourInfo[currentManHour["name"]]["time"] + manHourInfo[currentManHour["name"]]["diffTime"];
-		let cNo = manHourInfo[currentManHour["name"]]["no"];
-		await setLocalStorage(currentManHour["name"],{"time":time,"no":cNo,"diffTime":0});
-	}
-
-	// 名前を変更
-	await setLocalStorage("name", manHourName);
-	await setLocalStorage("startTime", new Date().getTime());
-	// clearInterval(intervalForTimer);
-	chrome.alarms.clear("Time")
-	Time();
+	await start(manHourName);
 };
 
 bg.clickStopButton = async(name, undefined) => {
@@ -246,6 +271,7 @@ let Time = async (undefined) =>{
 chrome.runtime.onInstalled.addListener(detail => {
 	if (detail.reason == "install" || detail.reason == "update") {
 		createContextMenus("工数管理");
+		createContextMenus("stop");
 		chrome.storage.local.clear();
 	}
 });
