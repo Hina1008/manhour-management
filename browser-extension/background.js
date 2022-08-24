@@ -24,6 +24,7 @@ let createContextMenus = (title) => {
 	chrome.contextMenus.create({
 		"title" : title,
 		"id": title,
+		"parentId": "manhour-management",
 		"type" : "normal",
 		"contexts" : ["all"]
 	});
@@ -36,8 +37,8 @@ chrome.contextMenus.onClicked.addListener((info) => {
 			console.log("call contextMenus stop")
 			stop();
 			return;
-		case "工数管理":
-			// nop
+		case "manhour-management":
+			console.log("call contextMenus manhour-management");
 			return ;
 		default:
 			// 工数名を押した時の処理
@@ -268,10 +269,19 @@ let Time = async (undefined) =>{
 	}
 }
 
+let initContextMenus = (title, id) => {
+	chrome.contextMenus.create({
+		"title" : title,
+		"id": id,
+		"type" : "normal",
+		"contexts" : ["all"]
+	});
+}
+
 chrome.runtime.onInstalled.addListener(detail => {
 	if (detail.reason == "install" || detail.reason == "update") {
-		createContextMenus("工数管理");
-		createContextMenus("stop");
+		initContextMenus("工数","manhour-management");
+		initContextMenus("停止","stop");
 		chrome.storage.local.clear();
 	}
 });
