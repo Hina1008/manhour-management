@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 rootDiv);
 
         }).catch((error) => {
-            bg.notification(value,"すでに登録されています");
+            bg.notification(value, value + 'は既に登録されています。');
         });
     });
 
