@@ -1,0 +1,47 @@
+/**
+ * イベントが起こった時に、発火する処理
+ */
+'use strict'
+/**
+ * ブラウザ拡張が呼び出された or アップデートされた時に発火
+ * 工数を表示する ContextMenusを作成
+ * 押したら、計測している工数が止まる ContextMenusを作成
+ * localStorageのデータを削除
+ */
+chrome.runtime.onInstalled.addListener(detail => {
+	if (detail.reason == "install" || detail.reason == "update") {
+		initContextMenus("工数","manhour-management");
+		initContextMenus("停止","stop");
+		chrome.storage.local.clear();
+	}
+});
+
+chrome.contextMenus.onClicked.addListener(function(info, tab) {
+    if (info.menuItemId == "some-command") {
+        console.log("yay!");
+    }
+});
+
+/**
+ * ContextMenusが押された時の処理
+ * stop(停止) ⇨ 計測している工数を止める
+ * manhour-management(工数) ⇨ 何も起こらない
+ * それ以外(工数名) ⇨ 選択した工数の時間の計測開始
+ */
+chrome.contextMenus.onClicked.addListener((info) => {
+	switch (info.menuItemId) {
+		case "stop":
+			// stop処理
+			console.log("call contextMenus stop")
+			stop();
+			return;
+		case "manhour-management":
+			console.log("call contextMenus manhour-management");
+			return ;
+		default:
+			// 工数名を押した時の処理
+			console.log("call contextMenus " + info.menuItemId)
+			start(info.menuItemId);
+			return;
+	}
+});
