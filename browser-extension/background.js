@@ -218,12 +218,6 @@ bg.notification = async(title, description) => {
 	notification(title, description);
 };
 
-/**
- * 右クリックで押されたとき
- */
-let getClickHandler = () => {
-};
-
 bg.getManHourInfo = async (name) => {
 	console.log("call bg.getManHourInfo");
 	Time();
