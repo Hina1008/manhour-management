@@ -39,34 +39,6 @@ body {
     margin-right:10px;
 }
 
-.controller-icon{
-    display: inline-block;
-    height: 20px;
-    width: 20px;
-    text-align: left;
-}
-
-.start{
-    margin-right: 2px;
-    text-align: left;
-}
-
-.stop{
-    margin-right: 10px;
-    text-align: left;
-}
-
-.delete{
-    margin-right: 200px;
-    text-align: left;
-    height: 16px;
-    width: 16px;
-}
-
-.manHour-controller{
-    text-align:right;
-}
-
 .error{
     font-size: 16px;
     color:crimson;

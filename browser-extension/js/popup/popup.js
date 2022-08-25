@@ -1,5 +1,5 @@
-import {bg} from './popup/backgroundCaller.js';
-import {embeddingManHour, emmbeddingErrorMessage, deleteErrorMessage} from'./popup/embeddingHtml.js';
+import {bg} from './backgroundCaller.js';
+import {embeddingManHour, emmbeddingErrorMessage, deleteErrorMessage} from'./embeddingHtml.js';
 
 let intervalForTimer;
 
@@ -116,11 +116,11 @@ document.addEventListener('click', async (e) =>{
         if(e.target.className.includes("start")){
             // 再生ボタンを押したときの処理
             let manHourName = document.getElementById("manHourParagraph" + e.target.name).innerHTML;
-            await bg.clickStartButton(manHourName, e.target.name);
+            await bg.clickStartIcon(manHourName, e.target.name);
 
             intervalForMinute();
         }else if(e.target.className.includes("stop")){
-            let isCurrentManHour = await bg.clickStopButton(e.target.name);
+            let isCurrentManHour = await bg.clickStopIcon(e.target.name);
             if(isCurrentManHour){
                 // 停止ボタンを押したときの処理
                 clearInterval(intervalForTimer);
@@ -128,7 +128,7 @@ document.addEventListener('click', async (e) =>{
         }else if(e.target.className.includes("delete")){
             // 削除ボタンを押したときの処理
             let manHourName = document.getElementById("manHourParagraph" + e.target.name).innerHTML;
-            await bg.clickDeleteButton(manHourName);
+            await bg.clickDeleteIcon(manHourName);
             let deleteManHourDiv = document.getElementById("manHour" + e.target.name);
             deleteManHourDiv.remove();
         }
