@@ -16,12 +16,6 @@ chrome.runtime.onInstalled.addListener(detail => {
 	}
 });
 
-chrome.contextMenus.onClicked.addListener(function(info, tab) {
-    if (info.menuItemId == "some-command") {
-        console.log("yay!");
-    }
-});
-
 /**
  * ContextMenusが押された時の処理
  * stop(停止) ⇨ 計測している工数を止める
