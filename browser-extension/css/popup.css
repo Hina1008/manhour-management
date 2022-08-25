@@ -66,3 +66,8 @@ body {
 .manHour-controller{
     text-align:right;
 }
+
+.duplication{
+    font-size: 16px;
+    color:red;
+}

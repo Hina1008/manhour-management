@@ -82,3 +82,24 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
     // 線を追加
     embeddingLine("hr3", manHourDiv);
 }
+
+
+let deleteErrorMessage = (parent) =>{
+    // エラーメッセージが既に表示されていたら削除する
+    while(parent.lastChild){
+        parent.removeChild(parent.lastChild);
+    }
+}
+
+export let emmbeddingErrorMessage = (message, className) => {
+    let divElement = document.getElementById("error-message");
+
+    // エラーメッセージが既に表示されていたら削除する
+    deleteErrorMessage(divElement);
+
+    let pElement = document.createElement("p"); // p要素作成
+    let errorMessage = document.createTextNode(message); // テキストノードを作成
+    pElement.appendChild(errorMessage); // p要素にテキストノードを追加
+    pElement.setAttribute("class", className);
+    divElement.appendChild(pElement);
+}

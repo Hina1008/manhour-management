@@ -1,5 +1,5 @@
 import {bg} from './popup/backgroundCaller.js';
-import {embeddingManHour} from'./popup/embeddingHtml.js';
+import {embeddingManHour, emmbeddingErrorMessage} from'./popup/embeddingHtml.js';
 
 let intervalForTimer;
 
@@ -69,7 +69,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 "00:00:00", 
                 rootDiv);
 
-        }).catch((error) => {
+        }).catch(async (error) => {
+            let message = value + " は既に登録されています。"
+            emmbeddingErrorMessage(message, "duplication");
             bg.notification(value, value + 'は既に登録されています。');
         });
     });
