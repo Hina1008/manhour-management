@@ -1,44 +1,27 @@
-.video_play_pause {
+.controller-icon{
     display: inline-block;
-    position: relative;
-    width: 1em;
-    height: 1em;
-    border: 0.05em solid currentColor;
-    border-radius: 50%;
-    color: #000;
+    height: 20px;
+    width: 20px;
+    text-align: left;
 }
 
-.video_play_pause > input {
-    display: none;
+.start{
+    margin-right: 2px;
+    text-align: left;
 }
 
-.video_play_pause > input:not(:checked) + span::before {
-    position: absolute;
-    top: 50%;
-    left: 30%;
-    transform: translateY(-50%);
-    width: 0px;
-    height: 0px;
-    border: 0.3em solid transparent;
-    border-left: 0.5em solid currentColor;
-    box-sizing: border-box;
-    content: "";
+.stop{
+    margin-right: 10px;
+    text-align: left;
 }
 
-.video_play_pause > input:checked + span::before,
-.video_play_pause > input:checked + span::after {
-    position: absolute;
-    top: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    width: 0.1em;
-    height: 0.5em;
-    box-sizing: border-box;
-    background-color: currentColor;
-    content: "";
+.delete{
+    margin-right: 200px;
+    text-align: left;
+    height: 16px;
+    width: 16px;
 }
-.video_play_pause > input:checked + span::before {
-    left: 40%;
-}
-.video_play_pause > input:checked + span::after {
-    left: 60%;
+
+.manHour-controller{
+    text-align:right;
 }
