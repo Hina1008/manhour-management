@@ -198,7 +198,10 @@ bg.clickAddButton = async(value, undefined) => {
 		let manHourInfo = await getLocalStorage();
 		const manHourNames = Object.keys(manHourInfo);
 		if (manHourNames.includes(value)){
-			reject(value + " has already been registered");
+			reject("duplication");
+			return;
+		}else if(value.includes("＆")){
+			reject("forbidden word");
 			return;
 		}
 		let storageNo = storage["localStorage"];

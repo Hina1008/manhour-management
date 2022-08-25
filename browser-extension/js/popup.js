@@ -70,8 +70,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 rootDiv);
 
         }).catch(async (error) => {
-            let message = value + " は既に登録されています。"
-            emmbeddingErrorMessage(message, "duplication");
+            let message;
+            console.log(error["error"]);
+            if (error["error"] == "duplication"){
+                message = value + " は既に登録されています。";
+            }else if(error["error"] == "forbidden word"){
+                message = "全角「＆」 は使用できません。"
+            } 
+            emmbeddingErrorMessage(message, "error");
             const useNotification = await bg.getOptionValue("notification")
             if (useNotification){
                 bg.notification(value, value + 'は既に登録されています。');
