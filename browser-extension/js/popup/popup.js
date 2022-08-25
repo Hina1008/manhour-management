@@ -1,5 +1,5 @@
-import {bg} from './popup/backgroundCaller.js';
-import {embeddingManHour, emmbeddingErrorMessage, deleteErrorMessage} from'./popup/embeddingHtml.js';
+import {bg} from './backgroundCaller.js';
+import {embeddingManHour, emmbeddingErrorMessage, deleteErrorMessage} from'./embeddingHtml.js';
 
 let intervalForTimer;
 
