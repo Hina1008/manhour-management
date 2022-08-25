@@ -200,6 +200,9 @@ bg.clickAddButton = async(value, undefined) => {
 		}else if(value.includes("＆")){
 			reject("forbidden word");
 			return;
+		}else if(value ===""){
+			reject("empty");
+			return;
 		}
 		let storageNo = storage["localStorage"];
 		await setLocalStorage(value, {"time":0, "no":storageNo, "diffTime":0});
