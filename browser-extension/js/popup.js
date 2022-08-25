@@ -1,5 +1,5 @@
 import {bg} from './popup/backgroundCaller.js';
-import {embeddingManHour, emmbeddingErrorMessage} from'./popup/embeddingHtml.js';
+import {embeddingManHour, emmbeddingErrorMessage, deleteErrorMessage} from'./popup/embeddingHtml.js';
 
 let intervalForTimer;
 
@@ -68,6 +68,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 result, 
                 "00:00:00", 
                 rootDiv);
+            deleteErrorMessage(
+                document.getElementById("error-message")
+            );
 
         }).catch(async (error) => {
             let message;
