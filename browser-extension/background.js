@@ -1,5 +1,5 @@
 'use strict'
-importScripts("js/backgroundListener.js");
+importScripts("js/background/backgroundListener.js");
 
 const setLocalStorage = (name, value) => new Promise ((resolve, reject) => {
 	let jsonFile = {};
