@@ -49,7 +49,5 @@ let start = async (manHourName, undefined) => {
 	// 名前を変更
 	await setLocalStorage("name", manHourName);
 	await setLocalStorage("startTime", new Date().getTime());
-	// clearInterval(intervalForTimer);
-	chrome.alarms.clear("Time")
 	Time();
 }
