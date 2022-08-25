@@ -94,7 +94,7 @@ bg.Mock = async(message) => {
  * 再生アイコンを押した時の処理
  * @param {*} manHourName 
  */
-bg.clickStartButton = async(manHourName) => {
+bg.clickStartIcon = async(manHourName) => {
 	// 現在の時間を保存
 	console.log("call bg.clickStartButton");
 	console.log(manHourName.replace("&amp;","&"));
@@ -108,7 +108,7 @@ bg.clickStartButton = async(manHourName) => {
  * @param {*} undefined 
  * @returns 
  */
-bg.clickStopButton = async(name, undefined) => {
+bg.clickStopIcon = async(name, undefined) => {
 	console.log("call bg.clickStopButton");
 	return new Promise(async(resolve) =>{
 		// 現在の時間を保存
@@ -132,7 +132,7 @@ bg.clickStopButton = async(name, undefined) => {
  * @param {*} name 
  * @param {*} undefined 
  */
-bg.clickDeleteButton = async(name, undefined) => {
+bg.clickDeleteIcon = async(name, undefined) => {
 	console.log("call clickDeleteButton");
 	let currentManHour = await getLocalStorage("name");
 	if(currentManHour["name"] == name.replace("&amp;","&")){
