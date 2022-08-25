@@ -22,7 +22,7 @@ const removeLocalStorage = (key) => new Promise((resolve, reject) => {
 
 let createContextMenus = (title) => {
 	chrome.contextMenus.create({
-		"title" : title,
+		"title" : title.replace("&","＆"),
 		"id": title,
 		"parentId": "manhour-management",
 		"type" : "normal",
@@ -155,8 +155,9 @@ bg.clickAllStopButton = async(undefined) => {
 bg.clickStartButton = async(manHourName) => {
 	// 現在の時間を保存
 	console.log("call bg.clickStartButton");
-	console.log(manHourName);
-	await start(manHourName);
+	console.log(manHourName.replace("&amp;","&"));
+
+	await start(manHourName.replace("&amp;","&"));
 };
 
 bg.clickStopButton = async(name, undefined) => {
@@ -166,7 +167,7 @@ bg.clickStopButton = async(name, undefined) => {
 		let currentManHour = await getLocalStorage("name");
 		if(currentManHour["name"] !== undefined){
 			let manHourInfo = await getLocalStorage(currentManHour["name"]);
-			if(name == manHourInfo[currentManHour["name"]]["no"]){
+			if(name.replace("&amp;","&") == manHourInfo[currentManHour["name"]]["no"]){
 				stopCurrentManHour(manHourInfo, currentManHour["name"]);
 				resolve(true);
 				return;
@@ -181,12 +182,12 @@ bg.clickStopButton = async(name, undefined) => {
 bg.clickDeleteButton = async(name, undefined) => {
 	console.log("call clickDeleteButton");
 	let currentManHour = await getLocalStorage("name");
-	if(currentManHour["name"] == name){
+	if(currentManHour["name"] == name.replace("&amp;","&")){
 		await removeLocalStorage("name");
 	}
-	await removeLocalStorage(name);
+	await removeLocalStorage(name.replace("&amp;","&"));
 
-	await removeContextMenus(name);
+	await removeContextMenus(name.replace("&amp;","&"));
 }
 
 bg.clickAddButton = async(value, undefined) => {
