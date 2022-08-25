@@ -241,6 +241,13 @@ bg.getSelectManHour = async() =>{
 	})
 }
 
+bg.getOptionValue = async (key) => {
+	console.log("call bg.getOptionValue");
+	return new Promise(async(resolve) => {
+		resolve(false);
+	})
+}
+
 bg.Mock = async(message) => {
 	console.log("----------------------------");
 	console.log("message:" + message);

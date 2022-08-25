@@ -72,7 +72,10 @@ document.addEventListener('DOMContentLoaded', function() {
         }).catch(async (error) => {
             let message = value + " は既に登録されています。"
             emmbeddingErrorMessage(message, "duplication");
-            bg.notification(value, value + 'は既に登録されています。');
+            const useNotification = await bg.getOptionValue("notification")
+            if (useNotification){
+                bg.notification(value, value + 'は既に登録されています。');
+            }
         });
     });
 
