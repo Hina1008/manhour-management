@@ -70,18 +70,13 @@ chrome.contextMenus.onClicked.addListener(function(info, tab) {
     }
 });
 
-let notification = async(title, description) => {
-	try {
-		chrome.notifications.create({
-			type:     'basic',
-			iconUrl:  '/img/icon_128.png',
-			title:    title,
-			message:  description
-		});	
-		return true;
-	} catch (error) {
-		return false;
-	}
+let notification = (title, description) => {
+	chrome.notifications.create({
+		type:     'basic',
+		iconUrl:  '/img/icon_128.png',
+		title:    title,
+		message:  description
+	});	
 }
 
 let stop = async (undefined) =>{
@@ -198,6 +193,17 @@ bg.clickAddButton = async(value, undefined) => {
 			await setLocalStorage("localStorage", 1);
 			storage = await getLocalStorage("localStorage");
 		}
+
+		// 同じ工数名が入力された場合、拒否する
+		let manHourInfo = await getLocalStorage();
+		const manHourNames = Object.keys(manHourInfo);
+		if (manHourNames.includes(value)){
+			reject("duplication");
+			return;
+		}else if(value.includes("＆")){
+			reject("forbidden word");
+			return;
+		}
 		let storageNo = storage["localStorage"];
 		await setLocalStorage(value, {"time":0, "no":storageNo, "diffTime":0});
 		await setLocalStorage("localStorage", storageNo + 1);
@@ -209,14 +215,7 @@ bg.clickAddButton = async(value, undefined) => {
 
 bg.notification = async(title, description) => {
 	console.log("call bg.notification");
-	return new Promise((resolve, reject) => {
-		let canNotify = notification(title, description);
-		if(canNotify){
-			resolve(true);
-		}else{
-			reject(false);
-		}
-	});
+	notification(title, description);
 };
 
 /**
@@ -242,6 +241,13 @@ bg.getSelectManHour = async() =>{
 	return new Promise(async(resolve) =>{
 		let selectManHour = await getLocalStorage("name");
 		resolve(selectManHour["name"]);
+	})
+}
+
+bg.getOptionValue = async (key) => {
+	console.log("call bg.getOptionValue");
+	return new Promise(async(resolve) => {
+		resolve(false);
 	})
 }
 

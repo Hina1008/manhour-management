@@ -1,5 +1,5 @@
 import {bg} from './popup/backgroundCaller.js';
-import {embeddingManHour} from'./popup/embeddingHtml.js';
+import {embeddingManHour, emmbeddingErrorMessage, deleteErrorMessage} from'./popup/embeddingHtml.js';
 
 let intervalForTimer;
 
@@ -68,9 +68,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 result, 
                 "00:00:00", 
                 rootDiv);
+            deleteErrorMessage(
+                document.getElementById("error-message")
+            );
 
-        }).catch((error) => {
-            bg.notification(value,"すでに登録されています");
+        }).catch(async (error) => {
+            let message;
+            console.log(error["error"]);
+            if (error["error"] == "duplication"){
+                message = value + " は既に登録されています。";
+            }else if(error["error"] == "forbidden word"){
+                message = "全角「＆」 は使用できません。"
+            } 
+            emmbeddingErrorMessage(message, "error");
+            const useNotification = await bg.getOptionValue("notification")
+            if (useNotification){
+                bg.notification(value, value + 'は既に登録されています。');
+            }
         });
     });
 
