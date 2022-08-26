@@ -9,7 +9,9 @@
  * @param {*} currentManHourName 
  */
  let stopCurrentManHour = async (manHourInfo, currentManHourName) => {
-	let time = manHourInfo[currentManHourName]["time"] + manHourInfo[currentManHourName]["diffTime"];
+	let startTime = await getLocalStorage("startTime");
+	const diffTime = new Date().getTime() - startTime["startTime"];
+	let time = manHourInfo[currentManHourName]["time"] + diffTime;
 	let no = manHourInfo[currentManHourName]["no"];
 	await setLocalStorage(currentManHourName,{"time":time,"no":no,"diffTime":0});
 	await removeLocalStorage("name");
@@ -40,8 +42,10 @@ let stop = async (undefined) =>{
 let start = async (manHourName, undefined) => {
 	let currentManHour = await getLocalStorage("name");
 	if(currentManHour["name"] !== undefined){
+		let startTime = await getLocalStorage("startTime");
 		let manHourInfo = await getLocalStorage(currentManHour["name"]);
-		let time = manHourInfo[currentManHour["name"]]["time"] + manHourInfo[currentManHour["name"]]["diffTime"];
+		const diffTime = new Date().getTime() - startTime["startTime"];
+		let time = manHourInfo[currentManHour["name"]]["time"] + diffTime;
 		let cNo = manHourInfo[currentManHour["name"]]["no"];
 		await setLocalStorage(currentManHour["name"],{"time":time,"no":cNo,"diffTime":0});
 	}
