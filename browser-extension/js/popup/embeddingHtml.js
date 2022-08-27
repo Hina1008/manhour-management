@@ -119,3 +119,47 @@ export let emmbeddingErrorMessage = (message, className) => {
     pElement.setAttribute("class", className);
     divElement.appendChild(pElement);
 }
+
+export let embeddingEditTimeForm = (no) =>{
+    console.log("no:" + no);
+    let manHourFormDiv = document.getElementById("manHourForm"+ no);
+
+    // 編集用のDivを追加する
+    let manHourEditFormDiv = document.createElement("div"); // div要素作成
+    embeddingDiv("manHourEditForm" + no,
+            "manHour-edit-form",
+            manHourEditFormDiv,
+            manHourFormDiv);
+
+    let hourInput = document.createElement("input"); // 時用　input要素作成
+    let minuteInput = document.createElement("input"); // 分用　input要素作成
+    let secondInput = document.createElement("input"); // 秒用　input要素作成
+    
+    let colon1 = document.createTextNode(":"); // テキストノードを作成
+    let colon2 = document.createTextNode(":"); // テキストノードを作成
+    let separateP1 = document.createElement("p");
+    separateP1.setAttribute("class","colon");
+    separateP1.appendChild(colon1);
+    let separateP2 = document.createElement("p");
+    separateP2.setAttribute("class","colon");
+    separateP2.appendChild(colon2);
+
+    hourInput.setAttribute("id","hour" + no);
+    hourInput.setAttribute("class","time-edit");
+    hourInput.setAttribute("name",no);
+
+    minuteInput.setAttribute("id","minute" + no);
+    minuteInput.setAttribute("class","time-edit");
+    minuteInput.setAttribute("name",no);
+
+    secondInput.setAttribute("id","minute" + no);
+    secondInput.setAttribute("class","time-edit");
+    secondInput.setAttribute("name",no);
+    
+    manHourEditFormDiv.appendChild(hourInput);
+    manHourEditFormDiv.appendChild(separateP1);
+    manHourEditFormDiv.appendChild(minuteInput);
+    manHourEditFormDiv.appendChild(separateP2);
+    manHourEditFormDiv.appendChild(secondInput);
+    
+}

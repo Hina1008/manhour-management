@@ -1,5 +1,5 @@
 import {bg} from './backgroundCaller.js';
-import {embeddingManHour, emmbeddingErrorMessage, deleteErrorMessage} from'./embeddingHtml.js';
+import {embeddingManHour, emmbeddingErrorMessage, deleteErrorMessage, embeddingEditTimeForm} from'./embeddingHtml.js';
 
 let intervalForTimer;
 
@@ -133,6 +133,8 @@ document.addEventListener('click', async (e) =>{
             await bg.clickDeleteIcon(manHourName);
             let deleteManHourDiv = document.getElementById("manHour" + e.target.name);
             deleteManHourDiv.remove();
+        }else if(e.target.className.includes("edit")){
+            embeddingEditTimeForm(e.target.name)
         }
     }
  });
