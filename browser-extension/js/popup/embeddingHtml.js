@@ -79,6 +79,15 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
             manHourTimeParagraph,
             manHourControllerDiv);
 
+    // 編集アイコンの追加
+    let editImg = document.createElement("img"); // img要素作成
+    embeddingIcons("/img/popup/edit/edit.png",
+            "edit" + no,
+            "controller-icon edit",
+                no,
+            editImg,
+            manHourControllerDiv);
+
     // 線を追加
     embeddingLine("hr3", manHourDiv);
 }
