@@ -50,6 +50,15 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
             manHourControllerDiv,
             manHourFormDiv);
 
+    // 下矢印アイコンの追加
+    let downArrowImg = document.createElement("img"); // img要素作成
+    embeddingIcons("/img/popup/down_arrow/down_arrow.png",
+            "down-arrow" + no,
+            "controller-icon down",
+            no,
+            downArrowImg,
+            manHourControllerDiv);
+
     // 削除アイコンの追加
     let deleteImg = document.createElement("img"); // img要素作成
     embeddingIcons("/img/popup/delete/delete.png",
