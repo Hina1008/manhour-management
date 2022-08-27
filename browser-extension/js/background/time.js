@@ -24,3 +24,10 @@ let Time = async (undefined) =>{
 		console.log("backgournd time:" + time + diffTime);
 	}
 }
+
+let isEnableTimeValue = (time) => {
+	if (time >=0 && time <60){
+		return true;
+	}
+	return false;
+}

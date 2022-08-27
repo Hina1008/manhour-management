@@ -142,6 +142,24 @@ document.addEventListener('click', async (e) =>{
                 editIconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
                 openEditTimeForm(e.target.name);
             }
+        }else if(e.target.id.includes("save")){
+            let no = e.target.name;
+            let hour = document.getElementById("hour"+no).value
+            let minute = document.getElementById("minute"+no).value
+            let second = document.getElementById("second"+no).value
+
+            // 入力された値が正しいかチェック 0 ~ 59の値
+            bg.timeCheck(hour, minute, second).then(() => {
+                let manHourName = document.getElementById("manHourParagraph"+no).innerHTML
+                // 時間を該当のlocalStorageに保存
+                bg.updateTime(hour, minute, second, manHourName).then((time) => {
+                    // popup画面を最新の値に変更
+                    let manHourTime = document.getElementById("manHourTime"+no);
+                    manHourTime.innerHTML = getTime(time);
+                })
+            }).catch(() => {
+
+            })
         }
     }else if(e.target.className == "edit" && !document.getElementById("manHourEditForm" + e.target.name)){
         let editIconElement = document.getElementById(e.target.id);

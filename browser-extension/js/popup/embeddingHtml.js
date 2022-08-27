@@ -173,7 +173,7 @@ export let openEditTimeForm = (no) =>{
     minuteInput.setAttribute("class","time-edit");
     minuteInput.setAttribute("name",no);
 
-    secondInput.setAttribute("id","minute" + no);
+    secondInput.setAttribute("id","second" + no);
     secondInput.setAttribute("class","time-edit");
     secondInput.setAttribute("name",no);
     
