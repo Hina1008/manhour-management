@@ -27,21 +27,28 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
             manHourDiv,
             rootDiv);
 
+    // 工数に関する情報を持つDivを追加する
+    let manHourFormDiv = document.createElement("div"); // div要素作成
+    embeddingDiv("manHourForm" + no,
+            "manHour-frame",
+            manHourFormDiv,
+            manHourDiv);
+
     // 工数名を追加する
     let manHourParagraph = document.createElement("p"); // p要素作成
     let manHourText = document.createTextNode(name); // テキストノードを作成
     manHourParagraph.appendChild(manHourText); // p要素にテキストノードを追加
-    embeddingDiv("manHourParagraph" + no,
-     "manHour-paragraph",
-     manHourParagraph,
-     manHourDiv);
+            embeddingDiv("manHourParagraph" + no,
+            "manHour-paragraph",
+            manHourParagraph,
+            manHourFormDiv);
 
     // アイコンと時間用のDivを追加する
     let manHourControllerDiv = document.createElement("div"); // div要素作成
     embeddingDiv("manHourController" + no,
             "manHour-controller",
             manHourControllerDiv,
-            manHourDiv);
+            manHourFormDiv);
 
     // 削除アイコンの追加
     let deleteImg = document.createElement("img"); // img要素作成
