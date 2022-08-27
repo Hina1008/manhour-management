@@ -1,5 +1,5 @@
 import {bg} from './backgroundCaller.js';
-import {embeddingManHour, emmbeddingErrorMessage, deleteErrorMessage, embeddingEditTimeForm} from'./embeddingHtml.js';
+import {embeddingManHour, emmbeddingErrorMessage, deleteErrorMessage, openEditTimeForm, closeEditTimeForm} from'./embeddingHtml.js';
 
 let intervalForTimer;
 
@@ -136,10 +136,11 @@ document.addEventListener('click', async (e) =>{
         }else if(e.target.id.includes("arrow")){
             if(e.target.className.includes("up")){
                 //nop
+                closeEditTimeForm(e.target.name);
             }else if (e.target.className.includes("down")){
                 let editIconElement = document.getElementById("edit" + e.target.name);
                 editIconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
-                embeddingEditTimeForm(e.target.name);
+                openEditTimeForm(e.target.name);
             }
         }
     }else if(e.target.className == "edit" && !document.getElementById("manHourEditForm" + e.target.name)){
@@ -150,7 +151,7 @@ document.addEventListener('click', async (e) =>{
             editIconElement.style.top = "0px";
         }, 100);
         editIconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
-        embeddingEditTimeForm(e.target.name);
+        openEditTimeForm(e.target.name);
     }
  });
 

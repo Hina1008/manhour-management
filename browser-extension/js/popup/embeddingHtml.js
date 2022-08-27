@@ -137,12 +137,12 @@ export let emmbeddingErrorMessage = (message, className) => {
     divElement.appendChild(pElement);
 }
 
-export let embeddingEditTimeForm = (no) =>{
+export let openEditTimeForm = (no) =>{
     console.log("no:" + no);
     let manHourFormDiv = document.getElementById("manHourForm"+ no);
 
     let arrowImg = document.getElementById("arrow" + no);
-    arrowImg.setAttribute("src", "/img/popup/up_arrow/up_arrow.png");
+    arrowImg.setAttribute("src", "/img/popup/up_arrow/up_arrow_white.png");
     arrowImg.setAttribute("class", "controller-icon up")
 
     // 編集用のDivを追加する
@@ -191,4 +191,16 @@ export let embeddingEditTimeForm = (no) =>{
                 no,
             saveImg,
             manHourEditFormDiv);
+}
+
+export let closeEditTimeForm = (no) =>{
+    let arrowImg = document.getElementById("arrow" + no);
+    arrowImg.setAttribute("src", "/img/popup/down_arrow/down_arrow_white.png");
+    arrowImg.setAttribute("class", "controller-icon down")
+
+    let editImg = document.getElementById("edit" + no);
+    editImg.setAttribute("src", "/img/popup/edit/edit.png");
+
+    let manHourFormDiv = document.getElementById("manHourEditForm"+ no);
+    manHourFormDiv.remove();
 }
