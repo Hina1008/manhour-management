@@ -30,7 +30,14 @@
 }
 
 .up{
-    margin-right: 6px;
+    margin-right: 200px;
+    text-align: left;
+    height: 16px;
+    width: 16px;
+}
+
+.arrow{
+    margin-right: 200px;
     text-align: left;
     height: 16px;
     width: 16px;

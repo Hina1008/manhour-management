@@ -160,9 +160,9 @@ document.addEventListener('click', async (e) =>{
         iconElement.setAttribute("src", "/img/popup/edit/edit_white.png");
     }else if (e.target.id.includes("save")){
         iconElement.setAttribute("src", "/img/popup/save/save_white.png");
-    }else if (e.target.id.includes("up")){
+    }else if (e.target.className.includes("up")){
         iconElement.setAttribute("src", "/img/popup/up_arrow/up_arrow_white.png");
-    }else if (e.target.id.includes("down")){
+    }else if (e.target.className.includes("down")){
         iconElement.setAttribute("src", "/img/popup/down_arrow/down_arrow_white.png");
     }
  });
@@ -177,9 +177,9 @@ document.addEventListener('click', async (e) =>{
         iconElement.setAttribute("src", "/img/popup/stop/stop.png");
     }else if (e.target.id.includes("delete")){
         iconElement.setAttribute("src", "/img/popup/delete/delete.png");
-    }else if (e.target.id.includes("up")){
+    }else if (e.target.className.includes("up")){
         iconElement.setAttribute("src", "/img/popup/up_arrow/up_arrow.png");
-    }else if (e.target.id.includes("down")){
+    }else if (e.target.className.includes("down")){
         iconElement.setAttribute("src", "/img/popup/down_arrow/down_arrow.png");
     }else if (e.target.className == "edit"){
         if(document.getElementById("manHourEditForm" + e.target.name)){

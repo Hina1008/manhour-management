@@ -50,14 +50,6 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
             manHourControllerDiv,
             manHourFormDiv);
 
-    // 下矢印アイコンの追加
-    let downArrowImg = document.createElement("img"); // img要素作成
-    embeddingIcons("/img/popup/down_arrow/down_arrow.png",
-            "down-arrow" + no,
-            "controller-icon down",
-            no,
-            downArrowImg,
-            manHourControllerDiv);
 
     // 削除アイコンの追加
     let deleteImg = document.createElement("img"); // img要素作成
@@ -104,6 +96,22 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
             editImg,
             manHourControllerDiv);
 
+    // 矢印用のDivを追加する
+    let arrowDiv = document.createElement("div"); // div要素作成
+    embeddingDiv("arrowDiv" + no,
+            "",
+            arrowDiv,
+            manHourFormDiv);
+
+    // 下矢印アイコンの追加
+    let downArrowImg = document.createElement("img"); // img要素作成
+    embeddingIcons("/img/popup/down_arrow/down_arrow.png",
+            "arrow" + no,
+            "controller-icon down",
+            no,
+            downArrowImg,
+            arrowDiv);
+
     // 線を追加
     embeddingLine("hr3", manHourDiv);
 }
@@ -132,6 +140,10 @@ export let emmbeddingErrorMessage = (message, className) => {
 export let embeddingEditTimeForm = (no) =>{
     console.log("no:" + no);
     let manHourFormDiv = document.getElementById("manHourForm"+ no);
+
+    let arrowImg = document.getElementById("arrow" + no);
+    arrowImg.setAttribute("src", "/img/popup/up_arrow/up_arrow.png");
+    arrowImg.setAttribute("class", "controller-icon up")
 
     // 編集用のDivを追加する
     let manHourEditFormDiv = document.createElement("div"); // div要素作成
