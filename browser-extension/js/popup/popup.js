@@ -133,6 +133,14 @@ document.addEventListener('click', async (e) =>{
             await bg.clickDeleteIcon(manHourName);
             let deleteManHourDiv = document.getElementById("manHour" + e.target.name);
             deleteManHourDiv.remove();
+        }else if(e.target.id.includes("arrow")){
+            if(e.target.className.includes("up")){
+                //nop
+            }else if (e.target.className.includes("down")){
+                let editIconElement = document.getElementById("edit" + e.target.name);
+                editIconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
+                embeddingEditTimeForm(e.target.name);
+            }
         }
     }else if(e.target.className == "edit" && !document.getElementById("manHourEditForm" + e.target.name)){
         let editIconElement = document.getElementById(e.target.id);
