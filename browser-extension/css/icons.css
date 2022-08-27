@@ -23,6 +23,14 @@
 }
 
 .edit{
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    text-align: left;
+    margin-left: 10px;
+}
+
+.save{
     margin-left: 10px;
 }
 

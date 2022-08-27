@@ -133,9 +133,16 @@ document.addEventListener('click', async (e) =>{
             await bg.clickDeleteIcon(manHourName);
             let deleteManHourDiv = document.getElementById("manHour" + e.target.name);
             deleteManHourDiv.remove();
-        }else if(e.target.className.includes("edit")){
-            embeddingEditTimeForm(e.target.name)
         }
+    }else if(e.target.className == "edit" && !document.getElementById("manHourEditForm" + e.target.name)){
+        let editIconElement = document.getElementById(e.target.id);
+        editIconElement.style.position = 'relative';
+        editIconElement.style.top = "2px";
+        setTimeout(() => {
+            editIconElement.style.top = "0px";
+        }, 100);
+        editIconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
+        embeddingEditTimeForm(e.target.name);
     }
  });
 
@@ -149,8 +156,10 @@ document.addEventListener('click', async (e) =>{
         iconElement.setAttribute("src", "/img/popup/stop/stop_white.png");
     }else if (e.target.id.includes("delete")){
         iconElement.setAttribute("src", "/img/popup/delete/delete_white.png");
-    }else if (e.target.id.includes("edit")){
+    }else if (e.target.className == "edit" && !document.getElementById("manHourEditForm" + e.target.name)){
         iconElement.setAttribute("src", "/img/popup/edit/edit_white.png");
+    }else if (e.target.id.includes("save")){
+        iconElement.setAttribute("src", "/img/popup/save/save_white.png");
     }
  });
 
@@ -164,7 +173,13 @@ document.addEventListener('click', async (e) =>{
         iconElement.setAttribute("src", "/img/popup/stop/stop.png");
     }else if (e.target.id.includes("delete")){
         iconElement.setAttribute("src", "/img/popup/delete/delete.png");
-    }else if (e.target.id.includes("edit")){
+    }else if (e.target.className == "edit"){
+        if(document.getElementById("manHourEditForm" + e.target.name)){
+            iconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
+            return;
+        }
         iconElement.setAttribute("src", "/img/popup/edit/edit.png");
+    }else if (e.target.id.includes("save")){
+        iconElement.setAttribute("src", "/img/popup/save/save.png");
     }
  });

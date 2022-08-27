@@ -90,7 +90,7 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
     let editImg = document.createElement("img"); // img要素作成
     embeddingIcons("/img/popup/edit/edit.png",
             "edit" + no,
-            "controller-icon edit",
+            "edit",
                 no,
             editImg,
             manHourControllerDiv);
@@ -162,4 +162,12 @@ export let embeddingEditTimeForm = (no) =>{
     manHourEditFormDiv.appendChild(separateP2);
     manHourEditFormDiv.appendChild(secondInput);
     
+    // 編集アイコンの追加
+    let saveImg = document.createElement("img"); // img要素作成
+    embeddingIcons("/img/popup/save/save.png",
+            "save" + no,
+            "controller-icon save",
+                no,
+            saveImg,
+            manHourEditFormDiv);
 }
