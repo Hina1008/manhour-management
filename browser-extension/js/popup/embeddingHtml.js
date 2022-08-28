@@ -124,8 +124,8 @@ export let deleteErrorMessage = (parent) =>{
     }
 }
 
-export let emmbeddingErrorMessage = (message, className) => {
-    let divElement = document.getElementById("error-message");
+export let emmbeddingErrorMessage = (message, id, className) => {
+    let divElement = document.getElementById(id);
 
     // エラーメッセージが既に表示されていたら削除する
     deleteErrorMessage(divElement);
@@ -191,6 +191,11 @@ export let openEditTimeForm = (no) =>{
                 no,
             saveImg,
             manHourEditFormDiv);
+
+    // エラー用のDivを追加する
+    let editFormErrorDiv = document.createElement("div"); // div要素作成
+    editFormErrorDiv.setAttribute("id", "edit-form-error-message" + no);
+    manHourFormDiv.appendChild(editFormErrorDiv);
 }
 
 export let closeEditTimeForm = (no) =>{
@@ -203,4 +208,7 @@ export let closeEditTimeForm = (no) =>{
 
     let manHourFormDiv = document.getElementById("manHourEditForm"+ no);
     manHourFormDiv.remove();
+
+    let editFormErrorDiv = document.getElementById("edit-form-error-message"+ no);
+    editFormErrorDiv.remove();
 }

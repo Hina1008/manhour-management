@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }else if(error["error"] == "empty"){
                 message = "工数名が空です。 工数名を入力してください。"
             } 
-            emmbeddingErrorMessage(message, "error");
+            emmbeddingErrorMessage(message, "error-message", "error");
             const useNotification = await bg.getOptionValue("notification")
             if (useNotification){
                 bg.notification(value, value + 'は既に登録されています。');
@@ -156,9 +156,12 @@ document.addEventListener('click', async (e) =>{
                     // popup画面を最新の値に変更
                     let manHourTime = document.getElementById("manHourTime"+no);
                     manHourTime.innerHTML = getTime(time);
+                    let editFormErrorDiv = document.getElementById("edit-form-error-message"+ no);
+                    editFormErrorDiv.remove();
                 })
-            }).catch(() => {
-
+            }).catch((e) => {
+                let message = "0 ~ 59の整数値を入力してください。"
+                emmbeddingErrorMessage(message, "edit-form-error-message" + no, "error");
             })
         }
     }else if(e.target.className == "edit" && !document.getElementById("manHourEditForm" + e.target.name)){
