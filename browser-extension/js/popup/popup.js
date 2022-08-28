@@ -49,9 +49,9 @@ let intervalForMinute = () => {
 };
 
 let getTime =(time) => {
-	let hour  = ("0" + Math.trunc(time / (60 * 60 * 1000) % 24)).slice(-2);
-	let minutes  = ("0" + Math.trunc(time / (60 * 1000) % 60)).slice(-2);
-	let seconds = ("0" + Math.trunc(time / 1000 % 60)).slice(-2);
+	let hour  = ("0" + (Math.trunc(time / (60 * 60 * 1000) % 24)|0)).slice(-2);
+	let minutes  = ("0" +(Math.trunc(time / (60 * 1000) % 60)|0)).slice(-2);
+	let seconds = ("0" + (Math.trunc(time / 1000 % 60)|0)).slice(-2);
 	let text = hour + ":" + minutes + ":" + seconds;
 	return text;
 };
