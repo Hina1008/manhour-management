@@ -98,7 +98,7 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
 
     // 矢印用のDivを追加する
     let arrowDiv = document.createElement("div"); // div要素作成
-    embeddingDiv("arrowDiv" + no,
+    embeddingDiv("divArrow" + no,
             "",
             arrowDiv,
             manHourFormDiv);
