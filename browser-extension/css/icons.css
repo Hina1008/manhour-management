@@ -16,10 +16,43 @@
 }
 
 .delete{
+    margin-right: 150px;
+    text-align: left;
+    height: 16px;
+    width: 16px;
+}
+
+.down{
+    margin-right: 6px;
+    text-align: left;
+    height: 16px;
+    width: 16px;
+}
+
+.up{
     margin-right: 200px;
     text-align: left;
     height: 16px;
     width: 16px;
+}
+
+.arrow{
+    margin-right: 200px;
+    text-align: left;
+    height: 16px;
+    width: 16px;
+}
+
+.edit{
+    display: inline-block;
+    height: 20px;
+    width: 20px;
+    text-align: left;
+    margin-left: 10px;
+}
+
+.save{
+    margin-left: 10px;
 }
 
 .manHour-controller{

@@ -34,9 +34,41 @@ body {
     display:inline-block;
 }
 
+.manHour-edit-form{
+    display: block;
+    text-align: right;
+}
+
+.time-edit{
+    width: 28px;
+    font-size: 24px;
+    border: none;
+    box-shadow: 0 0 0 1px #ccc inset;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.colon{
+    font-size: 32px;
+    margin-left:3px;
+    margin-right:3px;
+    color:#c0c0c0;
+    display: inline;
+}
+
+.edit-form{
+    text-align:right;
+    color:#c0c0c0;
+}
+
 #addTitle{
     color:#708090;
     margin-right:10px;
+}
+
+.edit-form-error-message{
+    text-align: right;
 }
 
 .error{

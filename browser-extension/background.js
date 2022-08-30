@@ -144,6 +144,55 @@ bg.clickDeleteIcon = async(name, undefined) => {
 }
 
 /**
+ * 保存アイコンを押した時の処理
+ * 入力された時間が、正しい値かをチェック
+ * @param {*} hour 
+ * @param {*} minute 
+ * @param {*} second 
+ * @returns 
+ */
+bg.timeCheck = async(hour, minutes, seconds) => {
+	return new Promise((resolve, reject) => {
+		if(!isEnableTimeValue(hour, 24)){
+			reject("The input value is invalid; the Hours value can be entered between 0 and 23.");
+			return;
+		}else if(!isEnableTimeValue(minutes, 60)){
+			reject("The input value is invalid; the Minutes value can be entered between 0 and 59.");
+			return;
+		}else if(!isEnableTimeValue(seconds, 60)){
+			reject("The input value is invalid; the Seconds value can be entered between 0 and 59.");
+			return;
+		}
+		resolve();
+	})
+}
+
+/**
+ * 保存アイコンをクリックして、bg.timeCheckが通った時に行われる処理
+ * 入力された時間を localStorageに保存
+ * 現在、経過時間を測っている工数だった場合, 開始時刻を現在時刻に設定
+ * @param {*} hour 
+ * @param {*} minute 
+ * @param {*} second 
+ * @param {*} name 
+ * @returns 
+ */
+bg.updateTime = async (hour, minute, second, name) =>{
+	return new Promise(async (resolve, reject) => {
+		let time = hour*1000*60*60 + minute*1000*60 + second*1000;
+		let manHourName = name.replace("&amp;","&")
+		let manHourInfo = await getLocalStorage(manHourName);
+		let no = manHourInfo[manHourName]["no"]
+		setLocalStorage(manHourName,{"no":no,"time":time,"diffTime":0});
+		let currentManHourName = await getLocalStorage("name");
+		if (manHourName == currentManHourName["name"]){
+			setLocalStorage("startTime",new Date().getTime())
+		}
+		resolve(time);
+	})
+}
+
+/**
  * リセットボタンを押した時の処理
  * @param {} undefined 
  * @returns 

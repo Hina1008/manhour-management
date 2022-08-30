@@ -1,5 +1,6 @@
 import {bg} from './backgroundCaller.js';
-import {embeddingManHour, emmbeddingErrorMessage, deleteErrorMessage} from'./embeddingHtml.js';
+import {embeddingManHour, emmbeddingErrorMessage, deleteErrorMessage, openEditTimeForm, closeEditTimeForm} from'./embeddingHtml.js';
+import {seekIcon} from './seekId.js'
 
 let intervalForTimer;
 
@@ -49,9 +50,9 @@ let intervalForMinute = () => {
 };
 
 let getTime =(time) => {
-	let hour  = ("0" + Math.trunc(time / (60 * 60 * 1000) % 24)).slice(-2);
-	let minutes  = ("0" + Math.trunc(time / (60 * 1000) % 60)).slice(-2);
-	let seconds = ("0" + Math.trunc(time / 1000 % 60)).slice(-2);
+	let hour  = ("0" + (Math.trunc(time / (60 * 60 * 1000) % 24)|0)).slice(-2);
+	let minutes  = ("0" +(Math.trunc(time / (60 * 1000) % 60)|0)).slice(-2);
+	let seconds = ("0" + (Math.trunc(time / 1000 % 60)|0)).slice(-2);
 	let text = hour + ":" + minutes + ":" + seconds;
 	return text;
 };
@@ -82,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }else if(error["error"] == "empty"){
                 message = "工数名が空です。 工数名を入力してください。"
             } 
-            emmbeddingErrorMessage(message, "error");
+            emmbeddingErrorMessage(message, "error-message", "error", "error-content");
             const useNotification = await bg.getOptionValue("notification")
             if (useNotification){
                 bg.notification(value, value + 'は既に登録されています。');
@@ -133,32 +134,86 @@ document.addEventListener('click', async (e) =>{
             await bg.clickDeleteIcon(manHourName);
             let deleteManHourDiv = document.getElementById("manHour" + e.target.name);
             deleteManHourDiv.remove();
+        }else if(e.target.id.includes("arrow")){
+            if(e.target.className.includes("up")){
+                //nop
+                closeEditTimeForm(e.target.name);
+            }else if (e.target.className.includes("down")){
+                let editIconElement = document.getElementById("edit" + e.target.name);
+                editIconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
+                openEditTimeForm(e.target.name);
+            }
+        }else if(e.target.id.includes("save")){
+            let no = e.target.name;
+            let hour = document.getElementById("hour"+no).value
+            let minute = document.getElementById("minute"+no).value
+            let second = document.getElementById("second"+no).value
+
+            // 入力された値が正しいかチェック 0 ~ 59の値
+            bg.timeCheck(hour, minute, second).then(() => {
+                let manHourName = document.getElementById("manHourParagraph"+no).innerHTML
+                // 時間を該当のlocalStorageに保存
+                bg.updateTime(hour, minute, second, manHourName).then((time) => {
+                    // popup画面を最新の値に変更
+                    let manHourTime = document.getElementById("manHourTime"+no);
+                    manHourTime.innerHTML = getTime(time);
+                    let editFormErrorDiv = document.getElementById("edit-error-message"+ no);
+                    if(editFormErrorDiv){
+                        editFormErrorDiv.remove();
+                    }
+                })
+            }).catch((e) => {
+                const error = e["error"]
+                let message;
+                if(error.includes("Hours")){
+                    message = "〇〇時には0~23の整数値のみ入力できます。"
+                }else if(error.includes("Minutes")){
+                    message = "〇〇分には0~59の整数値のみ入力できます。"
+                }else if(error.includes("Seconds")){
+                    message = "〇〇秒には0~59の整数値のみ入力できます。"
+                }
+                emmbeddingErrorMessage(message, "edit-form-error-message" + no, "error", "edit-error-message" + no);
+            })
         }
+    }else if(e.target.className == "edit" && !document.getElementById("manHourEditForm" + e.target.name)){
+        let editIconElement = document.getElementById(e.target.id);
+        editIconElement.style.position = 'relative';
+        editIconElement.style.top = "2px";
+        setTimeout(() => {
+            editIconElement.style.top = "0px";
+        }, 100);
+        editIconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
+        openEditTimeForm(e.target.name);
     }
  });
 
  // マウスが要素上にあるときの処理
- document.addEventListener('mouseover', async (e) =>{
+ document.addEventListener('mouseover', async (e, undefined) =>{
     // アイコンである場合の処理
     let iconElement = document.getElementById(e.target.id);
-    if(e.target.id.includes("start")){
-        iconElement.setAttribute("src", "/img/popup/start/start_white.png");
-    }else if (e.target.id.includes("stop")){
-        iconElement.setAttribute("src", "/img/popup/stop/stop_white.png");
-    }else if (e.target.id.includes("delete")){
-        iconElement.setAttribute("src", "/img/popup/delete/delete_white.png");
+    let icon = seekIcon(e.target);
+    if(icon !== undefined){
+        console.log(icon)
+        if(icon == "edit" && document.getElementById("manHourEditForm" + e.target.name)){
+            return ;
+        }
+        iconElement.setAttribute("src", "/img/popup/" + icon + "/" + icon + "_white.png")
     }
  });
 
  // マウスが要素から出るときの処理
- document.addEventListener("mouseout", async (e) =>{
+ document.addEventListener("mouseout", async (e, undefined) =>{
     // アイコンである場合の処理
     let iconElement = document.getElementById(e.target.id);
-    if(e.target.id.includes("start")){
-        iconElement.setAttribute("src", "/img/popup/start/start.png");
-    }else if (e.target.id.includes("stop")){
-        iconElement.setAttribute("src", "/img/popup/stop/stop.png");
-    }else if (e.target.id.includes("delete")){
-        iconElement.setAttribute("src", "/img/popup/delete/delete.png");
+    let icon = seekIcon(e.target);
+    if(icon !== undefined){
+        console.log(icon)
+        if(icon == "edit"){
+            if(document.getElementById("manHourEditForm" + e.target.name)){
+                iconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
+                return;
+            }
+        }
+        iconElement.setAttribute("src", "/img/popup/" + icon + "/" + icon + ".png")
     }
  });
