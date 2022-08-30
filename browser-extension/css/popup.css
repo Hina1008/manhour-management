@@ -51,10 +51,15 @@ body {
 
 .colon{
     font-size: 32px;
-    margin-left:4px;
-    margin-right:4px;
+    margin-left:3px;
+    margin-right:3px;
     color:#c0c0c0;
     display: inline;
+}
+
+.edit-form{
+    text-align:right;
+    color:#c0c0c0;
 }
 
 #addTitle{

@@ -124,7 +124,7 @@ export let deleteErrorMessage = (parent) =>{
     }
 }
 
-export let emmbeddingErrorMessage = (message, id, className) => {
+export let emmbeddingErrorMessage = (message, id, className, idName) => {
     let divElement = document.getElementById(id);
 
     // エラーメッセージが既に表示されていたら削除する
@@ -134,6 +134,7 @@ export let emmbeddingErrorMessage = (message, id, className) => {
     let errorMessage = document.createTextNode(message); // テキストノードを作成
     pElement.appendChild(errorMessage); // p要素にテキストノードを追加
     pElement.setAttribute("class", className);
+    pElement.setAttribute("id", idName);
     divElement.appendChild(pElement);
 }
 
@@ -192,6 +193,17 @@ export let openEditTimeForm = (no) =>{
             saveImg,
             manHourEditFormDiv);
 
+    // 注意喚起用のDivを追加する
+    let editFormAttentionDiv = document.createElement("div"); // div要素作成
+    editFormAttentionDiv.setAttribute("id", "edit-form-attention-message" + no);
+    editFormAttentionDiv.setAttribute("class", "edit-form");
+    let attentionMessageParagraph = document.createElement("p");
+    let attentionMessage = "※ 測れる時間の最大値は23:59:59です。"
+    let attentionMessageNode = document.createTextNode(attentionMessage);
+    attentionMessageParagraph.appendChild(attentionMessageNode);
+    editFormAttentionDiv.appendChild(attentionMessageParagraph);
+    manHourFormDiv.appendChild(editFormAttentionDiv);
+
     // エラー用のDivを追加する
     let editFormErrorDiv = document.createElement("div"); // div要素作成
     editFormErrorDiv.setAttribute("id", "edit-form-error-message" + no);
@@ -208,6 +220,9 @@ export let closeEditTimeForm = (no) =>{
 
     let manHourFormDiv = document.getElementById("manHourEditForm"+ no);
     manHourFormDiv.remove();
+
+    let editFormAttentionDiv = document.getElementById("edit-form-attention-message" + no);
+    editFormAttentionDiv.remove();
 
     let editFormErrorDiv = document.getElementById("edit-form-error-message"+ no);
     editFormErrorDiv.remove();
