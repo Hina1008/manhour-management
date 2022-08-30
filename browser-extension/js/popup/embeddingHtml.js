@@ -207,6 +207,7 @@ export let openEditTimeForm = (no) =>{
     // エラー用のDivを追加する
     let editFormErrorDiv = document.createElement("div"); // div要素作成
     editFormErrorDiv.setAttribute("id", "edit-form-error-message" + no);
+    editFormErrorDiv.setAttribute("class", "edit-form-error-message");
     manHourFormDiv.appendChild(editFormErrorDiv);
 }
 

@@ -67,6 +67,10 @@ body {
     margin-right:10px;
 }
 
+.edit-form-error-message{
+    text-align: right;
+}
+
 .error{
     font-size: 16px;
     color:crimson;
