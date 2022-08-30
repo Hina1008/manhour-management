@@ -153,11 +153,14 @@ bg.clickDeleteIcon = async(name, undefined) => {
  */
 bg.timeCheck = async(hour, minutes, seconds) => {
 	return new Promise((resolve, reject) => {
-		const isEnable = isEnableTimeValue(hour) 
-						&& isEnableTimeValue(minutes) 
-						&& isEnableTimeValue(seconds);
-		if(!isEnable){
-			reject("Invalid input value. You can enter values from 0 to 59.");
+		if(!isEnableTimeValue(hour, 24)){
+			reject("The input value is invalid; the Hours value can be entered between 0 and 23.");
+			return;
+		}else if(!isEnableTimeValue(minutes, 60)){
+			reject("The input value is invalid; the Minutes value can be entered between 0 and 59.");
+			return;
+		}else if(!isEnableTimeValue(seconds, 60)){
+			reject("The input value is invalid; the Seconds value can be entered between 0 and 59.");
 			return;
 		}
 		resolve();

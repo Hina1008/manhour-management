@@ -163,7 +163,15 @@ document.addEventListener('click', async (e) =>{
                     }
                 })
             }).catch((e) => {
-                let message = "0 ~ 59の整数値を入力してください。"
+                const error = e["error"]
+                let message;
+                if(error.includes("Hours")){
+                    message = "〇〇時には0~23の整数値のみ入力できます。"
+                }else if(error.includes("Minutes")){
+                    message = "〇〇分には0~59の整数値のみ入力できます。"
+                }else if(error.includes("Seconds")){
+                    message = "〇〇秒には0~59の整数値のみ入力できます。"
+                }
                 emmbeddingErrorMessage(message, "edit-form-error-message" + no, "error", "edit-error-message" + no);
             })
         }

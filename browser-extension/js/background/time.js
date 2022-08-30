@@ -25,8 +25,8 @@ let Time = async (undefined) =>{
 	}
 }
 
-let isEnableTimeValue = (time) => {
-	if (time >=0 && time <60){
+let isEnableTimeValue = (time, upper) => {
+	if (time >=0 && time < upper){
 		return true;
 	}
 	return false;
