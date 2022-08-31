@@ -1,126 +1,173 @@
-let embeddingDiv = (idName, className, childElement, parentElement) => {
-    childElement.setAttribute("id",idName);
-    childElement.setAttribute("class",className);
+let setElement = (attribute, childElement, parentElement) => {
+    Object.keys(attribute).map(key => 
+        childElement.setAttribute(key,attribute[key])
+    );
     parentElement.appendChild(childElement);
 }
-
-let embeddingIcons = (src, idName, className, no, childElement, parentElement) => {
-    childElement.setAttribute("src",src);
-    childElement.setAttribute("id",idName);
-    childElement.setAttribute("class",className);
-    childElement.setAttribute("name",no);
-    parentElement.appendChild(childElement);
-}
-
-let embeddingLine = (className, parentElement) => {
-    // 線を追加
-    let lineElement = document.createElement("hr")
-    lineElement.setAttribute("class",className);
-    parentElement.appendChild(lineElement);
-};
 
 export let embeddingManHour = (name, no, time, rootDiv) =>{
     // 工数名ごとにDivを追加する
     let manHourDiv = document.createElement("div"); // div要素作成
-    embeddingDiv(no,
-            "manHour-frame",
-            manHourDiv,
-            rootDiv);
+    setElement(
+        {"id": no},
+        manHourDiv,
+        rootDiv
+    );
 
     // 工数に関する情報を持つDivを追加する
-    let manHourFormDiv = document.createElement("div"); // div要素作成
-    embeddingDiv("manHourForm" + no,
-            "manHour-frame",
-            manHourFormDiv,
-            manHourDiv);
+    let manHourInfoDiv = document.createElement("div"); // div要素作成
+    setElement(
+        {"id": "manHourInfo" + no},
+        manHourInfoDiv,
+        manHourDiv
+    );
 
-    // 工数に関する情報を持つDivを追加する
-    let manHourNameDiv = document.createElement("div"); // div要素作成
-    embeddingDiv("manHourName" + no,
-            "manHour-name-frame",
-            manHourNameDiv,
-            manHourFormDiv);
+    let createManHourNameElements = () => {
+        // 工数に関する情報を持つDivを追加する
+        let manHourNameFormDiv = document.createElement("div"); // div要素作成
+        setElement(
+            {"id": "manHourNameForm" + no},
+            manHourNameFormDiv,
+            manHourInfoDiv
+        );
 
-    // 工数名を追加する
-    let manHourParagraph = document.createElement("p"); // p要素作成
-    let manHourText = document.createTextNode(name); // テキストノードを作成
-    manHourParagraph.appendChild(manHourText); // p要素にテキストノードを追加
-            embeddingDiv("manHourParagraph" + no,
-            "manHour-paragraph",
-            manHourParagraph,
-            manHourNameDiv);
+        // 工数名を追加する
+        let manHourNameParagraph = document.createElement("p"); // p要素作成
+        let manHourName = document.createTextNode(name); // テキストノードを作成
+        manHourNameParagraph.appendChild(manHourName); // p要素にテキストノードを追加
+        setElement({
+            "id": "manHourName" + no,
+            "class": "man-hour-name"
+            },
+            manHourNameParagraph,
+            manHourNameFormDiv
+        );
+    }
 
-    // アイコンと時間用のDivを追加する
-    let manHourControllerDiv = document.createElement("div"); // div要素作成
-    embeddingDiv("manHourController" + no,
-            "manHour-controller",
-            manHourControllerDiv,
-            manHourFormDiv);
+    // 工数名に関する要素のまとまりを作成
+    createManHourNameElements();
+
+    let createManHourTimeElements = () => {
+        // アイコンと時間用のDivを追加する
+        let manHourControllerFormDiv = document.createElement("div"); // div要素作成
+        setElement({
+            "id": "manHourControllerForm" + no,
+            "class": "man-hour-controller"
+            },
+            manHourControllerFormDiv,
+            manHourInfoDiv);
 
 
-    // 削除アイコンの追加
-    let deleteImg = document.createElement("img"); // img要素作成
-    embeddingIcons("/img/popup/delete/delete.png",
-            "delete" + no,
-            "controller-icon delete",
-                no,
+        // 削除アイコンの追加
+        let deleteImg = document.createElement("img"); // img要素作成
+        setElement({
+            "src": "/img/popup/delete/delete.png",
+            "id": "delete" + no,
+            "class": "controller-icon delete",
+            "name": no
+            },
             deleteImg,
-            manHourControllerDiv);
+            manHourControllerFormDiv
+        );
 
-    // 再生アイコンの追加
-    let startImg = document.createElement("img"); // img要素作成
-    embeddingIcons("/img/popup/start/start.png",
-            "start" + no,
-            "controller-icon start",
-                no,
+        // 再生アイコンの追加
+        let startImg = document.createElement("img"); // img要素作成
+        setElement({
+            "src": "/img/popup/start/start.png",
+            "id": "start" + no,
+            "class": "controller-icon start",
+            "name": no
+            },
             startImg,
-            manHourControllerDiv);
+            manHourControllerFormDiv
+        );
 
-    // 停止アイコンの追加
-    let stopImg = document.createElement("img"); // img要素作成
-    embeddingIcons("/img/popup/stop/stop.png",
-            "stop" + no,
-            "controller-icon stop",
-                no,
+        // 停止アイコンの追加
+        let stopImg = document.createElement("img"); // img要素作成
+        setElement({
+            "src": "/img/popup/stop/stop.png",
+            "id": "stop" + no,
+            "class": "controller-icon stop",
+            "name": no
+            },
             stopImg,
-            manHourControllerDiv);
-    
-    // 工数時間の追加
-    let manHourTimeParagraph = document.createElement("p"); // p要素作成
-    let manHourTimeText = document.createTextNode(time); // テキストノードを作成
-    manHourTimeParagraph.appendChild(manHourTimeText); // p要素にテキストノードを追加
-    embeddingDiv("manHourTime" + no,
-            "time",
+            manHourControllerFormDiv
+        );
+        
+        // 工数時間の追加
+        let manHourTimeParagraph = document.createElement("p"); // p要素作成
+        let manHourTime = document.createTextNode(time); // テキストノードを作成
+        manHourTimeParagraph.appendChild(manHourTime); // p要素にテキストノードを追加
+        setElement({
+            "id": "manHourTime" + no,
+            "class": "time"
+            },
             manHourTimeParagraph,
-            manHourControllerDiv);
+            manHourControllerFormDiv
+        );
 
-    // 編集アイコンの追加
-    let editImg = document.createElement("img"); // img要素作成
-    embeddingIcons("/img/popup/edit/edit.png",
-            "edit" + no,
-            "edit",
-                no,
+        // 編集アイコンの追加
+        let editImg = document.createElement("img"); // img要素作成
+        setElement({
+            "src": "/img/popup/edit/edit.png",
+            "id": "edit" + no,
+            "class": "edit",
+            "name": no
+            },
             editImg,
-            manHourControllerDiv);
+            manHourControllerFormDiv
+        );
+    }
 
-    // 矢印用のDivを追加する
-    let arrowDiv = document.createElement("div"); // div要素作成
-    embeddingDiv("divArrow" + no,
-            "",
+    // 時間に関する要素のまとまりを作成
+    createManHourTimeElements();
+
+    let createArrowElements = () => {
+        // 矢印用のDivを追加する
+        let arrowDiv = document.createElement("div"); // div要素作成
+        setElement(
+            {"id": "arrowForm" + no},
             arrowDiv,
-            manHourFormDiv);
+            manHourInfoDiv
+        );
 
-    // 下矢印アイコンの追加
-    let downArrowImg = document.createElement("img"); // img要素作成
-    embeddingIcons("/img/popup/down_arrow/down_arrow.png",
-            "arrow" + no,
-            "controller-icon down",
-            no,
+        // 下矢印アイコンの追加
+        let downArrowImg = document.createElement("img"); // img要素作成
+        setElement({
+            "src": "/img/popup/down_arrow/down_arrow.png",
+            "id": "arrow" + no,
+            "class": "controller-icon down",
+            "name": no
+            },
             downArrowImg,
-            arrowDiv);
+            arrowDiv
+        );
+    }
 
-    // 線を追加
-    embeddingLine("hr3", manHourDiv);
+    // 編集画面を開閉する矢印に関する要素のまとまりを作成
+    createArrowElements();
+
+    let createLineElements = () => {
+        // 工数名毎に区切る用の横線のDivを追加する
+        let lineDiv = document.createElement("div"); // div要素作成
+        setElement(
+            {"id": "lineForm" + no},
+            lineDiv,
+            manHourInfoDiv
+        );
+
+        // 横線を追加
+        let lineHr = document.createElement("hr"); // img要素作成
+        setElement(
+            {"class": "hr3"},
+            lineHr,
+            lineDiv
+        );
+    }
+
+    // 工数名毎に区切る用の横線に関する要素のまとまりを作成
+    createLineElements();
+
 }
 
 
@@ -140,14 +187,17 @@ export let emmbeddingErrorMessage = (message, id, className, idName) => {
     let pElement = document.createElement("p"); // p要素作成
     let errorMessage = document.createTextNode(message); // テキストノードを作成
     pElement.appendChild(errorMessage); // p要素にテキストノードを追加
-    pElement.setAttribute("class", className);
-    pElement.setAttribute("id", idName);
-    divElement.appendChild(pElement);
+    setElement({
+        "id": idName,
+        "class": className
+        },
+        pElement,
+        divElement
+    );
 }
 
 export let openEditTimeForm = (no) =>{
-    console.log("no:" + no);
-    let manHourFormDiv = document.getElementById("manHourForm"+ no);
+    let manHourFormDiv = document.getElementById("manHourInfo"+ no);
 
     let arrowImg = document.getElementById("arrow" + no);
     arrowImg.setAttribute("src", "/img/popup/up_arrow/up_arrow_white.png");
@@ -155,10 +205,13 @@ export let openEditTimeForm = (no) =>{
 
     // 編集用のDivを追加する
     let manHourEditFormDiv = document.createElement("div"); // div要素作成
-    embeddingDiv("manHourEditForm" + no,
-            "manHour-edit-form",
-            manHourEditFormDiv,
-            manHourFormDiv);
+    setElement({
+        "id": "manHourEditForm" + no,
+        "class": "man-hour-edit-form"
+        },
+        manHourEditFormDiv,
+        manHourFormDiv
+    );
 
     let hourInput = document.createElement("input"); // 時用　input要素作成
     let minuteInput = document.createElement("input"); // 分用　input要素作成
@@ -193,29 +246,42 @@ export let openEditTimeForm = (no) =>{
     
     // 編集アイコンの追加
     let saveImg = document.createElement("img"); // img要素作成
-    embeddingIcons("/img/popup/save/save.png",
-            "save" + no,
-            "controller-icon save",
-                no,
-            saveImg,
-            manHourEditFormDiv);
+    setElement({
+        "src": "/img/popup/save/save.png",
+        "id": "save" + no,
+        "class": "controller-icon save",
+        "name": no
+        },  
+        saveImg,
+        manHourEditFormDiv
+    )
 
     // 注意喚起用のDivを追加する
     let editFormAttentionDiv = document.createElement("div"); // div要素作成
-    editFormAttentionDiv.setAttribute("id", "edit-form-attention-message" + no);
-    editFormAttentionDiv.setAttribute("class", "edit-form");
+
     let attentionMessageParagraph = document.createElement("p");
     let attentionMessage = "※ 測れる時間の最大値は23:59:59です。"
     let attentionMessageNode = document.createTextNode(attentionMessage);
     attentionMessageParagraph.appendChild(attentionMessageNode);
     editFormAttentionDiv.appendChild(attentionMessageParagraph);
-    manHourFormDiv.appendChild(editFormAttentionDiv);
+
+    setElement({
+        "id": "editFormAttentionMessage" + no,
+        "class": "edit-form"
+        },
+        editFormAttentionDiv,
+        manHourFormDiv
+    )
 
     // エラー用のDivを追加する
     let editFormErrorDiv = document.createElement("div"); // div要素作成
-    editFormErrorDiv.setAttribute("id", "edit-form-error-message" + no);
-    editFormErrorDiv.setAttribute("class", "edit-form-error-message");
-    manHourFormDiv.appendChild(editFormErrorDiv);
+    setElement({
+        "id": "editFormErrorMessage" + no,
+        "class": "edit-form-error-message"
+        },
+        editFormErrorDiv,
+        manHourFormDiv
+    );
 }
 
 export let closeEditTimeForm = (no) =>{
@@ -229,9 +295,9 @@ export let closeEditTimeForm = (no) =>{
     let manHourFormDiv = document.getElementById("manHourEditForm"+ no);
     manHourFormDiv.remove();
 
-    let editFormAttentionDiv = document.getElementById("edit-form-attention-message" + no);
+    let editFormAttentionDiv = document.getElementById("editFormAttentionMessage" + no);
     editFormAttentionDiv.remove();
 
-    let editFormErrorDiv = document.getElementById("edit-form-error-message"+ no);
+    let editFormErrorDiv = document.getElementById("editFormErrorMessage"+ no);
     editFormErrorDiv.remove();
 }

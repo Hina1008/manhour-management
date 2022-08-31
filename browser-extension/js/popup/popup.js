@@ -118,7 +118,7 @@ document.addEventListener('click', async (e) =>{
 
         if(e.target.className.includes("start")){
             // 再生ボタンを押したときの処理
-            let manHourName = document.getElementById("manHourParagraph" + e.target.name).innerHTML;
+            let manHourName = document.getElementById("manHourName" + e.target.name).innerHTML;
             await bg.clickStartIcon(manHourName, e.target.name);
 
             intervalForMinute();
@@ -130,7 +130,7 @@ document.addEventListener('click', async (e) =>{
             }
         }else if(e.target.className.includes("delete")){
             // 削除ボタンを押したときの処理
-            let manHourName = document.getElementById("manHourParagraph" + e.target.name).innerHTML;
+            let manHourName = document.getElementById("manHourName" + e.target.name).innerHTML;
             await bg.clickDeleteIcon(manHourName);
             let deleteManHourDiv = document.getElementById(e.target.name);
             deleteManHourDiv.remove();
@@ -151,7 +151,7 @@ document.addEventListener('click', async (e) =>{
 
             // 入力された値が正しいかチェック 0 ~ 59の値
             bg.timeCheck(hour, minute, second).then(() => {
-                let manHourName = document.getElementById("manHourParagraph"+no).innerHTML
+                let manHourName = document.getElementById("manHourName"+no).innerHTML
                 // 時間を該当のlocalStorageに保存
                 bg.updateTime(hour, minute, second, manHourName).then((time) => {
                     // popup画面を最新の値に変更
@@ -172,7 +172,7 @@ document.addEventListener('click', async (e) =>{
                 }else if(error.includes("Seconds")){
                     message = "〇〇秒には0~59の整数値のみ入力できます。"
                 }
-                emmbeddingErrorMessage(message, "edit-form-error-message" + no, "error", "edit-error-message" + no);
+                emmbeddingErrorMessage(message, "editFormErrorMessage" + no, "error", "edit-error-message" + no);
             })
         }
     }else if(e.target.className == "edit" && !document.getElementById("manHourEditForm" + e.target.name)){

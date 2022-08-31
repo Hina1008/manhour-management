@@ -17,7 +17,7 @@ body {
     margin-bottom: 5px;
 }
 
-.manHour-paragraph{
+.man-hour-name{
     color:#708090;
     font-size: 18px;
     margin-top: 0;
@@ -34,7 +34,7 @@ body {
     display:inline-block;
 }
 
-.manHour-edit-form{
+.man-hour-edit-form{
     display: block;
     text-align: right;
 }
