@@ -22,7 +22,7 @@ let embeddingLine = (className, parentElement) => {
 export let embeddingManHour = (name, no, time, rootDiv) =>{
     // 工数名ごとにDivを追加する
     let manHourDiv = document.createElement("div"); // div要素作成
-    embeddingDiv("manHour" + no,
+    embeddingDiv(no,
             "manHour-frame",
             manHourDiv,
             rootDiv);

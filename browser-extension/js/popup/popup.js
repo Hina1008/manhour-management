@@ -132,7 +132,7 @@ document.addEventListener('click', async (e) =>{
             // 削除ボタンを押したときの処理
             let manHourName = document.getElementById("manHourParagraph" + e.target.name).innerHTML;
             await bg.clickDeleteIcon(manHourName);
-            let deleteManHourDiv = document.getElementById("manHour" + e.target.name);
+            let deleteManHourDiv = document.getElementById(e.target.name);
             deleteManHourDiv.remove();
         }else if(e.target.id.includes("arrow")){
             if(e.target.className.includes("up")){
