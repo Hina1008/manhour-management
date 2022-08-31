@@ -183,6 +183,13 @@ document.addEventListener('click', async (e) =>{
         }, 100);
         editIconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
         openEditTimeForm(no);
+    }else if(e.target.id == "manHourName" + no){
+        let manHourName = e.target.innerHTML
+        const parent = e.target.parentNode;
+        e.target.remove();
+        let child = document.createElement("input");
+        child.setAttribute("value",manHourName);
+        parent.appendChild(child);
     }
  });
 
