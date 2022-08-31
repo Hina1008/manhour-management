@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 "00:00:00", 
                 rootDiv);
             deleteErrorMessage(
-                document.getElementById("error-message")
+                document.getElementById("errorMessage")
             );
 
         }).catch(async (error) => {
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }else if(error["error"] == "empty"){
                 message = "工数名が空です。 工数名を入力してください。"
             } 
-            emmbeddingErrorMessage(message, "error-message", "error", "error-content");
+            emmbeddingErrorMessage(message, "errorMessage", "error", "error-content");
             const useNotification = await bg.getOptionValue("notification")
             if (useNotification){
                 bg.notification(value, value + 'は既に登録されています。');
