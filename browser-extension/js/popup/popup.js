@@ -107,6 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('click', async (e) =>{
+    const no = e.target.parentNode.parentNode.parentNode.id;
     // アイコンである場合の処理
     if(e.target.className.includes("controller-icon")){
         let iconElement = document.getElementById(e.target.id);
@@ -115,36 +116,34 @@ document.addEventListener('click', async (e) =>{
         setTimeout(() => {
             iconElement.style.top = "0px";
         }, 100);
-
         if(e.target.className.includes("start")){
             // 再生ボタンを押したときの処理
-            let manHourName = document.getElementById("manHourName" + e.target.name).innerHTML;
-            await bg.clickStartIcon(manHourName, e.target.name);
+            let manHourName = document.getElementById("manHourName" + no).innerHTML;
+            await bg.clickStartIcon(manHourName, no);
 
             intervalForMinute();
         }else if(e.target.className.includes("stop")){
-            let isCurrentManHour = await bg.clickStopIcon(e.target.name);
+            let isCurrentManHour = await bg.clickStopIcon(no);
             if(isCurrentManHour){
                 // 停止ボタンを押したときの処理
                 clearInterval(intervalForTimer);
             }
         }else if(e.target.className.includes("delete")){
             // 削除ボタンを押したときの処理
-            let manHourName = document.getElementById("manHourName" + e.target.name).innerHTML;
+            let manHourName = document.getElementById("manHourName" + no).innerHTML;
             await bg.clickDeleteIcon(manHourName);
-            let deleteManHourDiv = document.getElementById(e.target.name);
+            let deleteManHourDiv = document.getElementById(no);
             deleteManHourDiv.remove();
         }else if(e.target.id.includes("arrow")){
             if(e.target.className.includes("up")){
                 //nop
-                closeEditTimeForm(e.target.name);
+                closeEditTimeForm(no);
             }else if (e.target.className.includes("down")){
-                let editIconElement = document.getElementById("edit" + e.target.name);
+                let editIconElement = document.getElementById("edit" + no);
                 editIconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
-                openEditTimeForm(e.target.name);
+                openEditTimeForm(no);
             }
         }else if(e.target.id.includes("save")){
-            let no = e.target.name;
             let hour = document.getElementById("hour"+no).value
             let minute = document.getElementById("minute"+no).value
             let second = document.getElementById("second"+no).value
@@ -175,7 +174,7 @@ document.addEventListener('click', async (e) =>{
                 emmbeddingErrorMessage(message, "editFormErrorMessage" + no, "error", "edit-error-message" + no);
             })
         }
-    }else if(e.target.className == "edit" && !document.getElementById("manHourEditForm" + e.target.name)){
+    }else if(e.target.className == "edit" && !document.getElementById("manHourEditForm" + no)){
         let editIconElement = document.getElementById(e.target.id);
         editIconElement.style.position = 'relative';
         editIconElement.style.top = "2px";
@@ -183,7 +182,7 @@ document.addEventListener('click', async (e) =>{
             editIconElement.style.top = "0px";
         }, 100);
         editIconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
-        openEditTimeForm(e.target.name);
+        openEditTimeForm(no);
     }
  });
 
@@ -194,7 +193,8 @@ document.addEventListener('click', async (e) =>{
     let icon = seekIcon(e.target);
     if(icon !== undefined){
         console.log(icon)
-        if(icon == "edit" && document.getElementById("manHourEditForm" + e.target.name)){
+        const no = e.target.parentNode.parentNode.parentNode.id;
+        if(icon == "edit" && document.getElementById("manHourEditForm" + no)){
             return ;
         }
         iconElement.setAttribute("src", "/img/popup/" + icon + "/" + icon + "_white.png")
@@ -209,7 +209,8 @@ document.addEventListener('click', async (e) =>{
     if(icon !== undefined){
         console.log(icon)
         if(icon == "edit"){
-            if(document.getElementById("manHourEditForm" + e.target.name)){
+            const no = e.target.parentNode.parentNode.parentNode.id;
+            if(document.getElementById("manHourEditForm" + no)){
                 iconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
                 return;
             }

@@ -63,8 +63,7 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
         setElement({
             "src": "/img/popup/delete/delete.png",
             "id": "delete" + no,
-            "class": "controller-icon delete",
-            "name": no
+            "class": "controller-icon delete"
             },
             deleteImg,
             manHourControllerFormDiv
@@ -75,8 +74,7 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
         setElement({
             "src": "/img/popup/start/start.png",
             "id": "start" + no,
-            "class": "controller-icon start",
-            "name": no
+            "class": "controller-icon start"
             },
             startImg,
             manHourControllerFormDiv
@@ -87,8 +85,7 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
         setElement({
             "src": "/img/popup/stop/stop.png",
             "id": "stop" + no,
-            "class": "controller-icon stop",
-            "name": no
+            "class": "controller-icon stop"
             },
             stopImg,
             manHourControllerFormDiv
@@ -111,8 +108,7 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
         setElement({
             "src": "/img/popup/edit/edit.png",
             "id": "edit" + no,
-            "class": "edit",
-            "name": no
+            "class": "edit"
             },
             editImg,
             manHourControllerFormDiv
@@ -136,8 +132,7 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
         setElement({
             "src": "/img/popup/down_arrow/down_arrow.png",
             "id": "arrow" + no,
-            "class": "controller-icon down",
-            "name": no
+            "class": "controller-icon down"
             },
             downArrowImg,
             arrowDiv
@@ -228,15 +223,12 @@ export let openEditTimeForm = (no) =>{
 
     hourInput.setAttribute("id","hour" + no);
     hourInput.setAttribute("class","time-edit");
-    hourInput.setAttribute("name",no);
 
     minuteInput.setAttribute("id","minute" + no);
     minuteInput.setAttribute("class","time-edit");
-    minuteInput.setAttribute("name",no);
 
     secondInput.setAttribute("id","second" + no);
     secondInput.setAttribute("class","time-edit");
-    secondInput.setAttribute("name",no);
     
     manHourEditFormDiv.appendChild(hourInput);
     manHourEditFormDiv.appendChild(separateP1);
@@ -249,8 +241,7 @@ export let openEditTimeForm = (no) =>{
     setElement({
         "src": "/img/popup/save/save.png",
         "id": "save" + no,
-        "class": "controller-icon save",
-        "name": no
+        "class": "controller-icon save"
         },  
         saveImg,
         manHourEditFormDiv
