@@ -47,6 +47,42 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
     // 工数名に関する要素のまとまりを作成
     createManHourNameElements();
 
+    let createSideArrowElements = () => {
+        // アイコンと時間用のDivを追加する
+        let sideArrowFormDiv = document.createElement("div"); // div要素作成
+        setElement({
+            "id": "sideArrowForm" + no,
+            "class": "side-arrow"
+            },
+            sideArrowFormDiv,
+            manHourInfoDiv
+        );
+
+        // 左矢印アイコンの追加
+        let leftArrowImg = document.createElement("img"); // img要素作成
+        setElement({
+            "src": "/img/popup/left_arrow/left_arrow.png",
+            "id": "leftArrow" + no,
+            "class": "controller-icon left"
+            },
+            leftArrowImg,
+            sideArrowFormDiv
+        );
+
+        // 右矢印アイコンの追加
+        let rightArrowImg = document.createElement("img"); // img要素作成
+        setElement({
+            "src": "/img/popup/right_arrow/right_arrow.png",
+            "id": "rightArrow" + no,
+            "class": "controller-icon right"
+            },
+            rightArrowImg,
+            sideArrowFormDiv
+        );
+    }
+
+    createSideArrowElements();
+
     let createManHourTimeElements = () => {
         // アイコンと時間用のDivを追加する
         let manHourControllerFormDiv = document.createElement("div"); // div要素作成

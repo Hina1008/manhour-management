@@ -36,6 +36,21 @@
     width: 16px;
 }
 
+.side-arrow{
+  /* 子要素のタイトルを aboslute 配置するため必要 */
+  margin-top:5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.side-arrow .left{
+    
+}
+
+.side-arrow .right{
+    
+}
+
 .arrow{
     margin-right: 200px;
     text-align: left;
