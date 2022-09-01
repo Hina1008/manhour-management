@@ -116,25 +116,25 @@ document.addEventListener('click', async (e) =>{
         setTimeout(() => {
             iconElement.style.top = "0px";
         }, 100);
-        if(e.target.className.includes("start")){
+        if(e.target.id == "start" + no){
             // 再生ボタンを押したときの処理
             let manHourName = document.getElementById("manHourName" + no).innerHTML;
             await bg.clickStartIcon(manHourName, no);
 
             intervalForMinute();
-        }else if(e.target.className.includes("stop")){
+        }else if(e.targetid == "stop" + no){
             let isCurrentManHour = await bg.clickStopIcon(no);
             if(isCurrentManHour){
                 // 停止ボタンを押したときの処理
                 clearInterval(intervalForTimer);
             }
-        }else if(e.target.className.includes("delete")){
+        }else if(e.target.id == "delete" + no){
             // 削除ボタンを押したときの処理
             let manHourName = document.getElementById("manHourName" + no).innerHTML;
             await bg.clickDeleteIcon(manHourName);
             let deleteManHourDiv = document.getElementById(no);
             deleteManHourDiv.remove();
-        }else if(e.target.id.includes("arrow")){
+        }else if(e.target.id == "arrow" + no){
             if(e.target.className.includes("up")){
                 //nop
                 closeEditTimeForm(no);
@@ -143,7 +143,7 @@ document.addEventListener('click', async (e) =>{
                 editIconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
                 openEditTimeForm(no);
             }
-        }else if(e.target.id.includes("save")){
+        }else if(e.target.id == "save" + no){
             let hour = document.getElementById("hour"+no).value
             let minute = document.getElementById("minute"+no).value
             let second = document.getElementById("second"+no).value
@@ -174,7 +174,7 @@ document.addEventListener('click', async (e) =>{
                 emmbeddingErrorMessage(message, "editFormErrorMessage" + no, "error", "edit-error-message" + no);
             })
         }
-    }else if(e.target.className == "edit" && !document.getElementById("manHourEditForm" + no)){
+    }else if(e.target.id == "edit" + no && !document.getElementById("manHourEditForm" + no)){
         let editIconElement = document.getElementById(e.target.id);
         editIconElement.style.position = 'relative';
         editIconElement.style.top = "2px";
