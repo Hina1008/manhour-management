@@ -16,7 +16,8 @@
 }
 
 .delete{
-    margin-right: 150px;
+    margin-right: 110px;
+    margin-left:20px;
     text-align: left;
     height: 16px;
     width: 16px;
@@ -43,12 +44,20 @@
   justify-content: space-between;
 }
 
-.side-arrow .left{
-    
+.left{
+    height: 24px;
+    width: 24px;
+    align-self: center;
+    /* margin-right:20px;
+    margin-left:0px; */
 }
 
-.side-arrow .right{
-    
+.right{
+    height: 24px;
+    width: 24px;
+    align-self: center;
+    /* margin-left:20px;
+    margin-right:0px; */
 }
 
 .arrow{

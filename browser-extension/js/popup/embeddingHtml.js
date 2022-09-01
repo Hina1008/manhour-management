@@ -16,17 +16,46 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
 
     // 工数に関する情報を持つDivを追加する
     let manHourInfoDiv = document.createElement("div"); // div要素作成
-    setElement(
-        {"id": "manHourInfo" + no},
+    setElement({
+        "id": "manHourInfo" + no,
+        "class": "container"
+        },
         manHourInfoDiv,
         manHourDiv
     );
 
+    let createLeftArrowElements = () => {
+        // アイコンと時間用のDivを追加する
+        let leftArrowFormDiv = document.createElement("div"); // div要素作成
+        setElement({
+            "id": "leftArrowForm" + no,
+            "class": "left-arrow-form"
+            },
+            leftArrowFormDiv,
+            manHourInfoDiv
+        );
+
+        // 左矢印アイコンの追加
+        let leftArrowImg = document.createElement("img"); // img要素作成
+        setElement({
+            "src": "/img/popup/left_arrow/left_arrow.png",
+            "id": "leftArrow" + no,
+            "class": "controller-icon left"
+            },
+            leftArrowImg,
+            leftArrowFormDiv
+        );
+    }
+
+    createLeftArrowElements();
+
     let createManHourNameElements = () => {
         // 工数に関する情報を持つDivを追加する
         let manHourNameFormDiv = document.createElement("div"); // div要素作成
-        setElement(
-            {"id": "manHourNameForm" + no},
+        setElement({
+            "id": "manHourNameForm" + no,
+            "class":"man-hour-name-form form"
+            },
             manHourNameFormDiv,
             manHourInfoDiv
         );
@@ -47,52 +76,15 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
     // 工数名に関する要素のまとまりを作成
     createManHourNameElements();
 
-    let createSideArrowElements = () => {
-        // アイコンと時間用のDivを追加する
-        let sideArrowFormDiv = document.createElement("div"); // div要素作成
-        setElement({
-            "id": "sideArrowForm" + no,
-            "class": "side-arrow"
-            },
-            sideArrowFormDiv,
-            manHourInfoDiv
-        );
-
-        // 左矢印アイコンの追加
-        let leftArrowImg = document.createElement("img"); // img要素作成
-        setElement({
-            "src": "/img/popup/left_arrow/left_arrow.png",
-            "id": "leftArrow" + no,
-            "class": "controller-icon left"
-            },
-            leftArrowImg,
-            sideArrowFormDiv
-        );
-
-        // 右矢印アイコンの追加
-        let rightArrowImg = document.createElement("img"); // img要素作成
-        setElement({
-            "src": "/img/popup/right_arrow/right_arrow.png",
-            "id": "rightArrow" + no,
-            "class": "controller-icon right"
-            },
-            rightArrowImg,
-            sideArrowFormDiv
-        );
-    }
-
-    createSideArrowElements();
-
     let createManHourTimeElements = () => {
         // アイコンと時間用のDivを追加する
         let manHourControllerFormDiv = document.createElement("div"); // div要素作成
         setElement({
             "id": "manHourControllerForm" + no,
-            "class": "man-hour-controller"
+            "class": "man-hour-controller-form form"
             },
             manHourControllerFormDiv,
             manHourInfoDiv);
-
 
         // 削除アイコンの追加
         let deleteImg = document.createElement("img"); // img要素作成
@@ -138,45 +130,35 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
             manHourTimeParagraph,
             manHourControllerFormDiv
         );
-
-        // 編集アイコンの追加
-        let editImg = document.createElement("img"); // img要素作成
-        setElement({
-            "src": "/img/popup/edit/edit.png",
-            "id": "edit" + no,
-            "class": "edit"
-            },
-            editImg,
-            manHourControllerFormDiv
-        );
     }
 
     // 時間に関する要素のまとまりを作成
     createManHourTimeElements();
 
-    let createArrowElements = () => {
-        // 矢印用のDivを追加する
-        let arrowDiv = document.createElement("div"); // div要素作成
-        setElement(
-            {"id": "arrowForm" + no},
-            arrowDiv,
+    let createRightArrowElements = () => {
+        // アイコンと時間用のDivを追加する
+        let rightArrowFormDiv = document.createElement("div"); // div要素作成
+        setElement({
+            "id": "sideArrowForm" + no,
+            "class": "right-arrow-form"
+            },
+            rightArrowFormDiv,
             manHourInfoDiv
         );
 
-        // 下矢印アイコンの追加
-        let downArrowImg = document.createElement("img"); // img要素作成
+        // 右矢印アイコンの追加
+        let rightArrowImg = document.createElement("img"); // img要素作成
         setElement({
-            "src": "/img/popup/down_arrow/down_arrow.png",
-            "id": "arrow" + no,
-            "class": "controller-icon down"
+            "src": "/img/popup/right_arrow/right_arrow.png",
+            "id": "rightArrow" + no,
+            "class": "controller-icon right"
             },
-            downArrowImg,
-            arrowDiv
+            rightArrowImg,
+            rightArrowFormDiv
         );
     }
 
-    // 編集画面を開閉する矢印に関する要素のまとまりを作成
-    createArrowElements();
+    createRightArrowElements();
 
     let createLineElements = () => {
         // 工数名毎に区切る用の横線のDivを追加する
@@ -184,7 +166,7 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
         setElement(
             {"id": "lineForm" + no},
             lineDiv,
-            manHourInfoDiv
+            manHourDiv
         );
 
         // 横線を追加

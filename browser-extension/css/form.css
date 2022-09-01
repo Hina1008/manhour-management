@@ -1,0 +1,28 @@
+.container {
+    width: auto;
+    display: grid;
+    grid-template-columns: 1fr 11fr 1fr;
+    grid-template-rows: 1fr 10px 1fr;
+}
+
+.man-hour-name-form{
+    grid-column-start: 2;
+    grid-row-start:1
+}
+
+.man-hour-controller-form{
+    grid-column-start: 2;
+    grid-row-start:2;
+}
+
+.left-arrow-form{
+    grid-column-start: 1;
+    grid-row-start:2;
+    align-self: center;
+}
+
+.right-arrow-form{
+    grid-column-start: 3;
+    grid-row-start:2;
+    align-self: center;
+}
