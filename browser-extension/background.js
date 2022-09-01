@@ -279,7 +279,13 @@ bg.clickAddButton = async(value, undefined) => {
 		let storageNo = storage["localStorage"];
 		await setLocalStorage(storageNo, {"name": value,"time":0, "no":storageNo, "diffTime":0});
 		await setLocalStorage("localStorage", storageNo + 1);
-		createContextMenus(storageNo.toString(), value);
+		createContextMenus({
+			"id": storageNo.toString(),
+			"title" : value.replace("&","＆"),
+			"parentId": "manhour-management",
+			"type" : "normal",
+			"contexts" : ["all"]
+		});
 		console.log(storageNo);
 		resolve(storageNo);
 	});

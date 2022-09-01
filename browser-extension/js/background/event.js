@@ -10,8 +10,18 @@
  */
 chrome.runtime.onInstalled.addListener(detail => {
 	if (detail.reason == "install" || detail.reason == "update") {
-		initContextMenus("工数","manhour-management");
-		initContextMenus("停止","stop");
+		createContextMenus({
+			"id": "manhour-management",
+			"title" : "工数",
+			"type" : "normal",
+			"contexts" : ["all"]
+		});
+		createContextMenus({
+			"id": "stop",
+			"title" : "停止",
+			"type" : "normal",
+			"contexts" : ["all"]
+		});
 		chrome.storage.local.clear();
 	}
 });
