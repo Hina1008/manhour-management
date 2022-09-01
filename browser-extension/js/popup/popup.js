@@ -12,8 +12,9 @@ let intervalForTimer;
         // 親要素（div）への参照を取得
         const rootDiv = document.getElementById("root");
         for (let key of keys) {
-            if(key != "name" && key != "time" && key != "localStorage" && key != "startTime") {
-                embeddingManHour(key, 
+            if(key != "currentManHourIndex" && key != "time" && key != "localStorage" && key != "startTime") {
+                embeddingManHour(
+                    manHourInfo[key]["name"], 
                     manHourInfo[key]["no"], 
                     getTime(manHourInfo[key]["time"]+manHourInfo[key]["diffTime"]), 
                     rootDiv);
@@ -26,7 +27,7 @@ let intervalForTimer;
 let emmbedingHtml = (manHourInfo) =>{
     const keys = Object.keys(manHourInfo);
     for (let key of keys) {
-        if(key != "name" && key != "time" && key != "localStorage" && key != "startTime") {
+        if(key != "currentManHourIndex" && key != "time" && key != "localStorage" && key != "startTime") {
             let manHourTime = document.getElementById("manHourTime" + manHourInfo[key]["no"]);
             if(manHourTime){
                 manHourTime.innerHTML = getTime(manHourInfo[key]["time"] + manHourInfo[key]["diffTime"]);
@@ -38,15 +39,11 @@ let emmbedingHtml = (manHourInfo) =>{
 let intervalForMinute = () => {
     clearInterval(intervalForTimer);
     intervalForTimer = setInterval(intervalForMinute, 1000);
-    bg.getSelectManHour().then((manHourName) => {
-        bg.getManHourInfo(manHourName).then((manHourInfo) => {
-            let no = manHourInfo["no"];
-            let time = manHourInfo["time"] + manHourInfo["diffTime"];
-            document.getElementById("manHourTime" + no).innerHTML = getTime(time);
-        })
-    }).catch((error) => {
-        // nop
-    });
+    bg.getCurrentManHourInfo().then((manHourInfo) => {
+        let no = manHourInfo["no"];
+        let time = manHourInfo["time"] + manHourInfo["diffTime"];
+        document.getElementById("manHourTime" + no).innerHTML = getTime(time);
+    })
 };
 
 let getTime =(time) => {
@@ -119,10 +116,10 @@ document.addEventListener('click', async (e) =>{
         if(e.target.id == "start" + no){
             // 再生ボタンを押したときの処理
             let manHourName = document.getElementById("manHourName" + no).innerHTML;
-            await bg.clickStartIcon(manHourName, no);
+            await bg.clickStartIcon(no);
 
             intervalForMinute();
-        }else if(e.targetid == "stop" + no){
+        }else if(e.target.id == "stop" + no){
             let isCurrentManHour = await bg.clickStopIcon(no);
             if(isCurrentManHour){
                 // 停止ボタンを押したときの処理
@@ -130,8 +127,7 @@ document.addEventListener('click', async (e) =>{
             }
         }else if(e.target.id == "delete" + no){
             // 削除ボタンを押したときの処理
-            let manHourName = document.getElementById("manHourName" + no).innerHTML;
-            await bg.clickDeleteIcon(manHourName);
+            await bg.clickDeleteIcon(no);
             let deleteManHourDiv = document.getElementById(no);
             deleteManHourDiv.remove();
         }else if(e.target.id == "arrow" + no){

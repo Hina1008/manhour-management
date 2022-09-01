@@ -29,10 +29,10 @@ let removeContextMenus = (id) => {
  * ポップアップ画面で,追加ボタンを押した際に、入力されている工数名がそのまま引数の値になる
  * @param {*} title 
  */
-let createContextMenus = (title) => {
+let createContextMenus = (id, title) => {
 	chrome.contextMenus.create({
+		"id": id,
 		"title" : title.replace("&","＆"),
-		"id": title,
 		"parentId": "manhour-management",
 		"type" : "normal",
 		"contexts" : ["all"]

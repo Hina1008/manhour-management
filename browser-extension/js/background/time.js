@@ -10,17 +10,19 @@
  * @returns 
  */
 let Time = async (undefined) =>{
-    let storage = await getLocalStorage("name");
-	if (storage["name"] === undefined){
+    let storage = await getLocalStorage("currentManHourIndex");
+	let index = storage["currentManHourIndex"];
+	if (storage["currentManHourIndex"] === undefined){
 		return;
 	}
 	else{
-		let currentManHour = await getLocalStorage(storage["name"]);
+		let currentManHour = await getLocalStorage(index);
 		let startTime = await getLocalStorage("startTime");
-		const time = currentManHour[storage["name"]]["time"];
-		const no = currentManHour[storage["name"]]["no"];
+		const name = currentManHour[index]["name"]
+		const time = currentManHour[index]["time"];
+		const no = currentManHour[index]["no"];
 		const diffTime = new Date().getTime() - startTime["startTime"];
-		setLocalStorage(storage["name"],{"time":time, "no":no, "diffTime": diffTime})
+		setLocalStorage(index,{"name":name, "time":time, "no":no, "diffTime": diffTime})
 		console.log("backgournd time:" + time + diffTime);
 	}
 }

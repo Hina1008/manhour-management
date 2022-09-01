@@ -52,6 +52,19 @@ bg.getManHourInfo = async (name) => {
 	})
 };
 
+bg.getCurrentManHourInfo = async () => {
+	console.log("call bg.getCurrentManHourInfo");
+	Time();
+	return new Promise(async(resolve) => {
+		let storage = await getLocalStorage("currentManHourIndex");
+		let index = storage["currentManHourIndex"];
+		if(index !== undefined){
+			let currentManHourInfo = await getLocalStorage(index);
+			resolve(currentManHourInfo[index]);
+		}
+	})
+}
+
 /**
  * 現在、時間を測っている工数の No/Time/DiffTime を連想配列で取得
  * @returns 
@@ -59,8 +72,10 @@ bg.getManHourInfo = async (name) => {
 bg.getSelectManHour = async() =>{
 	console.log("call bg.getSelectManHour");
 	return new Promise(async(resolve) =>{
-		let selectManHour = await getLocalStorage("name");
-		resolve(selectManHour["name"]);
+		let storage = await getLocalStorage("currentManHourIndex");
+		let index = storage["currentManHourIndex"];
+		let currentManHourInfo = await getLocalStorage(index);
+		resolve(currentManHourInfo[index]);
 	})
 }
 
@@ -94,12 +109,11 @@ bg.Mock = async(message) => {
  * 再生アイコンを押した時の処理
  * @param {*} manHourName 
  */
-bg.clickStartIcon = async(manHourName) => {
+bg.clickStartIcon = async(no) => {
 	// 現在の時間を保存
 	console.log("call bg.clickStartButton");
-	console.log(manHourName.replace("&amp;","&"));
 
-	await start(manHourName.replace("&amp;","&"));
+	await start(no);
 };
 
 /**
@@ -108,18 +122,19 @@ bg.clickStartIcon = async(manHourName) => {
  * @param {*} undefined 
  * @returns 
  */
-bg.clickStopIcon = async(name, undefined) => {
+bg.clickStopIcon = async(no, undefined) => {
 	console.log("call bg.clickStopButton");
 	return new Promise(async(resolve) =>{
 		// 現在の時間を保存
-		let currentManHour = await getLocalStorage("name");
-		if(currentManHour["name"] !== undefined){
-			let manHourInfo = await getLocalStorage(currentManHour["name"]);
-			if(name.replace("&amp;","&") == manHourInfo[currentManHour["name"]]["no"]){
-				stopCurrentManHour(manHourInfo, currentManHour["name"]);
-				resolve(true);
-				return;
-			}
+		let storage = await getLocalStorage("currentManHourIndex");
+		let index = storage["currentManHourIndex"]
+		console.log(index);
+		console.log(no);
+		if(index == no){
+			let manHourInfo = await getLocalStorage(index);
+			stopCurrentManHour(manHourInfo, index);
+			resolve(true);
+			return;
 		}else{
 			console.log("is empty");
 		}
@@ -132,15 +147,16 @@ bg.clickStopIcon = async(name, undefined) => {
  * @param {*} name 
  * @param {*} undefined 
  */
-bg.clickDeleteIcon = async(name, undefined) => {
+bg.clickDeleteIcon = async(no, undefined) => {
 	console.log("call clickDeleteButton");
-	let currentManHour = await getLocalStorage("name");
-	if(currentManHour["name"] == name.replace("&amp;","&")){
-		await removeLocalStorage("name");
+	let storage = await getLocalStorage("currentManHourIndex");
+	let index = storage["currentManHourIndex"];
+	if(index == no){
+		await removeLocalStorage("currentManHourIndex");
 	}
-	await removeLocalStorage(name.replace("&amp;","&"));
+	await removeLocalStorage(no);
 
-	await removeContextMenus(name.replace("&amp;","&"));
+	await removeContextMenus(no);
 }
 
 /**
@@ -203,12 +219,17 @@ bg.clickResetButton = async(undefined) => {
 		let manHourInfo = await getLocalStorage();
 		const keys = Object.keys(manHourInfo);
 		for (let key of keys){
-			if(key == "name"){
+			if(key == "currentManHourIndex"){
 				await removeLocalStorage(key);
 			}else if(key == "localStorage" || key == "startTime"){
 				// nop
 			}else{
-				await setLocalStorage(key, {"time":0, "no":manHourInfo[key]["no"], "diffTime":0});
+				await setLocalStorage(key, {
+					"name":manHourInfo[key]["name"],
+					"time":0, 
+					"no":manHourInfo[key]["no"], 
+					"diffTime":0
+				});
 			}
 		}
 		resolve(await getLocalStorage());
@@ -242,7 +263,9 @@ bg.clickAddButton = async(value, undefined) => {
 
 		// 同じ工数名が入力された場合、拒否する
 		let manHourInfo = await getLocalStorage();
-		const manHourNames = Object.keys(manHourInfo);
+		let manHourNames = Object.entries(manHourInfo).map(
+			([key,value]) => manHourInfo[key]["name"]
+			).filter(Boolean)
 		if (manHourNames.includes(value)){
 			reject("duplication");
 			return;
@@ -254,9 +277,9 @@ bg.clickAddButton = async(value, undefined) => {
 			return;
 		}
 		let storageNo = storage["localStorage"];
-		await setLocalStorage(value, {"time":0, "no":storageNo, "diffTime":0});
+		await setLocalStorage(storageNo, {"name": value,"time":0, "no":storageNo, "diffTime":0});
 		await setLocalStorage("localStorage", storageNo + 1);
-		createContextMenus(value);
+		createContextMenus(storageNo.toString(), value);
 		console.log(storageNo);
 		resolve(storageNo);
 	});
