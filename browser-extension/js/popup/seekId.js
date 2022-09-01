@@ -15,9 +15,6 @@ export let seekIcon = (target) => {
         value = Icon.save;
     }else if (id.includes(Icon.arrow)){
         const className = target.className;
-        console.log("arrow")
-        console.log(target);
-        console.log(target.className)
         if(className.includes(Arrow.up)){
             value = Arrow.up + "_arrow";
         }else if(className.includes(Arrow.down)){
