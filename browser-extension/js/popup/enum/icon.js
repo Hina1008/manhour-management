@@ -4,7 +4,9 @@ export const Icon = {
     delete: "delete",
     edit: "edit",
     save: "save",
-    arrow: "arrow"
+    arrow: "arrow",
+    right: "right",
+    left: "left"
 }
 
 export const Arrow = {

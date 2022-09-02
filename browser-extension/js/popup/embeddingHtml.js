@@ -38,8 +38,8 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
         // 左矢印アイコンの追加
         let leftArrowImg = document.createElement("img"); // img要素作成
         setElement({
-            "src": "/img/popup/left_arrow/left_arrow.png",
-            "id": "leftArrow" + no,
+            "src": "/img/popup/left/left.png",
+            "id": "left" + no,
             "class": "controller-icon left"
             },
             leftArrowImg,
@@ -149,8 +149,8 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
         // 右矢印アイコンの追加
         let rightArrowImg = document.createElement("img"); // img要素作成
         setElement({
-            "src": "/img/popup/right_arrow/right_arrow.png",
-            "id": "rightArrow" + no,
+            "src": "/img/popup/right/right.png",
+            "id": "right" + no,
             "class": "controller-icon right"
             },
             rightArrowImg,
