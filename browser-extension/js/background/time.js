@@ -22,7 +22,8 @@ let Time = async (undefined) =>{
 		const time = currentManHour[index]["time"];
 		const no = currentManHour[index]["no"];
 		const diffTime = new Date().getTime() - startTime["startTime"];
-		setLocalStorage(index,{"name":name, "time":time, "no":no, "diffTime": diffTime})
+		const formIndex = currentManHour[index]["formIndex"];
+		setLocalStorage(index,{"name":name, "time":time, "no":no, "diffTime": diffTime, "formIndex":formIndex})
 		console.log("backgournd time:" + time + diffTime);
 	}
 }

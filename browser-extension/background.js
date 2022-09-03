@@ -228,7 +228,8 @@ bg.clickResetButton = async(undefined) => {
 					"name":manHourInfo[key]["name"],
 					"time":0, 
 					"no":manHourInfo[key]["no"], 
-					"diffTime":0
+					"diffTime":0,
+					"formIndex":0
 				});
 			}
 		}
@@ -244,6 +245,30 @@ bg.clickAllStopButton = async(undefined) => {
 	console.log("call bg.clickAllStopButton");
 	// 現在の時間を保存
 	await stop();
+}
+
+bg.checkCurrentManHourInfo = async(no, undefined) => {
+	console.log("call bg.checkCurrentForm");
+	return new Promise(async(resolve) =>{
+		let manHourInfo = await getLocalStorage(no);
+		// console.log(manHourInfo[no]);
+		// console.log(manHourInfo[no]["formIndex"]);
+		// let formIndex = manHourInfo[no]["formIndex"];
+		resolve(manHourInfo[no]);
+	});
+}
+
+bg.updateCurrentForm = async (no, arrow) => {
+	console.log("call bg.updateCurrentForm");
+	let manHourInfo = await getLocalStorage(no);
+	let formIndex = manHourInfo[no]["formIndex"];
+	if(arrow == "right"){
+		formIndex += 1;
+	} else if(arrow == "left"){
+		formIndex -= 1;
+	}
+	manHourInfo[no]["formIndex"] = formIndex;
+	setLocalStorage(no, manHourInfo[no]);
 }
 
 /**
@@ -277,7 +302,13 @@ bg.clickAddButton = async(value, undefined) => {
 			return;
 		}
 		let storageNo = storage["localStorage"];
-		await setLocalStorage(storageNo, {"name": value,"time":0, "no":storageNo, "diffTime":0});
+		await setLocalStorage(storageNo, {
+			"name": value,
+			"time":0, 
+			"no":storageNo, 
+			"diffTime":0,
+			"formIndex":0
+		});
 		await setLocalStorage("localStorage", storageNo + 1);
 		createContextMenus({
 			"id": storageNo.toString(),

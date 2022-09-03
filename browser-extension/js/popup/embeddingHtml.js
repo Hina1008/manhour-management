@@ -1,4 +1,4 @@
-let setElement = (attribute, childElement, parentElement) => {
+export let setElement = (attribute, childElement, parentElement) => {
     Object.keys(attribute).map(key => 
         childElement.setAttribute(key,attribute[key])
     );

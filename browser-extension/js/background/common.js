@@ -13,8 +13,9 @@
 	const diffTime = new Date().getTime() - startTime["startTime"];
 	let time = manHourInfo[index]["time"] + diffTime;
 	let no = manHourInfo[index]["no"];
-	let name = manHourInfo[index]["name"]
-	await setLocalStorage(index,{"name":name,"time":time,"no":no,"diffTime":0});
+	let name = manHourInfo[index]["name"];
+	let formIndex = manHourInfo[index]["formIndex"];
+	await setLocalStorage(index,{"name":name,"time":time,"no":no,"diffTime":0,"formIndex":formIndex});
 	await removeLocalStorage("currentManHourIndex");
 }
 
@@ -51,7 +52,8 @@ let start = async (no, undefined) => {
 		let time = manHourInfo[index]["time"] + diffTime;
 		let cNo = manHourInfo[index]["no"];
 		let name = manHourInfo[index]["name"];
-		await setLocalStorage(index,{"name":name,"time":time,"no":cNo,"diffTime":0});
+		let formIndex = manHourInfo[index]["formIndex"]
+		await setLocalStorage(index,{"name":name,"time":time,"no":cNo,"diffTime":0,"formIndex":formIndex});
 	}
 
 	// 名前を変更

@@ -1,6 +1,7 @@
 import {bg} from './backgroundCaller.js';
 import {embeddingManHour, emmbeddingErrorMessage, deleteErrorMessage, openEditTimeForm, closeEditTimeForm} from'./embeddingHtml.js';
-import {seekIcon} from './seekId.js'
+import {seekIcon} from './seekId.js';
+import {forms, homeForm, editForm} from './exchangeForm.js';
 
 let intervalForTimer;
 
@@ -130,6 +131,30 @@ document.addEventListener('click', async (e) =>{
             await bg.clickDeleteIcon(no);
             let deleteManHourDiv = document.getElementById(no);
             deleteManHourDiv.remove();
+        }else if(e.target.id == "right" + no){
+            // 右矢印を押した時の処理
+
+            let manHourInfo = await bg.checkCurrentManHourInfo(no);
+            console.log(manHourInfo["formIndex"]);
+            let formIndex = manHourInfo["formIndex"];
+            await bg.updateCurrentForm(no,"right")
+            forms[formIndex](no);
+            // bg.checkCurrentForm(no).then((formIndex) => {
+            //     console.log(formIndex);
+            //     bg.updateCurrentForm(no,"right").then(() => {
+            //         console.log(no);
+            //         console.log(formIndex);
+            //         console.log(forms[formIndex]);
+            //         forms[formIndex](no);
+            //     });
+            // });
+        }else if(e.target.id == "left" + no){
+            // 左矢印を押した時の処理
+            bg.checkCurrentForm(no).then((formIndex) => {
+                bg.updateCurrentForm(no,"left").then(() => {
+                    forms[formIndex](no);
+                });
+            });
         }else if(e.target.id == "arrow" + no){
             if(e.target.className.includes("up")){
                 //nop
