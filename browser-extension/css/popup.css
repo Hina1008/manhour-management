@@ -32,6 +32,7 @@ body {
     margin-bottom:0;
     margin-left:3px;
     display:inline-block;
+    vertical-align: bottom;
 }
 
 .man-hour-edit-form{
@@ -60,6 +61,11 @@ body {
 .edit-form{
     text-align:right;
     color:#c0c0c0;
+}
+
+.input-time{
+    margin-right: 80px;
+    font-size: 18px;
 }
 
 #addTitle{
