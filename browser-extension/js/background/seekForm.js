@@ -4,5 +4,5 @@ let checkForm = (no, location) => {
         console.log(Object.keys(Form).length )
         return no == Object.keys(Form).length ;
     }
-    return no == 0;
+    return no == 1;
 }

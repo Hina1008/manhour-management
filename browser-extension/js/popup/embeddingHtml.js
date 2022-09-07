@@ -319,10 +319,6 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
     // 編集フォームを作成
     createEditForm(no, name, time, manHourInfoDiv);
 
-    // liを追加
-    li = document.createElement("li");
-    setElement({}, li, ul);
-
     let createLineElements = () => {
         // 工数名毎に区切る用の横線のDivを追加する
         let lineDiv = document.createElement("div"); // div要素作成

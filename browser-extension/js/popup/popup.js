@@ -143,16 +143,26 @@ document.addEventListener('click', async (e) =>{
             console.log(ul);
             console.log(ul.scrollLeft);
             console.log(ul.clientWidth);
-            let value = await bg.subFormIndex(formIndex, "right")
-		    ul.scrollLeft += ul.clientWidth * value;
+            // let value = await bg.subFormIndex(formIndex, "right")
+            let children = ul.childNodes;
+            console.log(ul.lastElementChild);
+            console.log(e.target.parentNode.parentNode.parentNode)
+            if(ul.lastElementChild == e.target.parentNode.parentNode.parentNode){
+                ul.appendChild(ul.firstElementChild);
+                // ul.firstElementChild.remove();
+            }
+            ul.scrollLeft += ul.clientWidth;
         }else if(e.target.id == "left" + no + "-" + formIndex){
             // 左矢印を押した時の処理
             await bg.updateCurrentForm(no, "left");
             let ul = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('ul');
             console.log(ul.scrollLeft);
             console.log(ul.clientWidth);
-            let value = await bg.subFormIndex(formIndex,"left")
-            ul.scrollLeft += ul.clientWidth * value;
+            // let value = await bg.subFormIndex(formIndex,"left")
+            if(ul.firstElementChild == e.target.parentNode.parentNode.parentNode){
+                ul.prepend(ul.lastElementChild);
+            }
+            ul.scrollLeft -= ul.clientWidth;
         }else if(e.target.id == "arrow" + no + "-" + formIndex){
             if(e.target.className.includes("up")){
                 //nop

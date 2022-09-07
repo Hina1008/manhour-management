@@ -289,6 +289,7 @@ bg.updateCurrentForm = async (no, arrow) => {
 		}else{
 			formIndex += 1;
 		}
+		// formIndex += 1;
 	} else if(arrow == "left"){
 		if(checkForm(formIndex, "start")){
 			let keys = Object.keys(Form);
@@ -296,6 +297,7 @@ bg.updateCurrentForm = async (no, arrow) => {
 		}else{
 			formIndex -= 1;
 		}
+		// formIndex -= 1;
 	}
 	manHourInfo[no]["formIndex"] = formIndex;
 	setLocalStorage(no, manHourInfo[no]);
