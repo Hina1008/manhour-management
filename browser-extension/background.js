@@ -9,6 +9,8 @@ importScripts("js/background/localStorage.js");
 importScripts("js/background/contextMenus.js");
 importScripts("js/background/notification.js");
 importScripts("js/background/common.js");
+importScripts("js/background/enum/form.js");
+importScripts("js/background/seekForm.js");
 
 /**
  * ポップアップ画面が開かれたときに呼び出される処理
@@ -229,7 +231,7 @@ bg.clickResetButton = async(undefined) => {
 					"time":0, 
 					"no":manHourInfo[key]["no"], 
 					"diffTime":0,
-					"formIndex":0
+					"formIndex":1
 				});
 			}
 		}
@@ -251,10 +253,29 @@ bg.checkCurrentManHourInfo = async(no, undefined) => {
 	console.log("call bg.checkCurrentForm");
 	return new Promise(async(resolve) =>{
 		let manHourInfo = await getLocalStorage(no);
-		// console.log(manHourInfo[no]);
-		// console.log(manHourInfo[no]["formIndex"]);
-		// let formIndex = manHourInfo[no]["formIndex"];
 		resolve(manHourInfo[no]);
+	});
+}
+
+bg.subFormIndex = async (formIndex, arrow) => {
+	console.log("call bg.subFormIndex");
+	return new Promise(async(resolve) =>{
+		if(arrow == "right"){
+			if(checkForm(formIndex, "last")){
+				let len = Object.keys(Form).length;
+				resolve(-1 * (len-1));
+			}else{
+				resolve(1);
+			}
+		} else if(arrow == "left"){
+			if(checkForm(formIndex, "start")){
+				let len = Object.keys(Form).length;
+				resolve(len-1)
+			}else{
+				resolve(-1);
+			}
+		}
+		return ;
 	});
 }
 
@@ -263,9 +284,18 @@ bg.updateCurrentForm = async (no, arrow) => {
 	let manHourInfo = await getLocalStorage(no);
 	let formIndex = manHourInfo[no]["formIndex"];
 	if(arrow == "right"){
-		formIndex += 1;
+		if(checkForm(formIndex, "last")){
+			formIndex = 1;
+		}else{
+			formIndex += 1;
+		}
 	} else if(arrow == "left"){
-		formIndex -= 1;
+		if(checkForm(formIndex, "start")){
+			let keys = Object.keys(Form);
+			formIndex = Form[keys[keys.length - 1]];
+		}else{
+			formIndex -= 1;
+		}
 	}
 	manHourInfo[no]["formIndex"] = formIndex;
 	setLocalStorage(no, manHourInfo[no]);
@@ -307,7 +337,7 @@ bg.clickAddButton = async(value, undefined) => {
 			"time":0, 
 			"no":storageNo, 
 			"diffTime":0,
-			"formIndex":0
+			"formIndex":1
 		});
 		await setLocalStorage("localStorage", storageNo + 1);
 		createContextMenus({

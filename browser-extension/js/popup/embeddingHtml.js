@@ -10,7 +10,7 @@ let createHomeForm = (no, name, time, manHourInfoDiv) => {
         // アイコンと時間用のDivを追加する
         let leftArrowFormDiv = document.createElement("div"); // div要素作成
         setElement({
-            "id": "leftArrowForm" + no,
+            "id": "leftArrowForm" + no + "-1",
             "class": "left-arrow-form"
             },
             leftArrowFormDiv,
@@ -21,7 +21,7 @@ let createHomeForm = (no, name, time, manHourInfoDiv) => {
         let leftArrowImg = document.createElement("img"); // img要素作成
         setElement({
             "src": "/img/popup/left/left.png",
-            "id": "left" + no,
+            "id": "left" + no + "-1",
             "class": "controller-icon left"
             },
             leftArrowImg,
@@ -35,7 +35,7 @@ let createHomeForm = (no, name, time, manHourInfoDiv) => {
         // 工数に関する情報を持つDivを追加する
         let manHourNameFormDiv = document.createElement("div"); // div要素作成
         setElement({
-            "id": "manHourNameForm" + no,
+            "id": "manHourNameForm" + no + "-1",
             "class":"man-hour-name-form form"
             },
             manHourNameFormDiv,
@@ -47,7 +47,7 @@ let createHomeForm = (no, name, time, manHourInfoDiv) => {
         let manHourName = document.createTextNode(name); // テキストノードを作成
         manHourNameParagraph.appendChild(manHourName); // p要素にテキストノードを追加
         setElement({
-            "id": "manHourName" + no,
+            "id": "manHourName" + no + "-1",
             "class": "man-hour-name"
             },
             manHourNameParagraph,
@@ -62,7 +62,7 @@ let createHomeForm = (no, name, time, manHourInfoDiv) => {
         // アイコンと時間用のDivを追加する
         let manHourControllerFormDiv = document.createElement("div"); // div要素作成
         setElement({
-            "id": "manHourControllerForm" + no,
+            "id": "manHourControllerForm" + no + "-1",
             "class": "man-hour-controller-form form"
             },
             manHourControllerFormDiv,
@@ -72,7 +72,7 @@ let createHomeForm = (no, name, time, manHourInfoDiv) => {
         let deleteImg = document.createElement("img"); // img要素作成
         setElement({
             "src": "/img/popup/delete/delete.png",
-            "id": "delete" + no,
+            "id": "delete" + no + "-1",
             "class": "controller-icon delete"
             },
             deleteImg,
@@ -83,7 +83,7 @@ let createHomeForm = (no, name, time, manHourInfoDiv) => {
         let startImg = document.createElement("img"); // img要素作成
         setElement({
             "src": "/img/popup/start/start.png",
-            "id": "start" + no,
+            "id": "start" + no + "-1",
             "class": "controller-icon start"
             },
             startImg,
@@ -94,7 +94,7 @@ let createHomeForm = (no, name, time, manHourInfoDiv) => {
         let stopImg = document.createElement("img"); // img要素作成
         setElement({
             "src": "/img/popup/stop/stop.png",
-            "id": "stop" + no,
+            "id": "stop" + no + "-1",
             "class": "controller-icon stop"
             },
             stopImg,
@@ -106,7 +106,7 @@ let createHomeForm = (no, name, time, manHourInfoDiv) => {
         let manHourTime = document.createTextNode(time); // テキストノードを作成
         manHourTimeParagraph.appendChild(manHourTime); // p要素にテキストノードを追加
         setElement({
-            "id": "manHourTime" + no,
+            "id": "manHourTime" + no + "-1",
             "class": "time"
             },
             manHourTimeParagraph,
@@ -121,7 +121,7 @@ let createHomeForm = (no, name, time, manHourInfoDiv) => {
         // アイコンと時間用のDivを追加する
         let rightArrowFormDiv = document.createElement("div"); // div要素作成
         setElement({
-            "id": "sideArrowForm" + no,
+            "id": "sideArrowForm" + no + "-1",
             "class": "right-arrow-form"
             },
             rightArrowFormDiv,
@@ -132,7 +132,7 @@ let createHomeForm = (no, name, time, manHourInfoDiv) => {
         let rightArrowImg = document.createElement("img"); // img要素作成
         setElement({
             "src": "/img/popup/right/right.png",
-            "id": "right" + no,
+            "id": "right" + no + "-1",
             "class": "controller-icon right"
             },
             rightArrowImg,

@@ -43,7 +43,9 @@ let intervalForMinute = () => {
     bg.getCurrentManHourInfo().then((manHourInfo) => {
         let no = manHourInfo["no"];
         let time = manHourInfo["time"] + manHourInfo["diffTime"];
-        document.getElementById("manHourTime" + no).innerHTML = getTime(time);
+        let formIndex = manHourInfo["formIndex"];
+        console.log(time);
+        document.getElementById("manHourTime" + no + "-" + formIndex).innerHTML = getTime(time);
     })
 };
 
@@ -106,6 +108,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('click', async (e) =>{
     const no = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
+    const manHourInfo = await bg.checkCurrentManHourInfo(no);
+    const formIndex = manHourInfo["formIndex"];
     // アイコンである場合の処理
     if(e.target.className.includes("controller-icon")){
         let iconElement = document.getElementById(e.target.id);
@@ -114,48 +118,51 @@ document.addEventListener('click', async (e) =>{
         setTimeout(() => {
             iconElement.style.top = "0px";
         }, 100);
-        if(e.target.id == "start" + no){
+        if(e.target.id == "start" + no + "-" + formIndex){
             // 再生ボタンを押したときの処理
-            let manHourName = document.getElementById("manHourName" + no).innerHTML;
+            let manHourName = document.getElementById("manHourName" + no + "-" + formIndex).innerHTML;
             await bg.clickStartIcon(no);
 
             intervalForMinute();
-        }else if(e.target.id == "stop" + no){
+        }else if(e.target.id == "stop" + no + "-" + formIndex){
             let isCurrentManHour = await bg.clickStopIcon(no);
             if(isCurrentManHour){
                 // 停止ボタンを押したときの処理
                 clearInterval(intervalForTimer);
             }
-        }else if(e.target.id == "delete" + no){
+        }else if(e.target.id == "delete" + no + "-" + formIndex){
             // 削除ボタンを押したときの処理
             await bg.clickDeleteIcon(no);
             let deleteManHourDiv = document.getElementById(no);
             deleteManHourDiv.remove();
-        }else if(e.target.id == "right" + no){
+        }else if(e.target.id == "right" + no + "-" + formIndex){
             // 右矢印を押した時の処理
+            await bg.updateCurrentForm(no, "right");
             let ul = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('ul');
             console.log(e.target.parentNode.parentNode.parentNode.parentNode);
             console.log(ul);
             console.log(ul.scrollLeft);
-            console.log(ul.scrollTop);
-		    ul.scrollLeft += ul.clientWidth;
-        }else if(e.target.id == "left" + no){
+            console.log(ul.clientWidth);
+            let value = await bg.subFormIndex(formIndex, "right")
+		    ul.scrollLeft += ul.clientWidth * value;
+        }else if(e.target.id == "left" + no + "-" + formIndex){
             // 左矢印を押した時の処理
-            bg.checkCurrentForm(no).then((formIndex) => {
-                bg.updateCurrentForm(no,"left").then(() => {
-                    forms[formIndex](no);
-                });
-            });
-        }else if(e.target.id == "arrow" + no){
+            await bg.updateCurrentForm(no, "left");
+            let ul = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.querySelector('ul');
+            console.log(ul.scrollLeft);
+            console.log(ul.clientWidth);
+            let value = await bg.subFormIndex(formIndex,"left")
+            ul.scrollLeft += ul.clientWidth * value;
+        }else if(e.target.id == "arrow" + no + "-" + formIndex){
             if(e.target.className.includes("up")){
                 //nop
                 closeEditTimeForm(no);
             }else if (e.target.className.includes("down")){
-                let editIconElement = document.getElementById("edit" + no);
+                let editIconElement = document.getElementById("edit" + no + "-" + formIndex);
                 editIconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
                 openEditTimeForm(no);
             }
-        }else if(e.target.id == "save" + no){
+        }else if(e.target.id == "save" + no + "-" + formIndex){
             let hour = document.getElementById("hour"+no).value
             let minute = document.getElementById("minute"+no).value
             let second = document.getElementById("second"+no).value
@@ -168,7 +175,7 @@ document.addEventListener('click', async (e) =>{
                     // popup画面を最新の値に変更
                     let manHourTime = document.getElementById("manHourTime"+no);
                     manHourTime.innerHTML = getTime(time);
-                    let editFormErrorDiv = document.getElementById("edit-error-message"+ no);
+                    let editFormErrorDiv = document.getElementById("edit-error-message"+ no + "-" + formIndex);
                     if(editFormErrorDiv){
                         editFormErrorDiv.remove();
                     }
@@ -183,10 +190,10 @@ document.addEventListener('click', async (e) =>{
                 }else if(error.includes("Seconds")){
                     message = "〇〇秒には0~59の整数値のみ入力できます。"
                 }
-                emmbeddingErrorMessage(message, "editFormErrorMessage" + no, "error", "edit-error-message" + no);
+                emmbeddingErrorMessage(message, "editFormErrorMessage" + no + "-" + formIndex, "error", "edit-error-message" + no + "-" + formIndex);
             })
         }
-    }else if(e.target.id == "edit" + no && !document.getElementById("manHourEditForm" + no)){
+    }else if(e.target.id == "edit" + no + "-" + formIndex && !document.getElementById("manHourEditForm" + no + "-" + formIndex)){
         let editIconElement = document.getElementById(e.target.id);
         editIconElement.style.position = 'relative';
         editIconElement.style.top = "2px";
@@ -195,7 +202,7 @@ document.addEventListener('click', async (e) =>{
         }, 100);
         editIconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
         openEditTimeForm(no);
-    }else if(e.target.id == "manHourName" + no){
+    }else if(e.target.id == "manHourName" + no + "-" + formIndex){
         let manHourName = e.target.innerHTML
         const parent = e.target.parentNode;
         e.target.remove();
@@ -213,7 +220,7 @@ document.addEventListener('click', async (e) =>{
     if(icon !== undefined){
         console.log(icon)
         const no = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
-        if(icon == "edit" && document.getElementById("manHourEditForm" + no)){
+        if(icon == "edit" && document.getElementById("manHourEditForm" + no + "-" + formIndex)){
             return ;
         }
         iconElement.setAttribute("src", "/img/popup/" + icon + "/" + icon + "_white.png")
