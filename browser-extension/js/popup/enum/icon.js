@@ -6,7 +6,8 @@ export const Icon = {
     save: "save",
     arrow: "arrow",
     right: "right",
-    left: "left"
+    left: "left",
+    change: "change"
 }
 
 export const Arrow = {

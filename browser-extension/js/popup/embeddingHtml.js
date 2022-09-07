@@ -184,7 +184,7 @@ let createEditForm = (no, name, time, manHourInfoDiv) => {
         let manHourNameInput = document.createElement("input"); // p要素作成
         setElement({
             "id": "manHourName" + no + "-2",
-            "class": "man-hour-name",
+            "class": "input-manhour-name",
             "value": name
             },
             manHourNameInput,
@@ -215,6 +215,17 @@ let createEditForm = (no, name, time, manHourInfoDiv) => {
             "step": "1"
             },
             timeInput,
+            manHourControllerFormDiv
+        );
+
+        // 停止アイコンの追加
+        let stopImg = document.createElement("img"); // img要素作成
+        setElement({
+            "src": "/img/popup/change/change.png",
+            "id": "change" + no,
+            "class": "controller-icon change"
+            },
+            stopImg,
             manHourControllerFormDiv
         );
         
