@@ -29,10 +29,11 @@ let emmbedingHtml = (manHourInfo) =>{
     const keys = Object.keys(manHourInfo);
     for (let key of keys) {
         if(key != "currentManHourIndex" && key != "time" && key != "localStorage" && key != "startTime") {
-            let manHourTime = document.getElementById("manHourTime" + manHourInfo[key]["no"]);
-            if(manHourTime){
-                manHourTime.innerHTML = getTime(manHourInfo[key]["time"] + manHourInfo[key]["diffTime"]);
-            }
+            let homeTime = document.getElementById("manHourTime" + manHourInfo[key]["no"] + "-1");
+            let editTime = document.getElementById("manHourTime" + manHourInfo[key]["no"] + "-2");
+            let time = getTime(manHourInfo[key]["time"] + manHourInfo[key]["diffTime"]);
+            homeTime.innerHTML = time;
+            editTime.innerHTML = time;
         }
     }
 }
