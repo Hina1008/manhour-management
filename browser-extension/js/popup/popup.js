@@ -1,7 +1,6 @@
 import {bg} from './backgroundCaller.js';
-import {embeddingManHour, emmbeddingErrorMessage, deleteErrorMessage, openEditTimeForm, closeEditTimeForm} from'./embeddingHtml.js';
+import {embeddingManHour, emmbeddingErrorMessage, deleteErrorMessage} from'./embeddingHtml.js';
 import {seekIcon} from './seekId.js';
-import {forms, homeForm, editForm} from './exchangeForm.js';
 
 let intervalForTimer;
 
@@ -108,11 +107,11 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener('click', async (e) =>{
-    const no = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
-    const manHourInfo = await bg.checkCurrentManHourInfo(no);
-    const formIndex = manHourInfo["formIndex"];
     // アイコンである場合の処理
     if(e.target.className.includes("controller-icon")){
+        const no = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
+        const manHourInfo = await bg.checkCurrentManHourInfo(no);
+        const formIndex = manHourInfo["formIndex"];
         let iconElement = document.getElementById(e.target.id);
         iconElement.style.position = 'relative';
         iconElement.style.top = "2px";
@@ -164,62 +163,7 @@ document.addEventListener('click', async (e) =>{
                 ul.prepend(ul.lastElementChild);
             }
             ul.scrollLeft -= ul.clientWidth;
-        }else if(e.target.id == "arrow" + no + "-" + formIndex){
-            if(e.target.className.includes("up")){
-                //nop
-                closeEditTimeForm(no);
-            }else if (e.target.className.includes("down")){
-                let editIconElement = document.getElementById("edit" + no + "-" + formIndex);
-                editIconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
-                openEditTimeForm(no);
-            }
-        }else if(e.target.id == "save" + no + "-" + formIndex){
-            let hour = document.getElementById("hour"+no).value
-            let minute = document.getElementById("minute"+no).value
-            let second = document.getElementById("second"+no).value
-
-            // 入力された値が正しいかチェック 0 ~ 59の値
-            bg.timeCheck(hour, minute, second).then(() => {
-                let manHourName = document.getElementById("manHourName"+no).innerHTML
-                // 時間を該当のlocalStorageに保存
-                bg.updateTime(hour, minute, second, manHourName).then((time) => {
-                    // popup画面を最新の値に変更
-                    let manHourTime = document.getElementById("manHourTime"+no);
-                    manHourTime.innerHTML = getTime(time);
-                    let editFormErrorDiv = document.getElementById("edit-error-message"+ no + "-" + formIndex);
-                    if(editFormErrorDiv){
-                        editFormErrorDiv.remove();
-                    }
-                })
-            }).catch((e) => {
-                const error = e["error"]
-                let message;
-                if(error.includes("Hours")){
-                    message = "〇〇時には0~23の整数値のみ入力できます。"
-                }else if(error.includes("Minutes")){
-                    message = "〇〇分には0~59の整数値のみ入力できます。"
-                }else if(error.includes("Seconds")){
-                    message = "〇〇秒には0~59の整数値のみ入力できます。"
-                }
-                emmbeddingErrorMessage(message, "editFormErrorMessage" + no + "-" + formIndex, "error", "edit-error-message" + no + "-" + formIndex);
-            })
         }
-    }else if(e.target.id == "edit" + no + "-" + formIndex && !document.getElementById("manHourEditForm" + no + "-" + formIndex)){
-        let editIconElement = document.getElementById(e.target.id);
-        editIconElement.style.position = 'relative';
-        editIconElement.style.top = "2px";
-        setTimeout(() => {
-            editIconElement.style.top = "0px";
-        }, 100);
-        editIconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
-        openEditTimeForm(no);
-    }else if(e.target.id == "manHourName" + no + "-" + formIndex){
-        let manHourName = e.target.innerHTML
-        const parent = e.target.parentNode;
-        e.target.remove();
-        let child = document.createElement("input");
-        child.setAttribute("value",manHourName);
-        parent.appendChild(child);
     }
  });
 
