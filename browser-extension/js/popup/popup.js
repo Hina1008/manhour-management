@@ -142,6 +142,13 @@ document.addEventListener('click', async (e) =>{
             if(ul.lastElementChild == e.target.parentNode.parentNode.parentNode){
                 ul.appendChild(ul.firstElementChild);
             }
+            let manHourInfo = await bg.getManHourInfo(no);
+            let time = getTime(manHourInfo["time"] + manHourInfo["diffTime"]);
+            let homeTime = document.getElementById("manHourTime" + no + "-1");
+            let editTime = document.getElementById("manHourTime" + no + "-2");
+            homeTime.innerHTML = time;
+            editTime.innerHTML = time;
+
             ul.scrollLeft += ul.clientWidth;
         }else if(e.target.id == "left" + no + "-" + formIndex){
             // 左矢印を押した時の処理
@@ -150,6 +157,11 @@ document.addEventListener('click', async (e) =>{
             if(ul.firstElementChild == e.target.parentNode.parentNode.parentNode){
                 ul.prepend(ul.lastElementChild);
             }
+            let time = getTime(manHourInfo["time"] + manHourInfo["diffTime"]);
+            let homeTime = document.getElementById("manHourTime" + no + "-1");
+            let editTime = document.getElementById("manHourTime" + no + "-2");
+            homeTime.innerHTML = time;
+            editTime.innerHTML = time;
             ul.scrollLeft -= ul.clientWidth;
         }
     }
