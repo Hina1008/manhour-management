@@ -22,6 +22,14 @@ bg.pageCallUpdateInfo = async() => {
 		console.log("call pageCallUpdateInfo");
 		await Time();
 		let manHourInfo = await getLocalStorage();
+		const keys = Object.keys(manHourInfo);
+        for (let key of keys) {
+            if(key != "currentManHourIndex"  && key != "localStorage" && key != "startTime") {
+                console.log(key)
+				manHourInfo[key]["formIndex"] = 1;
+				await setLocalStorage(manHourInfo[key]["no"], manHourInfo[key]);
+            }
+        }
 		console.log(manHourInfo);
 		resolve(manHourInfo);
 	});
