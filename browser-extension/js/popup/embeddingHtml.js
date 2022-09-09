@@ -218,11 +218,11 @@ let createEditForm = (no, name, time, manHourInfoDiv) => {
             manHourControllerFormDiv
         );
 
-        // 停止アイコンの追加
+        // 変更アイコンの追加
         let stopImg = document.createElement("img"); // img要素作成
         setElement({
             "src": "/img/popup/change/change.png",
-            "id": "change" + no,
+            "id": "change" + no + "-2",
             "class": "controller-icon change"
             },
             stopImg,

@@ -163,6 +163,11 @@ document.addEventListener('click', async (e) =>{
             homeTime.innerHTML = time;
             editTime.innerHTML = time;
             ul.scrollLeft -= ul.clientWidth;
+        }else if(e.target.id == "change" + no + "-" + formIndex){
+            // 時間を変更するためのアイコンを押した時の処理
+            let time = document.getElementById("inputTime" + no + "-" + formIndex);
+            console.log(time.value)
+            await bg.Mock(time.value);
         }
     }
  });
