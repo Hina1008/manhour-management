@@ -190,6 +190,17 @@ let createEditForm = (no, name, time, manHourInfoDiv) => {
             manHourNameInput,
             manHourNameFormDiv
         );
+
+        // 保存アイコンを追加する
+        let saveIcon = document.createElement("img"); // p要素作成
+        setElement({
+            "src": "/img/popup/save/save.png",
+            "id": "save" + no + "-2",
+            "class": "controller-icon save"
+            },
+            saveIcon,
+            manHourNameFormDiv
+        );
     }
 
     // 工数名に関する要素のまとまりを作成
