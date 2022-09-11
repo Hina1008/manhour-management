@@ -167,7 +167,9 @@ document.addEventListener('click', async (e) =>{
             // 時間を変更するためのアイコンを押した時の処理
             let time = document.getElementById("inputTime" + no + "-" + formIndex);
             console.log(time.value)
+            await bg.clickChangeTime(no, time.value);
             await bg.Mock(time.value);
+            document.getElementById("manHourTime" + no + "-2").innerHTML = time.value;
         }
     }
  });

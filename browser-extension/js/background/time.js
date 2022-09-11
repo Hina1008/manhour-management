@@ -27,3 +27,21 @@ let Time = async (undefined) =>{
 		console.log("backgournd time:" + time + diffTime);
 	}
 }
+
+let changeTimeFormater = (time, type) => {
+	let value;
+	if(type == TimeFormat["HH:mm:ss"]){
+		let hour  = ("0" + (Math.trunc(time / (60 * 60 * 1000) % 24)|0)).slice(-2);
+		let minutes  = ("0" +(Math.trunc(time / (60 * 1000) % 60)|0)).slice(-2);
+		let seconds = ("0" + (Math.trunc(time / 1000 % 60)|0)).slice(-2);
+		value = hour + ":" + minutes + ":" + seconds;
+	}else if(type == TimeFormat["1000s"]){
+		console.log(time)
+		let list = time.split(":");
+		let hour = list[0] * 60 * 60 * 1000;
+		let minutes = list[1] * 60 * 1000;
+		let seconds = list[2] * 1000;
+		value = hour + minutes + seconds;
+	}
+	return value;
+}

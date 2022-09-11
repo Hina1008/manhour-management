@@ -11,6 +11,7 @@ importScripts("js/background/notification.js");
 importScripts("js/background/common.js");
 importScripts("js/background/enum/form.js");
 importScripts("js/background/seekForm.js");
+importScripts("js/background/enum/timeFormat.js");
 
 /**
  * ポップアップ画面が開かれたときに呼び出される処理
@@ -73,6 +74,22 @@ bg.getCurrentManHourInfo = async () => {
 			resolve(currentManHourInfo[index]);
 		}
 	})
+}
+
+/**
+ * 
+ * @param {*} no 
+ * @param {string} time HH:mm:ss
+ * @returns 
+ */
+bg.clickChangeTime = async (no, time) => {
+	console.log("call bg.clickChangeTime");
+	let storage = await getLocalStorage(no);
+	let editTime = changeTimeFormater(time, "1000s");
+	storage[no]["diffTime"] = 0;
+	storage[no]["time"] = editTime;
+	await setLocalStorage("startTime", new Date().getTime());
+	await setLocalStorage(no, storage[no]);
 }
 
 /**
