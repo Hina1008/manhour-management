@@ -186,6 +186,21 @@ bg.clickDeleteIcon = async(no, undefined) => {
 	await removeContextMenus(no);
 }
 
+bg.clickSaveIcon = async (no, manHourName) =>{
+	let storage = await getLocalStorage(no);
+	storage[no]["name"] = manHourName;
+	await setLocalStorage(no, storage[no]);
+	await removeContextMenus(no);
+	createContextMenus({
+		"id": no.toString(),
+		"title" : manHourName.replace("&","＆"),
+		"parentId": "manhour-management",
+		"type" : "normal",
+		"contexts" : ["all"]
+	});
+
+}
+
 /**
  * リセットボタンを押した時の処理
  * @param {} undefined 

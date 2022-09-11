@@ -146,8 +146,10 @@ document.addEventListener('click', async (e) =>{
             let time = getTime(manHourInfo["time"] + manHourInfo["diffTime"]);
             let homeTime = document.getElementById("manHourTime" + no + "-1");
             let editTime = document.getElementById("manHourTime" + no + "-2");
+            let homeManHourName = document.getElementById("manHourName" + no + "-1");
             homeTime.innerHTML = time;
             editTime.innerHTML = time;
+            homeManHourName.innerHTML = manHourInfo["name"];
 
             ul.scrollLeft += ul.clientWidth;
         }else if(e.target.id == "left" + no + "-" + formIndex){
@@ -160,8 +162,11 @@ document.addEventListener('click', async (e) =>{
             let time = getTime(manHourInfo["time"] + manHourInfo["diffTime"]);
             let homeTime = document.getElementById("manHourTime" + no + "-1");
             let editTime = document.getElementById("manHourTime" + no + "-2");
+            let homeManHourName = document.getElementById("manHourName" + no + "-1");
             homeTime.innerHTML = time;
             editTime.innerHTML = time;
+            homeManHourName.innerHTML = manHourInfo["name"];
+
             ul.scrollLeft -= ul.clientWidth;
         }else if(e.target.id == "change" + no + "-" + formIndex){
             // 時間を変更するためのアイコンを押した時の処理
@@ -170,6 +175,10 @@ document.addEventListener('click', async (e) =>{
             await bg.clickChangeTime(no, time.value);
             await bg.Mock(time.value);
             document.getElementById("manHourTime" + no + "-2").innerHTML = time.value;
+        }else if(e.target.id == "save" + no + "-" + formIndex){
+            // 保存アイコンを押した時の処理
+            let manHourName = document.getElementById("manHourName" + no + "-" + formIndex).value;
+            await bg.clickSaveIcon(no, manHourName)
         }
     }
  });
