@@ -207,7 +207,7 @@ bg.clickResetButton = async(undefined) => {
 					"time":0, 
 					"no":manHourInfo[key]["no"], 
 					"diffTime":0,
-					"formIndex":1
+					"formIndex":manHourInfo[key]["formIndex"]
 				});
 			}
 		}
