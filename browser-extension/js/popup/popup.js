@@ -1,5 +1,5 @@
 import {bg} from './backgroundCaller.js';
-import {embeddingManHour, emmbeddingErrorMessage, deleteErrorMessage} from'./embeddingHtml.js';
+import {embeddingManHour, emmbeddingErrorMessage, removeErrorMessage,deleteErrorMessage} from'./embeddingHtml.js';
 import {seekIcon} from './seekId.js';
 
 let intervalForTimer;
@@ -57,6 +57,15 @@ let getTime =(time) => {
 	return text;
 };
 
+let clickIcon = (id) => {
+    let iconElement = document.getElementById(id);
+        iconElement.style.position = 'relative';
+        iconElement.style.top = "2px";
+        setTimeout(() => {
+            iconElement.style.top = "0px";
+        }, 100);
+}
+
 
 document.addEventListener('DOMContentLoaded', function() {
     // 追加ボタンを押したとき
@@ -112,12 +121,7 @@ document.addEventListener('click', async (e) =>{
         const no = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
         const manHourInfo = await bg.checkCurrentManHourInfo(no);
         const formIndex = manHourInfo["formIndex"];
-        let iconElement = document.getElementById(e.target.id);
-        iconElement.style.position = 'relative';
-        iconElement.style.top = "2px";
-        setTimeout(() => {
-            iconElement.style.top = "0px";
-        }, 100);
+        clickIcon(e.target.id);
         if(e.target.id == "start" + no + "-" + formIndex){
             // 再生ボタンを押したときの処理
             let manHourName = document.getElementById("manHourName" + no + "-" + formIndex).innerHTML;
@@ -178,8 +182,19 @@ document.addEventListener('click', async (e) =>{
         }else if(e.target.id == "save" + no + "-" + formIndex){
             // 保存アイコンを押した時の処理
             let manHourName = document.getElementById("manHourName" + no + "-" + formIndex).value;
-            await bg.clickSaveIcon(no, manHourName)
+            if(manHourName){
+                await bg.clickSaveIcon(no, manHourName);
+            }else{
+                emmbeddingErrorMessage("空白は設定できません。", "message"+no, "edit-error", "errorContent" + no, no);
+            }
         }
+    }else if(e.target.className.includes("delete-error-message-icon")){
+        const no = e.target.parentNode.parentNode.parentNode.id;
+        const manHourInfo = await bg.checkCurrentManHourInfo(no);
+        const formIndex = manHourInfo["formIndex"];
+        clickIcon(e.target.id);
+    }else if(e.target.className.includes("delete-add-error-message-icon")){
+        clickIcon(e.target.id);
     }
  });
 

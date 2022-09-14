@@ -26,3 +26,16 @@
     grid-row-start:2;
     align-self: center;
 }
+
+.hscroll .message-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 230px;
+    height: 30px;
+    line-height: 30px;
+    background-color: crimson;
+    border-radius: 30px;
+    margin-left:70px;
+    /* background-color:crimson */
+}

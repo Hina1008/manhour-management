@@ -19,6 +19,8 @@ export let seekIcon = (target) => {
         value = Icon.left;
     }else if(id.includes(Icon.change)){
         value = Icon.change;
+    }else if(id.includes(Icon.close)){
+        value = Icon.close;
     }else if (id.includes(Icon.arrow)){
         const className = target.className;
         if(className.includes(Arrow.up)){

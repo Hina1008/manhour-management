@@ -330,6 +330,20 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
     // 編集フォームを作成
     createEditForm(no, name, time, manHourInfoDiv);
 
+
+    let createErrorElements = () => {
+        // 工数名毎に区切る用の横線のDivを追加する
+        let errorDiv = document.createElement("div"); // div要素作成
+        setElement({
+            "id": "message" + no,
+            },
+            errorDiv,
+            manHourDiv
+        );
+    }
+
+    createErrorElements();
+
     let createLineElements = () => {
         // 工数名毎に区切る用の横線のDivを追加する
         let lineDiv = document.createElement("div"); // div要素作成
@@ -361,11 +375,51 @@ export let deleteErrorMessage = (parent) =>{
     }
 }
 
-export let emmbeddingErrorMessage = (message, id, className, idName) => {
+export let emmbeddingErrorMessage = (message, id, className, idName, no) => {
     let divElement = document.getElementById(id);
 
     // エラーメッセージが既に表示されていたら削除する
     deleteErrorMessage(divElement);
+    let errorFormDiv;
+    if(no){
+        errorFormDiv = document.createElement("div"); // div要素作成
+        setElement({
+            "id": "messageForm" + no,
+            "class":"message-form"
+            },
+            errorFormDiv,
+            divElement
+        )
+
+        let closeImg = document.createElement("img");
+        setElement({
+            "src": "/img/popup/close/close.png",
+            "id": "close" + no,
+            "class": "delete-error-message-icon close"
+            },
+            closeImg,
+            errorFormDiv
+        )
+    }else{
+        errorFormDiv = document.createElement("div"); // div要素作成
+        setElement({
+            "id": "messageForm",
+            "class":"message-form"
+            },
+            errorFormDiv,
+            divElement
+        )
+
+        let closeImg = document.createElement("img");
+        setElement({
+            "src": "/img/popup/close/close.png",
+            "id": "close",
+            "class": "delete-add-error-message-icon close"
+            },
+            closeImg,
+            errorFormDiv
+        )
+    }
 
     let pElement = document.createElement("p"); // p要素作成
     let errorMessage = document.createTextNode(message); // テキストノードを作成
@@ -375,6 +429,11 @@ export let emmbeddingErrorMessage = (message, id, className, idName) => {
         "class": className
         },
         pElement,
-        divElement
+        errorFormDiv
     );
+}
+
+export let removeErrorMessage = (id) => {
+    let errorMessageElement = document.getElementById(id).parentNode;
+    errorMessageElement.removeChild(errorMessageElement.firstChild);
 }
