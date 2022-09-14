@@ -370,8 +370,12 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
 
 export let deleteErrorMessage = (parent) =>{
     // エラーメッセージが既に表示されていたら削除する
-    while(parent.lastChild){
-        parent.removeChild(parent.lastChild);
+    console.log(parent)
+    let hasChild = parent.hasChildNodes();
+    if(hasChild){
+        while(parent.lastChild){
+            parent.removeChild(parent.lastChild);
+        }
     }
 }
 

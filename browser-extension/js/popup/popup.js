@@ -154,7 +154,9 @@ document.addEventListener('click', async (e) =>{
             homeTime.innerHTML = time;
             editTime.innerHTML = time;
             homeManHourName.innerHTML = manHourInfo["name"];
-
+            deleteErrorMessage(
+                document.getElementById("message" + no)
+            );
             ul.scrollLeft += ul.clientWidth;
         }else if(e.target.id == "left" + no + "-" + formIndex){
             // 左矢印を押した時の処理
@@ -169,6 +171,9 @@ document.addEventListener('click', async (e) =>{
             let homeManHourName = document.getElementById("manHourName" + no + "-1");
             homeTime.innerHTML = time;
             editTime.innerHTML = time;
+            deleteErrorMessage(
+                document.getElementById("message" + no)
+            );
             homeManHourName.innerHTML = manHourInfo["name"];
 
             ul.scrollLeft -= ul.clientWidth;
