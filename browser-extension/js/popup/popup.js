@@ -187,10 +187,12 @@ document.addEventListener('click', async (e) =>{
         }else if(e.target.id == "save" + no + "-" + formIndex){
             // 保存アイコンを押した時の処理
             let manHourName = document.getElementById("manHourName" + no + "-" + formIndex).value;
-            if(manHourName){
-                await bg.clickSaveIcon(no, manHourName);
-            }else{
+            if(manHourName.includes("＆")){
+                emmbeddingErrorMessage("全角＆は設定できません。", "message"+no, "edit-error", "errorContent" + no, no);
+            }else if(!manHourName){
                 emmbeddingErrorMessage("空白は設定できません。", "message"+no, "edit-error", "errorContent" + no, no);
+            }else{
+                await bg.clickSaveIcon(no, manHourName);
             }
         }
     }else if(e.target.className.includes("delete-error-message-icon")){
@@ -198,8 +200,20 @@ document.addEventListener('click', async (e) =>{
         const manHourInfo = await bg.checkCurrentManHourInfo(no);
         const formIndex = manHourInfo["formIndex"];
         clickIcon(e.target.id);
+        if(e.target.id == "close" + no){
+            // 閉じるボタンを押したときの処理
+            deleteErrorMessage(
+                document.getElementById("message" + no)
+            );
+        }
     }else if(e.target.className.includes("delete-add-error-message-icon")){
         clickIcon(e.target.id);
+        if(e.target.id == "close"){
+            // 閉じるボタンを押したときの処理
+            deleteErrorMessage(
+                document.getElementById("errorMessage")
+            );
+        }
     }
  });
 
