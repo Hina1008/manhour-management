@@ -85,9 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }).catch(async (error) => {
             let message;
             console.log(error["error"]);
-            if (error["error"] == "duplication"){
-                message = value + " は既に登録されています。";
-            }else if(error["error"] == "forbidden word"){
+            if(error["error"] == "forbidden word"){
                 message = "全角「＆」 は使用できません。"
             }else if(error["error"] == "empty"){
                 message = "工数名が空です。 工数名を入力してください。"

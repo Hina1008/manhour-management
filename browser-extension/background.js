@@ -314,10 +314,7 @@ bg.clickAddButton = async(value, undefined) => {
 		let manHourNames = Object.entries(manHourInfo).map(
 			([key,value]) => manHourInfo[key]["name"]
 			).filter(Boolean)
-		if (manHourNames.includes(value)){
-			reject("duplication");
-			return;
-		}else if(value.includes("＆")){
+		if(value.includes("＆")){
 			reject("forbidden word");
 			return;
 		}else if(value ===""){
