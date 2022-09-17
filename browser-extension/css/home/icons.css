@@ -1,0 +1,17 @@
+.start{
+    margin-right: 2px;
+    text-align: left;
+}
+
+.stop{
+    margin-right: 10px;
+    text-align: left;
+}
+
+.delete{
+    margin-right: 110px;
+    margin-left:20px;
+    text-align: left;
+    height: 16px;
+    width: 16px;
+}

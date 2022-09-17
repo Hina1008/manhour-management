@@ -12,24 +12,6 @@
     text-align: left;
 }
 
-.start{
-    margin-right: 2px;
-    text-align: left;
-}
-
-.stop{
-    margin-right: 10px;
-    text-align: left;
-}
-
-.delete{
-    margin-right: 110px;
-    margin-left:20px;
-    text-align: left;
-    height: 16px;
-    width: 16px;
-}
-
 .down{
     margin-right: 6px;
     text-align: left;
@@ -80,18 +62,6 @@
     width: 20px;
     text-align: left;
     margin-left: 10px;
-}
-
-.save{
-    margin-left: 10px;
-}
-
-.change{
-    margin-right: 15px;
-    margin-left:10px;
-    text-align: left;
-    height: 16px;
-    width: 16px;
 }
 
 .close{
