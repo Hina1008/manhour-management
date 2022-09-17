@@ -1,5 +1,5 @@
 import {bg} from './backgroundCaller.js';
-import {embeddingManHour, emmbeddingErrorMessage, removeErrorMessage,deleteErrorMessage} from'./embeddingHtml.js';
+import {embeddingManHour, embeddingAlertMessage} from'./embeddingHtml.js';
 import {seekIcon} from './seekId.js';
 
 let intervalForTimer;
@@ -78,9 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 result, 
                 "00:00:00", 
                 rootDiv);
-            deleteErrorMessage(
-                document.getElementById("errorMessage")
-            );
+            embeddingAlertMessage("工数が追加されました。", "info");
 
         }).catch(async (error) => {
             let message;
@@ -90,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }else if(error["error"] == "empty"){
                 message = "工数名が空です。 工数名を入力してください。"
             } 
-            emmbeddingErrorMessage(message, "errorMessage", "error", "error-content");
+            embeddingAlertMessage(message, "error");
             const useNotification = await bg.getOptionValue("notification")
             if (useNotification){
                 bg.notification(value, value + 'は既に登録されています。');
@@ -152,9 +150,6 @@ document.addEventListener('click', async (e) =>{
             homeTime.innerHTML = time;
             editTime.innerHTML = time;
             homeManHourName.innerHTML = manHourInfo["name"];
-            deleteErrorMessage(
-                document.getElementById("message" + no)
-            );
             ul.scrollLeft += ul.clientWidth;
         }else if(e.target.id == "left" + no + "-" + formIndex){
             // 左矢印を押した時の処理
@@ -169,11 +164,7 @@ document.addEventListener('click', async (e) =>{
             let homeManHourName = document.getElementById("manHourName" + no + "-1");
             homeTime.innerHTML = time;
             editTime.innerHTML = time;
-            deleteErrorMessage(
-                document.getElementById("message" + no)
-            );
             homeManHourName.innerHTML = manHourInfo["name"];
-
             ul.scrollLeft -= ul.clientWidth;
         }else if(e.target.id == "change" + no + "-" + formIndex){
             // 時間を変更するためのアイコンを押した時の処理
@@ -183,28 +174,10 @@ document.addEventListener('click', async (e) =>{
                 await bg.updateTime(no, time.value);
                 // await bg.Mock(time.value);
                 document.getElementById("manHourTime" + no + "-2").innerHTML = time.value;
+                embeddingAlertMessage("時間が変更されました。", "info");
             }).catch((result) => {
-                emmbeddingErrorMessage("時間の入力値が不正です。", "message"+no, "edit-error", "errorContent" + no, no);
-            })
-        }
-    }else if(e.target.className.includes("delete-error-message-icon")){
-        const no = e.target.parentNode.parentNode.parentNode.id;
-        const manHourInfo = await bg.checkCurrentManHourInfo(no);
-        const formIndex = manHourInfo["formIndex"];
-        clickIcon(e.target.id);
-        if(e.target.id == "close" + no){
-            // 閉じるボタンを押したときの処理
-            deleteErrorMessage(
-                document.getElementById("message" + no)
-            );
-        }
-    }else if(e.target.className.includes("delete-add-error-message-icon")){
-        clickIcon(e.target.id);
-        if(e.target.id == "close"){
-            // 閉じるボタンを押したときの処理
-            deleteErrorMessage(
-                document.getElementById("errorMessage")
-            );
+                embeddingAlertMessage("時間の入力値が不正です。", "error");
+            });
         }
     }
  });
@@ -218,11 +191,12 @@ document.addEventListener('click', async (e) =>{
             const formIndex = manHourInfo["formIndex"];
             let manHourName = document.getElementById("manHourName" + no + "-" + formIndex).value;
             if(manHourName.includes("＆")){
-                emmbeddingErrorMessage("全角＆は設定できません。", "message"+no, "edit-error", "errorContent" + no, no);
+                embeddingAlertMessage("全角＆は設定できません。", "error");
             }else if(!manHourName){
-                emmbeddingErrorMessage("空白は設定できません。", "message"+no, "edit-error", "errorContent" + no, no);
+                embeddingAlertMessage("空白は設定できません。", "error");
             }else{
                 await bg.clickSaveIcon(no, manHourName);
+                embeddingAlertMessage("工数名が変更されました。", "info");
             }
         }
 	}  
@@ -236,9 +210,6 @@ document.addEventListener('click', async (e) =>{
     if(icon !== undefined){
         console.log(icon)
         const no = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
-        if(icon == "edit" && document.getElementById("manHourEditForm" + no + "-" + formIndex)){
-            return ;
-        }
         iconElement.setAttribute("src", "/img/popup/" + icon + "/" + icon + "_white.png")
     }
  });
@@ -250,13 +221,6 @@ document.addEventListener('click', async (e) =>{
     let icon = seekIcon(e.target);
     if(icon !== undefined){
         console.log(icon)
-        if(icon == "edit"){
-            const no = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
-            if(document.getElementById("manHourEditForm" + no)){
-                iconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
-                return;
-            }
-        }
         iconElement.setAttribute("src", "/img/popup/" + icon + "/" + icon + ".png")
     }
  });

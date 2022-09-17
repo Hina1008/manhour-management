@@ -4,6 +4,7 @@
   <title>工数チェッカー</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="css/popup.css">
+  <link rel="stylesheet" href="css/alert.css">
   <link rel="stylesheet" href="css/line.css">
   <link rel="stylesheet" href="css/form.css">
   <link rel="stylesheet" href="css/hscroll.css">
@@ -19,6 +20,8 @@
   <!-- タイトル -->
   <header id="header">
     <div id="fixedHeader">
+      <div id="alert">
+      </div>
       <h1 id="title">MAN-HOUR <br> MANAGEMENT</h1>
       <div align="center">
         <button type="button" class="reset button">reset</button>
@@ -45,8 +48,6 @@
     <div align="center">
       <button type="button" class="add button">add</button>
     </div>
-
-    <div id="errorMessage"></div>
 
     <script type="module" src="js/popup/popup.js"></script>
 

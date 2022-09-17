@@ -34,6 +34,8 @@ body {
     color:#708090;
     background-color: #333333;
     margin-bottom: 5px;
+    position: relative;
+    z-index: 3;
 }
 
 #addTitle{
