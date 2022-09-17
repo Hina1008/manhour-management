@@ -4,6 +4,11 @@
     font-size: 18px;
     margin-top: 0;
     margin-bottom: 0;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #708090;
+    background-color: #333333;
+    padding: 3px 5px;
 }
 
 .input-time{
