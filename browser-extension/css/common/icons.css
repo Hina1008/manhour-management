@@ -12,13 +12,6 @@
     text-align: left;
 }
 
-.side-arrow{
-  /* 子要素のタイトルを aboslute 配置するため必要 */
-  margin-top:5px;
-  display: flex;
-  justify-content: space-between;
-}
-
 .left{
     height: 24px;
     width: 24px;
@@ -45,8 +38,4 @@
 #errorMessage .message-form .close{
     margin-left:15px;
     margin-right: 10px;
-}
-
-.manHour-controller{
-    text-align:right;
 }
