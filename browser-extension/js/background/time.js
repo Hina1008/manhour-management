@@ -45,3 +45,10 @@ let changeTimeFormater = (time, type) => {
 	}
 	return value;
 }
+
+let checkEnabledTime = (time) => {
+	if(time.split(":").length ==3){
+		return true;
+	}
+	return false;
+}

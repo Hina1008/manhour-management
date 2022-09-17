@@ -76,14 +76,25 @@ bg.getCurrentManHourInfo = async () => {
 	})
 }
 
+
+bg.isEnabledTime = async (time) => {
+	console.log("call bg.isEnabledTime");
+	return new Promise((resolve, reject) => {
+		if(checkEnabledTime(time)){
+			resolve(true);
+			return;
+		}
+		reject(false);
+	});
+}
 /**
  * 
  * @param {*} no 
  * @param {string} time HH:mm:ss
  * @returns 
  */
-bg.clickChangeTime = async (no, time) => {
-	console.log("call bg.clickChangeTime");
+bg.updateTime = async (no, time) => {
+	console.log("call bg.updateTime");
 	let storage = await getLocalStorage(no);
 	let editTime = changeTimeFormater(time, "1000s");
 	storage[no]["diffTime"] = 0;

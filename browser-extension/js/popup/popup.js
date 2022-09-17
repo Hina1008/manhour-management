@@ -179,9 +179,13 @@ document.addEventListener('click', async (e) =>{
             // 時間を変更するためのアイコンを押した時の処理
             let time = document.getElementById("inputTime" + no + "-" + formIndex);
             console.log(time.value)
-            await bg.clickChangeTime(no, time.value);
-            await bg.Mock(time.value);
-            document.getElementById("manHourTime" + no + "-2").innerHTML = time.value;
+            bg.isEnabledTime(time.value).then(async (result) =>{
+                await bg.updateTime(no, time.value);
+                // await bg.Mock(time.value);
+                document.getElementById("manHourTime" + no + "-2").innerHTML = time.value;
+            }).catch((result) => {
+                emmbeddingErrorMessage("時間の入力値が不正です。", "message"+no, "edit-error", "errorContent" + no, no);
+            })
         }else if(e.target.id == "save" + no + "-" + formIndex){
             // 保存アイコンを押した時の処理
             let manHourName = document.getElementById("manHourName" + no + "-" + formIndex).value;
