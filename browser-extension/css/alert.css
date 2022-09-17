@@ -14,14 +14,27 @@
 
 .alert-info{
     background-color:rgb(190, 231, 178);
+    animation: fadein-keyframes 2s ease 0.2s 1 forwards;
 }
 
 .alert-warning{
     background-color:rgb(231, 231, 178);
+    animation: fadein-keyframes 3s ease 0.2s 1 forwards;
 }
 
 .alert-error{
     background-color:rgb(231, 178, 178);
+    animation: fadein-keyframes 4s ease 0.2s 1 forwards;
+}
+
+@keyframes fadein-keyframes {
+    0% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
 }
 
 .alert-icon{

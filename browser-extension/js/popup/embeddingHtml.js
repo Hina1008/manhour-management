@@ -1,8 +1,12 @@
-export let setElement = (attribute, childElement, parentElement) => {
+export let setElement = (attribute, childElement, parentElement, type) => {
     Object.keys(attribute).map(key => 
         childElement.setAttribute(key,attribute[key])
     );
-    parentElement.appendChild(childElement);
+    if(type == "prepend"){
+        parentElement.prepend(childElement);
+    }else{
+        parentElement.appendChild(childElement);
+    }
 }
 
 let createHomeForm = (no, name, time, manHourInfoDiv) => {
@@ -423,6 +427,47 @@ export let emmbeddingErrorMessage = (message, id, className, idName, no) => {
         },
         pElement,
         errorFormDiv
+    );
+}
+
+export let embeddingAlertMessage = (message, severity) =>{
+    let alertElement = document.getElementById("alert");
+
+    let childElement = document.getElementById("alert"+severity);
+    if(childElement){
+        alertElement.removeChild(childElement);
+    }
+
+    let alertSeverityElement = document.createElement("div");
+    setElement({
+        "id": "alert"+severity,
+        "class": "alert-" + severity + " alert-form"
+        },
+        alertSeverityElement,
+        alertElement,
+        "prepend"
+    );
+
+    let properSeverity = severity.charAt(0).toUpperCase() + severity.slice(1).toLowerCase();
+    let alertIconElement = document.createElement("img");
+    setElement({
+        "src": "img/popup/alert/" + severity + ".png",
+        "id": "alert" + properSeverity + "Icon",
+        "class": "alert-icon"
+        },
+        alertIconElement,
+        alertSeverityElement
+    );
+
+    let alertMessageElement = document.createElement("p");
+    let alertMessageNode = document.createTextNode(message); // テキストノードを作成
+    alertMessageElement.appendChild(alertMessageNode); // p要素にテキストノードを追加
+    setElement({
+        "id": severity + "Message",
+        "class": severity + "-message alert-message"
+        },
+        alertMessageElement,
+        alertSeverityElement
     );
 }
 

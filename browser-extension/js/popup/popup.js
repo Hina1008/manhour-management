@@ -1,5 +1,5 @@
 import {bg} from './backgroundCaller.js';
-import {embeddingManHour, emmbeddingErrorMessage, removeErrorMessage,deleteErrorMessage} from'./embeddingHtml.js';
+import {embeddingManHour, emmbeddingErrorMessage, removeErrorMessage, deleteErrorMessage, embeddingAlertMessage} from'./embeddingHtml.js';
 import {seekIcon} from './seekId.js';
 
 let intervalForTimer;
@@ -219,10 +219,13 @@ document.addEventListener('click', async (e) =>{
             let manHourName = document.getElementById("manHourName" + no + "-" + formIndex).value;
             if(manHourName.includes("＆")){
                 emmbeddingErrorMessage("全角＆は設定できません。", "message"+no, "edit-error", "errorContent" + no, no);
+                embeddingAlertMessage("全角＆は設定できません。", "error");
             }else if(!manHourName){
                 emmbeddingErrorMessage("空白は設定できません。", "message"+no, "edit-error", "errorContent" + no, no);
+                embeddingAlertMessage("空白は設定できません。", "error");
             }else{
                 await bg.clickSaveIcon(no, manHourName);
+                embeddingAlertMessage("工数名が変更されました。", "info");
             }
         }
 	}  
