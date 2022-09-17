@@ -185,8 +185,10 @@ document.addEventListener('click', async (e) =>{
                 await bg.updateTime(no, time.value);
                 // await bg.Mock(time.value);
                 document.getElementById("manHourTime" + no + "-2").innerHTML = time.value;
+                embeddingAlertMessage("時間が変更されました。", "info");
             }).catch((result) => {
                 emmbeddingErrorMessage("時間の入力値が不正です。", "message"+no, "edit-error", "errorContent" + no, no);
+                embeddingAlertMessage("時間の入力値が不正です。", "error");
             })
         }
     }else if(e.target.className.includes("delete-error-message-icon")){
