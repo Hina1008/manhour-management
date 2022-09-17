@@ -17,16 +17,17 @@
 </head>
 <body>
   <!-- タイトル -->
-  <header>
-    <h1 id="title">MAN-HOUR <br> MANAGEMENT</h1>
+  <header id="header">
+    <div id="fixedHeader">
+      <h1 id="title">MAN-HOUR <br> MANAGEMENT</h1>
+      <div align="center">
+        <button type="button" class="reset button">reset</button>
+        <button type="button" class="all-stop button">all stop</button>
+      </div>
+      <hr class="hr2">
+    </div>
   </header>
 
-  <div align="center">
-    <button type="button" class="reset button">reset</button>
-    <button type="button" class="all-stop button">all stop</button>
-  </div>
-
-  <hr class="hr2">
   <!-- 工数の内容と各時間 -->
     
   <div id = "root"></div>

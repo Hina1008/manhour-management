@@ -1,8 +1,27 @@
 body {
     width: 400px;
-    background-color: #333333;
+    background: #333333;
     font-family: "Helvetica Neue" ;
 }
+
+#header {
+    height: 130px;/*高さ指定*/
+	width:100%;/*横幅指定*/
+    /* background-color: #333333; */
+}
+
+#fixedHeader{
+    position: fixed;  
+    width: 100%;
+    height: 130px;
+    text-align: center;
+    background-color: #333333;
+}
+
+#fixedHeader.fixed{
+    top:0;
+    z-index: 1;/*前面へ*/
+  }
 
 #title {
     text-align:center;

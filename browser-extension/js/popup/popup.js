@@ -260,3 +260,26 @@ document.addEventListener('click', async (e) =>{
         iconElement.setAttribute("src", "/img/popup/" + icon + "/" + icon + ".png")
     }
  });
+
+
+//スクロールすると上部に固定させるための設定を関数でまとめる
+function FixedAnime() {
+	var scroll = window.scrollY;
+	if (scroll >= 15){//headerの高さ以上になったら
+			//fixedというクラス名を付与
+            document.getElementById("fixedHeader").classList.add("fixed")
+		}else{
+			//fixedというクラス名を除去
+            document.getElementById("fixedHeader").classList.remove("fixed")
+		}
+}
+
+// 画面をスクロールをしたら動かしたい場合の記述
+window.onscroll = () =>{
+    FixedAnime();
+  };
+
+// ページが読み込まれたらすぐに動かしたい場合の記述
+window.onload = () => {
+	FixedAnime();/* スクロール途中からヘッダーを出現させる関数を呼ぶ*/
+};
