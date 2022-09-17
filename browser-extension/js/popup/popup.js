@@ -186,16 +186,6 @@ document.addEventListener('click', async (e) =>{
             }).catch((result) => {
                 emmbeddingErrorMessage("時間の入力値が不正です。", "message"+no, "edit-error", "errorContent" + no, no);
             })
-        }else if(e.target.id == "save" + no + "-" + formIndex){
-            // 保存アイコンを押した時の処理
-            let manHourName = document.getElementById("manHourName" + no + "-" + formIndex).value;
-            if(manHourName.includes("＆")){
-                emmbeddingErrorMessage("全角＆は設定できません。", "message"+no, "edit-error", "errorContent" + no, no);
-            }else if(!manHourName){
-                emmbeddingErrorMessage("空白は設定できません。", "message"+no, "edit-error", "errorContent" + no, no);
-            }else{
-                await bg.clickSaveIcon(no, manHourName);
-            }
         }
     }else if(e.target.className.includes("delete-error-message-icon")){
         const no = e.target.parentNode.parentNode.parentNode.id;
