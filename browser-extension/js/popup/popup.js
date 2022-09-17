@@ -186,16 +186,6 @@ document.addEventListener('click', async (e) =>{
             }).catch((result) => {
                 emmbeddingErrorMessage("時間の入力値が不正です。", "message"+no, "edit-error", "errorContent" + no, no);
             })
-        }else if(e.target.id == "save" + no + "-" + formIndex){
-            // 保存アイコンを押した時の処理
-            let manHourName = document.getElementById("manHourName" + no + "-" + formIndex).value;
-            if(manHourName.includes("＆")){
-                emmbeddingErrorMessage("全角＆は設定できません。", "message"+no, "edit-error", "errorContent" + no, no);
-            }else if(!manHourName){
-                emmbeddingErrorMessage("空白は設定できません。", "message"+no, "edit-error", "errorContent" + no, no);
-            }else{
-                await bg.clickSaveIcon(no, manHourName);
-            }
         }
     }else if(e.target.className.includes("delete-error-message-icon")){
         const no = e.target.parentNode.parentNode.parentNode.id;
@@ -217,6 +207,25 @@ document.addEventListener('click', async (e) =>{
             );
         }
     }
+ });
+
+ let root = document.getElementById("root");
+ root.addEventListener('keypress',  async (e, undefined) =>{
+    if (e.key === "Enter") {
+        if(e.target.className == "input-manhour-name"){
+            const no = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
+            const manHourInfo = await bg.checkCurrentManHourInfo(no);
+            const formIndex = manHourInfo["formIndex"];
+            let manHourName = document.getElementById("manHourName" + no + "-" + formIndex).value;
+            if(manHourName.includes("＆")){
+                emmbeddingErrorMessage("全角＆は設定できません。", "message"+no, "edit-error", "errorContent" + no, no);
+            }else if(!manHourName){
+                emmbeddingErrorMessage("空白は設定できません。", "message"+no, "edit-error", "errorContent" + no, no);
+            }else{
+                await bg.clickSaveIcon(no, manHourName);
+            }
+        }
+	}  
  });
 
  // マウスが要素上にあるときの処理

@@ -17,76 +17,9 @@ body {
     margin-bottom: 5px;
 }
 
-.man-hour-name{
-    color:#708090;
-    font-size: 18px;
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-.time{
-    color:#c0c0c0;
-    font-size: 32px;
-    text-align: right;
-    margin-top: 0;
-    margin-bottom:0;
-    margin-left:3px;
-    display:inline-block;
-    /* vertical-align: bottom; */
-}
-
-.man-hour-edit-form{
-    display: block;
-    text-align: right;
-}
-
-.time-edit{
-    width: 28px;
-    font-size: 24px;
-    border: none;
-    box-shadow: 0 0 0 1px #ccc inset;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-
-.colon{
-    font-size: 32px;
-    margin-left:3px;
-    margin-right:3px;
-    color:#c0c0c0;
-    display: inline;
-}
-
-.edit-form{
-    text-align:right;
-    color:#c0c0c0;
-}
-
-.input-manhour-name{
-    margin-left:20px;
-    color:#708090;
-    font-size: 18px;
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-.input-time{
-    margin-left:20px;
-    margin-right: 10px;
-    font-size: 18px;
-    width:auto;
-    height:auto;
-    color:#708090;
-}
-
 #addTitle{
     color:#708090;
     margin-right:10px;
-}
-
-.edit-form-error-message{
-    text-align: right;
 }
 
 .error{
@@ -94,15 +27,6 @@ body {
     color:white;
     margin-left: 10px;
     text-align: center;
-}
-
-.edit-error{
-    font-size: 16px;
-    /* background-color:crimson;
-    color:white; */
-    /* color:crimson; */
-    color:white;
-    text-align:center;
 }
 
 #errorMessage .message-form{

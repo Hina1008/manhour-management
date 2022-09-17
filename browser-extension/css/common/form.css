@@ -1,0 +1,19 @@
+.time{
+    color:#c0c0c0;
+    font-size: 32px;
+    text-align: right;
+    margin-top: 0;
+    margin-bottom:0;
+    margin-left:3px;
+    display:inline-block;
+    /* vertical-align: bottom; */
+}
+
+.edit-error{
+    font-size: 16px;
+    /* background-color:crimson;
+    color:white; */
+    /* color:crimson; */
+    color:white;
+    text-align:center;
+}

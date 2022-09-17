@@ -1,0 +1,21 @@
+.input-manhour-name{
+    margin-left:20px;
+    color:#708090;
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 0;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #708090;
+    background-color: #333333;
+    padding: 3px 5px;
+}
+
+.input-time{
+    margin-left:20px;
+    margin-right: 10px;
+    font-size: 18px;
+    width:auto;
+    height:auto;
+    color:#708090;
+}
