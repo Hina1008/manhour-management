@@ -210,9 +210,6 @@ document.addEventListener('click', async (e) =>{
     if(icon !== undefined){
         console.log(icon)
         const no = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
-        if(icon == "edit" && document.getElementById("manHourEditForm" + no + "-" + formIndex)){
-            return ;
-        }
         iconElement.setAttribute("src", "/img/popup/" + icon + "/" + icon + "_white.png")
     }
  });
@@ -224,13 +221,6 @@ document.addEventListener('click', async (e) =>{
     let icon = seekIcon(e.target);
     if(icon !== undefined){
         console.log(icon)
-        if(icon == "edit"){
-            const no = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
-            if(document.getElementById("manHourEditForm" + no)){
-                iconElement.setAttribute("src","/img/popup/edit/edit_disabled.png");
-                return;
-            }
-        }
         iconElement.setAttribute("src", "/img/popup/" + icon + "/" + icon + ".png")
     }
  });

@@ -1,4 +1,4 @@
-import {Icon, Arrow} from './enum/icon.js';
+import {Icon} from './enum/icon.js';
 
 export let seekIcon = (target) => {
     let value;
@@ -9,25 +9,12 @@ export let seekIcon = (target) => {
         value = Icon.stop;
     }else if (id.includes(Icon.delete)){
         value = Icon.delete;
-    }else if (id.includes(Icon.edit)){
-        value = Icon.edit;
-    }else if (id.includes(Icon.save)){
-        value = Icon.save;
     }else if(id.includes(Icon.right)){
         value = Icon.right;
     }else if(id.includes(Icon.left)){
         value = Icon.left;
     }else if(id.includes(Icon.change)){
         value = Icon.change;
-    }else if(id.includes(Icon.close)){
-        value = Icon.close;
-    }else if (id.includes(Icon.arrow)){
-        const className = target.className;
-        if(className.includes(Arrow.up)){
-            value = Arrow.up + "_arrow";
-        }else if(className.includes(Arrow.down)){
-            value = Arrow.down + "_arrow";
-        }
     }
     return value;
 }
