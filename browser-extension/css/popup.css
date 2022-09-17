@@ -17,13 +17,6 @@ body {
     margin-bottom: 5px;
 }
 
-.man-hour-name{
-    color:#708090;
-    font-size: 18px;
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
 .time{
     color:#c0c0c0;
     font-size: 32px;
@@ -61,23 +54,6 @@ body {
 .edit-form{
     text-align:right;
     color:#c0c0c0;
-}
-
-.input-manhour-name{
-    margin-left:20px;
-    color:#708090;
-    font-size: 18px;
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-.input-time{
-    margin-left:20px;
-    margin-right: 10px;
-    font-size: 18px;
-    width:auto;
-    height:auto;
-    color:#708090;
 }
 
 #addTitle{
