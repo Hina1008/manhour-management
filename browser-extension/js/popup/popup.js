@@ -193,7 +193,7 @@ document.addEventListener('click', async (e) =>{
             if(manHourName.includes("＆")){
                 embeddingAlertMessage("全角＆は設定できません。", "error");
             }else if(!manHourName){
-                embeddingAlertMessage("空白は設定できません。", "warning");
+                embeddingAlertMessage("空白は設定できません。", "error");
             }else{
                 await bg.clickSaveIcon(no, manHourName);
                 embeddingAlertMessage("工数名が変更されました。", "info");
