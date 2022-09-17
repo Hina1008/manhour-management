@@ -1,0 +1,46 @@
+#alert{
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 2;
+    width: 100%;
+}
+
+.alert-form{
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.alert-info{
+    background-color:rgb(190, 231, 178);
+}
+
+.alert-warning{
+    background-color:rgb(231, 231, 178);
+}
+
+.alert-error{
+    background-color:rgb(231, 178, 178);
+}
+
+.alert-icon{
+    margin-left:5px;
+    height: 24px;
+    width: 24px;
+}
+
+.info-message{
+    color: rgb(37, 104, 41);
+}
+
+.warning-message{
+    color: rgb(104, 98, 37);
+}
+
+.error-message{
+    color: rgb(104, 37, 37);
+}
+.alert-message{
+    margin-left: 10px;
+}
