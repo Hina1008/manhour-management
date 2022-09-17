@@ -209,6 +209,25 @@ document.addEventListener('click', async (e) =>{
     }
  });
 
+ let root = document.getElementById("root");
+ root.addEventListener('keypress',  async (e, undefined) =>{
+    if (e.key === "Enter") {
+        if(e.target.className == "input-manhour-name"){
+            const no = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.id;
+            const manHourInfo = await bg.checkCurrentManHourInfo(no);
+            const formIndex = manHourInfo["formIndex"];
+            let manHourName = document.getElementById("manHourName" + no + "-" + formIndex).value;
+            if(manHourName.includes("＆")){
+                emmbeddingErrorMessage("全角＆は設定できません。", "message"+no, "edit-error", "errorContent" + no, no);
+            }else if(!manHourName){
+                emmbeddingErrorMessage("空白は設定できません。", "message"+no, "edit-error", "errorContent" + no, no);
+            }else{
+                await bg.clickSaveIcon(no, manHourName);
+            }
+        }
+	}  
+ });
+
  // マウスが要素上にあるときの処理
  document.addEventListener('mouseover', async (e, undefined) =>{
     // アイコンである場合の処理
