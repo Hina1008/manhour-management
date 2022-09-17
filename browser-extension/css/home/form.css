@@ -3,4 +3,7 @@
     font-size: 18px;
     margin-top: 0;
     margin-bottom: 0;
+    width: 350px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
