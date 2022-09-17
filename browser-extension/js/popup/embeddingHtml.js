@@ -323,20 +323,6 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
     // 編集フォームを作成
     createEditForm(no, name, time, manHourInfoDiv);
 
-
-    let createErrorElements = () => {
-        // 工数名毎に区切る用の横線のDivを追加する
-        let errorDiv = document.createElement("div"); // div要素作成
-        setElement({
-            "id": "message" + no,
-            },
-            errorDiv,
-            manHourDiv
-        );
-    }
-
-    createErrorElements();
-
     let createLineElements = () => {
         // 工数名毎に区切る用の横線のDivを追加する
         let lineDiv = document.createElement("div"); // div要素作成
@@ -358,76 +344,6 @@ export let embeddingManHour = (name, no, time, rootDiv) =>{
     // 工数名毎に区切る用の横線に関する要素のまとまりを作成
     createLineElements();
 
-}
-
-
-export let deleteErrorMessage = (parent) =>{
-    // エラーメッセージが既に表示されていたら削除する
-    console.log(parent)
-    let hasChild = parent.hasChildNodes();
-    if(hasChild){
-        while(parent.lastChild){
-            parent.removeChild(parent.lastChild);
-        }
-    }
-}
-
-export let emmbeddingErrorMessage = (message, id, className, idName, no) => {
-    let divElement = document.getElementById(id);
-
-    // エラーメッセージが既に表示されていたら削除する
-    deleteErrorMessage(divElement);
-    let errorFormDiv;
-    if(no){
-        errorFormDiv = document.createElement("div"); // div要素作成
-        setElement({
-            "id": "messageForm" + no,
-            "class":"message-form"
-            },
-            errorFormDiv,
-            divElement
-        )
-
-        let closeImg = document.createElement("img");
-        setElement({
-            "src": "/img/popup/close/close.png",
-            "id": "close" + no,
-            "class": "delete-error-message-icon close"
-            },
-            closeImg,
-            errorFormDiv
-        )
-    }else{
-        errorFormDiv = document.createElement("div"); // div要素作成
-        setElement({
-            "id": "messageForm",
-            "class":"message-form"
-            },
-            errorFormDiv,
-            divElement
-        )
-
-        let closeImg = document.createElement("img");
-        setElement({
-            "src": "/img/popup/close/close.png",
-            "id": "close",
-            "class": "delete-add-error-message-icon close"
-            },
-            closeImg,
-            errorFormDiv
-        )
-    }
-
-    let pElement = document.createElement("p"); // p要素作成
-    let errorMessage = document.createTextNode(message); // テキストノードを作成
-    pElement.appendChild(errorMessage); // p要素にテキストノードを追加
-    setElement({
-        "id": idName,
-        "class": className
-        },
-        pElement,
-        errorFormDiv
-    );
 }
 
 export let embeddingAlertMessage = (message, severity) =>{
@@ -469,9 +385,4 @@ export let embeddingAlertMessage = (message, severity) =>{
         alertMessageElement,
         alertSeverityElement
     );
-}
-
-export let removeErrorMessage = (id) => {
-    let errorMessageElement = document.getElementById(id).parentNode;
-    errorMessageElement.removeChild(errorMessageElement.firstChild);
 }
