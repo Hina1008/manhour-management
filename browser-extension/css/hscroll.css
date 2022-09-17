@@ -1,0 +1,30 @@
+.hscroll {
+	width:100%;
+	height: auto;
+	position:relative;
+}
+
+.hscroll ul {
+	padding:0;
+	margin:0;
+	width:100%;
+	height:100%;
+	overflow:hidden;
+	white-space:nowrap;
+	scroll-snap-type:x mandatory;
+	scroll-behavior:smooth;
+}
+
+.hscroll li {
+	list-style:none;
+	display:inline-block;
+	scroll-snap-align:center;
+	width:100%;
+	height:100%;
+}
+
+.hscroll div {
+	width:100%;
+	height:100%;
+	object-fit:contain;
+}

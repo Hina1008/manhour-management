@@ -13,11 +13,16 @@ export let seekIcon = (target) => {
         value = Icon.edit;
     }else if (id.includes(Icon.save)){
         value = Icon.save;
+    }else if(id.includes(Icon.right)){
+        value = Icon.right;
+    }else if(id.includes(Icon.left)){
+        value = Icon.left;
+    }else if(id.includes(Icon.change)){
+        value = Icon.change;
+    }else if(id.includes(Icon.close)){
+        value = Icon.close;
     }else if (id.includes(Icon.arrow)){
         const className = target.className;
-        console.log("arrow")
-        console.log(target);
-        console.log(target.className)
         if(className.includes(Arrow.up)){
             value = Arrow.up + "_arrow";
         }else if(className.includes(Arrow.down)){

@@ -8,13 +8,15 @@
  * @param {*} manHourInfo 
  * @param {*} currentManHourName 
  */
- let stopCurrentManHour = async (manHourInfo, currentManHourName) => {
+ let stopCurrentManHour = async (manHourInfo, index) => {
 	let startTime = await getLocalStorage("startTime");
 	const diffTime = new Date().getTime() - startTime["startTime"];
-	let time = manHourInfo[currentManHourName]["time"] + diffTime;
-	let no = manHourInfo[currentManHourName]["no"];
-	await setLocalStorage(currentManHourName,{"time":time,"no":no,"diffTime":0});
-	await removeLocalStorage("name");
+	let time = manHourInfo[index]["time"] + diffTime;
+	let no = manHourInfo[index]["no"];
+	let name = manHourInfo[index]["name"];
+	let formIndex = manHourInfo[index]["formIndex"];
+	await setLocalStorage(index,{"name":name,"time":time,"no":no,"diffTime":0,"formIndex":formIndex});
+	await removeLocalStorage("currentManHourIndex");
 }
 
 /**
@@ -25,10 +27,11 @@
  */
 let stop = async (undefined) =>{
 	// 現在の時間を保存
-	let currentManHour = await getLocalStorage("name");
-	if(currentManHour["name"] !== undefined){
-		let manHourInfo = await getLocalStorage(currentManHour["name"]);
-		stopCurrentManHour(manHourInfo, currentManHour["name"]);
+	let storage = await getLocalStorage("currentManHourIndex");
+	let index = storage["currentManHourIndex"]
+	if(index !== undefined){
+		let manHourInfo = await getLocalStorage(index);
+		stopCurrentManHour(manHourInfo, index);
 	}
 }
 
@@ -39,19 +42,22 @@ let stop = async (undefined) =>{
  * @param {*} manHourName 
  * @param {*} undefined 
  */
-let start = async (manHourName, undefined) => {
-	let currentManHour = await getLocalStorage("name");
-	if(currentManHour["name"] !== undefined){
+let start = async (no, undefined) => {
+	let storage = await getLocalStorage("currentManHourIndex");
+	let index = storage["currentManHourIndex"];
+	if(index !== undefined){
 		let startTime = await getLocalStorage("startTime");
-		let manHourInfo = await getLocalStorage(currentManHour["name"]);
+		let manHourInfo = await getLocalStorage(index);
 		const diffTime = new Date().getTime() - startTime["startTime"];
-		let time = manHourInfo[currentManHour["name"]]["time"] + diffTime;
-		let cNo = manHourInfo[currentManHour["name"]]["no"];
-		await setLocalStorage(currentManHour["name"],{"time":time,"no":cNo,"diffTime":0});
+		let time = manHourInfo[index]["time"] + diffTime;
+		let cNo = manHourInfo[index]["no"];
+		let name = manHourInfo[index]["name"];
+		let formIndex = manHourInfo[index]["formIndex"]
+		await setLocalStorage(index,{"name":name,"time":time,"no":cNo,"diffTime":0,"formIndex":formIndex});
 	}
 
 	// 名前を変更
-	await setLocalStorage("name", manHourName);
+	await setLocalStorage("currentManHourIndex", no);
 	await setLocalStorage("startTime", new Date().getTime());
 	Time();
 }

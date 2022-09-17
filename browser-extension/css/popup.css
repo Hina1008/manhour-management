@@ -17,7 +17,7 @@ body {
     margin-bottom: 5px;
 }
 
-.manHour-paragraph{
+.man-hour-name{
     color:#708090;
     font-size: 18px;
     margin-top: 0;
@@ -32,9 +32,10 @@ body {
     margin-bottom:0;
     margin-left:3px;
     display:inline-block;
+    /* vertical-align: bottom; */
 }
 
-.manHour-edit-form{
+.man-hour-edit-form{
     display: block;
     text-align: right;
 }
@@ -62,6 +63,23 @@ body {
     color:#c0c0c0;
 }
 
+.input-manhour-name{
+    margin-left:20px;
+    color:#708090;
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.input-time{
+    margin-left:20px;
+    margin-right: 10px;
+    font-size: 18px;
+    width:auto;
+    height:auto;
+    color:#708090;
+}
+
 #addTitle{
     color:#708090;
     margin-right:10px;
@@ -73,5 +91,29 @@ body {
 
 .error{
     font-size: 16px;
-    color:crimson;
+    color:white;
+    margin-left: 10px;
+    text-align: center;
 }
+
+.edit-error{
+    font-size: 16px;
+    /* background-color:crimson;
+    color:white; */
+    /* color:crimson; */
+    color:white;
+    text-align:center;
+}
+
+#errorMessage .message-form{
+    align-items: center;
+    width: auto;
+    height: 30px;
+    line-height: 30px;
+    background-color: crimson;
+    border-radius: 30px;
+    margin-top:5px;
+    display:flex;
+    /* margin-left:40px; */
+}
+
