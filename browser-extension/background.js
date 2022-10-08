@@ -95,12 +95,18 @@ bg.isEnabledTime = async (time) => {
  */
 bg.updateTime = async (no, time) => {
 	console.log("call bg.updateTime");
+	// 指定した時刻に設定する
 	let storage = await getLocalStorage(no);
 	let editTime = changeTimeFormater(time, "1000s");
 	storage[no]["diffTime"] = 0;
 	storage[no]["time"] = editTime;
-	await setLocalStorage("startTime", new Date().getTime());
 	await setLocalStorage(no, storage[no]);
+
+	// 現在測っている工数の時間を変更した時、測り始めた時間を現在時刻に設定
+	let currentManHourIndex = await getLocalStorage("currentManHourIndex")
+	if(no == currentManHourIndex["currentManHourIndex"]){
+		await setLocalStorage("startTime", new Date().getTime());
+	}
 }
 
 /**
