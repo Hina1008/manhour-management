@@ -8,7 +8,7 @@
  * 押したら、計測している工数が止まる ContextMenusを作成
  * localStorageのデータを削除
  */
-chrome.runtime.onInstalled.addListener(detail => {
+chrome.runtime.onInstalled.addListener(async(detail) => {
 	if (detail.reason == "install" || detail.reason == "update") {
 		createContextMenus({
 			"id": "manhour-management",
@@ -22,7 +22,18 @@ chrome.runtime.onInstalled.addListener(detail => {
 			"type" : "normal",
 			"contexts" : ["all"]
 		});
-		chrome.storage.local.clear();
+		getManHourInfo().then((manHourInfo) => {
+			const keys = Object.keys(manHourInfo);
+			for (let key of keys) {
+				createContextMenus({
+					"id": key,
+					"title" : manHourInfo[key]["name"],
+					"parentId": "manhour-management",
+					"type" : "normal",
+					"contexts" : ["all"]
+				});
+			}
+		})
 	}
 });
 
