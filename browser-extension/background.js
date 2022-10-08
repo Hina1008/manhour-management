@@ -22,14 +22,11 @@ bg.pageCallUpdateInfo = async() => {
 	return new Promise(async (resolve) => {
 		console.log("call pageCallUpdateInfo");
 		await Time();
-		let manHourInfo = await getLocalStorage();
+		let manHourInfo = await getManHourInfo();
 		const keys = Object.keys(manHourInfo);
         for (let key of keys) {
-            if(key != "currentManHourIndex"  && key != "localStorage" && key != "startTime") {
-                console.log(key)
-				manHourInfo[key]["formIndex"] = 1;
-				await setLocalStorage(manHourInfo[key]["no"], manHourInfo[key]);
-            }
+			manHourInfo[key]["formIndex"] = 1;
+			await setLocalStorage(manHourInfo[key]["no"], manHourInfo[key]);
         }
 		console.log(manHourInfo);
 		resolve(manHourInfo);
@@ -73,6 +70,14 @@ bg.getCurrentManHourInfo = async () => {
 			let currentManHourInfo = await getLocalStorage(index);
 			resolve(currentManHourInfo[index]);
 		}
+	})
+}
+
+bg.getAllManHourInfo = async () => {
+	console.log("call bg.getAllManHourInfo");
+	return new Promise(async(resolve) => {
+		let manHourInfo = await getManHourInfo();
+		resolve(manHourInfo);
 	})
 }
 
@@ -243,7 +248,7 @@ bg.clickResetButton = async(undefined) => {
 				});
 			}
 		}
-		resolve(await getLocalStorage());
+		resolve(await getManHourInfo());
 	});
 };
 

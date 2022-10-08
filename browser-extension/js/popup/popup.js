@@ -13,16 +13,14 @@ let intervalForTimer;
         const rootDiv = document.getElementById("root");
         let totalTime = 0;
         for (let key of keys) {
-            if(key != "currentManHourIndex" && key != "time" && key != "localStorage" && key != "startTime") {
-                // 各工数の時間を更新する
-                embeddingManHour(
-                    manHourInfo[key]["name"], 
-                    manHourInfo[key]["no"], 
-                    getTime(manHourInfo[key]["time"]+manHourInfo[key]["diffTime"]), 
-                    rootDiv);
-                // 合計時間を加算する
-                totalTime += manHourInfo[key]["time"]+manHourInfo[key]["diffTime"]
-            }
+            // 各工数の時間を更新する
+            embeddingManHour(
+                manHourInfo[key]["name"], 
+                manHourInfo[key]["no"], 
+                getTime(manHourInfo[key]["time"]+manHourInfo[key]["diffTime"]), 
+                rootDiv);
+            // 合計時間を加算する
+            totalTime += manHourInfo[key]["time"]+manHourInfo[key]["diffTime"]
         }
         // 合計時間を更新する
         updateTotalTime(getTime(totalTime));
@@ -109,7 +107,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // リセットボタンを押したとき
     document.querySelector('.reset').addEventListener('click', async ()=>{
         clearInterval(intervalForTimer);
-        await bg.clickResetButton().then((manHourInfo) =>{
+        await bg.clickResetButton();
+        bg.getAllManHourInfo().then((manHourInfo) =>{
             emmbedingHtml(manHourInfo);
         });
         // 合計時間をリセットする
