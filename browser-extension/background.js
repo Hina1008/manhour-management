@@ -311,6 +311,14 @@ bg.updateCurrentForm = async (no, arrow) => {
 	setLocalStorage(no, manHourInfo[no]);
 }
 
+bg.getTotalTime = async() => {
+	const totalTime = await getTotalTime();
+	console.log(totalTime);
+	return new Promise(async (resolve, reject) => {
+		resolve(totalTime);
+	});
+}
+
 /**
  * 工数を追加するボタンを押した時の処理
  * @param {*} value 

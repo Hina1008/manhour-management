@@ -9,6 +9,11 @@ export let setElement = (attribute, childElement, parentElement, type) => {
     }
 }
 
+export let updateTotalTime = (totalTime) => {
+    const totalTimeElement = document.getElementById("totalTime");
+    totalTimeElement.innerHTML = totalTime;
+}
+
 let createHomeForm = (no, name, time, manHourInfoDiv) => {
     let createLeftArrowElements = () => {
         // アイコンと時間用のDivを追加する

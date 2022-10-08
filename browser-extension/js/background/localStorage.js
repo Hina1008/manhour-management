@@ -20,3 +20,18 @@ const removeLocalStorage = (key) => new Promise((resolve, reject) => {
 		resolve(true);
 	})
 });
+
+const getTotalTime = () => new Promise((resolve, reject) => {
+	chrome.storage.local.get(null, (data) => {
+		let totalTime = 0;
+		const keys = Object.keys(data);
+		for (let key of keys) {
+            if(key != "currentManHourIndex" && key != "time" && key != "localStorage" && key != "startTime") {
+                // 各工数の時間を更新する
+                // 合計時間を加算する
+                totalTime += data[key]["time"]+data[key]["diffTime"]
+            }
+		}
+		resolve(totalTime);
+	})
+})
