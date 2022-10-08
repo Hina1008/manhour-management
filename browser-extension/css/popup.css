@@ -9,11 +9,11 @@ body {
 }
 
 .mac #header {
-    height: 130px;
+    height: 150px;
 }
 
 .win #header{
-    height: 150px;
+    height: 170px;
 }
 
 #fixedHeader{
@@ -24,11 +24,11 @@ body {
 }
 
 .mac #fixedHeader{
-    height: 130px;
+    height: 150px;
 }
 
 .win #fixedHeader{
-    height: 150px;
+    height: 170px;
 }
 
 #fixedHeader.fixed{
@@ -39,6 +39,15 @@ body {
 #title {
     text-align:center;
     color:#708090;
+    margin:0px;
+ }
+
+ .total-time{
+    margin-bottom:3px;
+    margin-top:0px;
+    font-size:32px;
+    color:white;
+    font-weight:bold;
  }
 
 .button{

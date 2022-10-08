@@ -1,5 +1,5 @@
 import {bg} from './backgroundCaller.js';
-import {embeddingManHour, embeddingAlertMessage} from'./embeddingHtml.js';
+import {embeddingManHour, embeddingAlertMessage, updateTotalTime} from'./embeddingHtml.js';
 import {seekIcon} from './seekId.js';
 
 let intervalForTimer;
@@ -11,15 +11,21 @@ let intervalForTimer;
         const keys = Object.keys(manHourInfo);
         // 親要素（div）への参照を取得
         const rootDiv = document.getElementById("root");
+        let totalTime = 0;
         for (let key of keys) {
             if(key != "currentManHourIndex" && key != "time" && key != "localStorage" && key != "startTime") {
+                // 各工数の時間を更新する
                 embeddingManHour(
                     manHourInfo[key]["name"], 
                     manHourInfo[key]["no"], 
                     getTime(manHourInfo[key]["time"]+manHourInfo[key]["diffTime"]), 
                     rootDiv);
+                // 合計時間を加算する
+                totalTime += manHourInfo[key]["time"]+manHourInfo[key]["diffTime"]
             }
         }
+        // 合計時間を更新する
+        updateTotalTime(getTime(totalTime));
         intervalForMinute();
     });
 })();
@@ -46,6 +52,12 @@ let intervalForMinute = () => {
         let formIndex = manHourInfo["formIndex"];
         console.log(time);
         document.getElementById("manHourTime" + no + "-" + formIndex).innerHTML = getTime(time);
+    })
+    bg.getTotalTime().then((totalTime) => {
+        // 合計時間を更新する
+        console.log(totalTime);
+        updateTotalTime(getTime(totalTime));
+        bg.Mock(totalTime);
     })
 };
 
