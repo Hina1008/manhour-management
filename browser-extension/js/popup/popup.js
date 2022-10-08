@@ -55,9 +55,7 @@ let intervalForMinute = () => {
     })
     bg.getTotalTime().then((totalTime) => {
         // 合計時間を更新する
-        console.log(totalTime);
         updateTotalTime(getTime(totalTime));
-        bg.Mock(totalTime);
     })
 };
 
@@ -114,6 +112,8 @@ document.addEventListener('DOMContentLoaded', function() {
         await bg.clickResetButton().then((manHourInfo) =>{
             emmbedingHtml(manHourInfo);
         });
+        // 合計時間をリセットする
+        updateTotalTime("00:00:00");
     });
 
     // 停止ボタンを押した時
