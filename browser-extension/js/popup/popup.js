@@ -55,9 +55,7 @@ let intervalForMinute = () => {
     })
     bg.getTotalTime().then((totalTime) => {
         // 合計時間を更新する
-        console.log(totalTime);
         updateTotalTime(getTime(totalTime));
-        bg.Mock(totalTime);
     })
 };
 
