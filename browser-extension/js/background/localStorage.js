@@ -21,7 +21,7 @@ const removeLocalStorage = (key) => new Promise((resolve, reject) => {
 	})
 });
 
-const getManHourInfo = () => new Promise((resolve) => {
+const getAllManHourInfo = () => new Promise((resolve) => {
 	chrome.storage.local.get(null, (data) => {
 		const keys = Object.keys(data);
 		for (let key of keys) {

@@ -22,7 +22,7 @@ bg.pageCallUpdateInfo = async() => {
 	return new Promise(async (resolve) => {
 		console.log("call pageCallUpdateInfo");
 		await Time();
-		let manHourInfo = await getManHourInfo();
+		let manHourInfo = await getAllManHourInfo();
 		const keys = Object.keys(manHourInfo);
         for (let key of keys) {
 			manHourInfo[key]["formIndex"] = 1;
@@ -76,7 +76,7 @@ bg.getCurrentManHourInfo = async () => {
 bg.getAllManHourInfo = async () => {
 	console.log("call bg.getAllManHourInfo");
 	return new Promise(async(resolve) => {
-		let manHourInfo = await getManHourInfo();
+		let manHourInfo = await getAllManHourInfo();
 		resolve(manHourInfo);
 	})
 }
@@ -248,7 +248,7 @@ bg.clickResetButton = async(undefined) => {
 				});
 			}
 		}
-		resolve(await getManHourInfo());
+		resolve(await getAllManHourInfo());
 	});
 };
 
