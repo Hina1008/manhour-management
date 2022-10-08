@@ -114,6 +114,8 @@ document.addEventListener('DOMContentLoaded', function() {
         await bg.clickResetButton().then((manHourInfo) =>{
             emmbedingHtml(manHourInfo);
         });
+        // 合計時間をリセットする
+        updateTotalTime("00:00:00");
     });
 
     // 停止ボタンを押した時
