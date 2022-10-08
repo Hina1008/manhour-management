@@ -21,6 +21,20 @@ const removeLocalStorage = (key) => new Promise((resolve, reject) => {
 	})
 });
 
+const getManHourInfo = () => new Promise((resolve) => {
+	chrome.storage.local.get(null, (data) => {
+		const keys = Object.keys(data);
+		for (let key of keys) {
+			// 数字か否かの判定 (工数のkeyは数字であるため)
+            if(isNaN(key)) {
+                // 工数情報以外のデータを削除
+                delete data[key];
+            }
+		}
+		resolve(data);
+	})
+});
+
 const getTotalTime = () => new Promise((resolve, reject) => {
 	chrome.storage.local.get(null, (data) => {
 		let totalTime = 0;
