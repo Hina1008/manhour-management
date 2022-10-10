@@ -81,6 +81,23 @@ bg.getAllManHourInfo = async () => {
 	})
 }
 
+bg.isEnabledInput = async(manHourName) => {
+	console.log("call isEnabledManHourName");
+	return new Promise(async(resolve) =>{
+		console.log(manHourName);
+		const isNameEmpty = (manHourName) => {
+			return !manHourName.trim();
+		}
+		const isUsedFullwidthAmpersand = (manHourName) => {
+			return manHourName.includes("＆");
+		}
+		console.log("入力値空:" + isNameEmpty(manHourName));
+		console.log("入力値＆:" + isUsedFullwidthAmpersand(manHourName));
+		let isEnabled = !(isNameEmpty(manHourName) || isUsedFullwidthAmpersand(manHourName));
+		resolve(isEnabled);
+	})
+}
+
 
 bg.isEnabledTime = async (time) => {
 	console.log("call bg.isEnabledTime");

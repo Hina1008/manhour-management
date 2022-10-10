@@ -201,14 +201,17 @@ document.addEventListener('click', async (e) =>{
             const manHourInfo = await bg.checkCurrentManHourInfo(no);
             const formIndex = manHourInfo["formIndex"];
             let manHourName = document.getElementById("manHourName" + no + "-" + formIndex).value;
-            if(manHourName.includes("＆")){
-                embeddingAlertMessage("全角＆は設定できません。", "error");
-            }else if(!manHourName){
-                embeddingAlertMessage("空白は設定できません。", "error");
-            }else{
-                await bg.clickSaveIcon(no, manHourName);
-                embeddingAlertMessage("工数名が変更されました。", "info");
-            }
+            bg.isEnabledInput(manHourName).then(async(isEnabledInput) => {
+                if(isEnabledInput){
+                    await bg.clickSaveIcon(no, manHourName);
+                    embeddingAlertMessage("工数名が変更されました。", "info");
+                }else{
+                    embeddingAlertMessage(
+                        "工数名に「空白」または「全角＆」は設定できません。", 
+                        "error"
+                    );
+                }
+            });        
         }
 	}  
  });
