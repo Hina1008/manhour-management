@@ -22,7 +22,7 @@ chrome.runtime.onInstalled.addListener(async(detail) => {
 			"type" : "normal",
 			"contexts" : ["all"]
 		});
-		getManHourInfo().then((manHourInfo) => {
+		getAllManHourInfo().then((manHourInfo) => {
 			const keys = Object.keys(manHourInfo);
 			for (let key of keys) {
 				createContextMenus({
