@@ -355,19 +355,7 @@ bg.clickAddButton = async(value, undefined) => {
 			await setLocalStorage("localStorage", 1);
 			storage = await getLocalStorage("localStorage");
 		}
-
-		// 同じ工数名が入力された場合、拒否する
-		let manHourInfo = await getLocalStorage();
-		let manHourNames = Object.entries(manHourInfo).map(
-			([key,value]) => manHourInfo[key]["name"]
-			).filter(Boolean)
-		if(value.includes("＆")){
-			reject("forbidden word");
-			return;
-		}else if(value ===""){
-			reject("empty");
-			return;
-		}
+		
 		let storageNo = storage["localStorage"];
 		await setLocalStorage(storageNo, {
 			"name": value,

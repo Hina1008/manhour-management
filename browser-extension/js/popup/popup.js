@@ -78,30 +78,25 @@ let clickIcon = (id) => {
 document.addEventListener('DOMContentLoaded', function() {
     // 追加ボタンを押したとき
     document.querySelector('.add').addEventListener('click', ()=>{
-        let value = document.getElementById("manhourNameBox").value;
-        bg.clickAddButton(value).then((result) => {
-            // 親要素（div）への参照を取得
-            const rootDiv = document.getElementById("root");
-            embeddingManHour(value, 
-                result, 
-                "00:00:00", 
-                rootDiv);
-            embeddingAlertMessage("工数が追加されました。", "info");
-
-        }).catch(async (error) => {
-            let message;
-            console.log(error["error"]);
-            if(error["error"] == "forbidden word"){
-                message = "全角「＆」 は使用できません。"
-            }else if(error["error"] == "empty"){
-                message = "工数名が空です。 工数名を入力してください。"
-            } 
-            embeddingAlertMessage(message, "error");
-            const useNotification = await bg.getOptionValue("notification")
-            if (useNotification){
-                bg.notification(value, value + 'は既に登録されています。');
+        let manHourName = document.getElementById("manhourNameBox").value;
+        bg.isEnabledInput(manHourName).then(async(isEnabledInput) => {
+            if(isEnabledInput){
+                bg.clickAddButton(manHourName).then((result) => {
+                    // 親要素（div）への参照を取得
+                    const rootDiv = document.getElementById("root");
+                    embeddingManHour(manHourName, 
+                        result, 
+                        "00:00:00", 
+                        rootDiv);
+                    embeddingAlertMessage("工数が追加されました。", "info");
+                });
+            }else{
+                embeddingAlertMessage(
+                    "工数名に「空白」または「全角＆」は設定できません。", 
+                    "error"
+                );
             }
-        });
+        }); 
     });
 
     // リセットボタンを押したとき
