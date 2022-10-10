@@ -32,3 +32,12 @@ let removeContextMenus = (id) => {
 let createContextMenus = (properties) => {
 	chrome.contextMenus.create(properties);
 }
+
+/**
+ * 
+ * @param {*} id 
+ * @param {*} updateProperties 
+ */
+let updateContextMenus = (id,updateProperties) => {
+	chrome.contextMenus.update(id,updateProperties);
+}
