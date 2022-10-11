@@ -229,15 +229,11 @@ bg.clickSaveIcon = async (no, manHourName) =>{
 	let storage = await getLocalStorage(no);
 	storage[no]["name"] = manHourName;
 	await setLocalStorage(no, storage[no]);
-	await removeContextMenus(no);
-	createContextMenus({
-		"id": no.toString(),
-		"title" : manHourName.replace("&","＆"),
-		"parentId": "manhour-management",
-		"type" : "normal",
-		"contexts" : ["all"]
-	});
-
+	updateContextMenus(no,
+		{
+		"title": manHourName
+		}
+	);
 }
 
 /**
@@ -355,7 +351,7 @@ bg.clickAddButton = async(value, undefined) => {
 			await setLocalStorage("localStorage", 1);
 			storage = await getLocalStorage("localStorage");
 		}
-		
+
 		let storageNo = storage["localStorage"];
 		await setLocalStorage(storageNo, {
 			"name": value,
