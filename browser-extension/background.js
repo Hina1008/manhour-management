@@ -81,6 +81,23 @@ bg.getAllManHourInfo = async () => {
 	})
 }
 
+bg.isEnabledInput = async(manHourName) => {
+	console.log("call isEnabledManHourName");
+	return new Promise(async(resolve) =>{
+		console.log(manHourName);
+		const isNameEmpty = (manHourName) => {
+			return !manHourName.trim();
+		}
+		const isUsedFullwidthAmpersand = (manHourName) => {
+			return manHourName.includes("＆");
+		}
+		console.log("入力値空:" + isNameEmpty(manHourName));
+		console.log("入力値＆:" + isUsedFullwidthAmpersand(manHourName));
+		let isEnabled = !(isNameEmpty(manHourName) || isUsedFullwidthAmpersand(manHourName));
+		resolve(isEnabled);
+	})
+}
+
 
 bg.isEnabledTime = async (time) => {
 	console.log("call bg.isEnabledTime");
@@ -338,19 +355,7 @@ bg.clickAddButton = async(value, undefined) => {
 			await setLocalStorage("localStorage", 1);
 			storage = await getLocalStorage("localStorage");
 		}
-
-		// 同じ工数名が入力された場合、拒否する
-		let manHourInfo = await getLocalStorage();
-		let manHourNames = Object.entries(manHourInfo).map(
-			([key,value]) => manHourInfo[key]["name"]
-			).filter(Boolean)
-		if(value.includes("＆")){
-			reject("forbidden word");
-			return;
-		}else if(value ===""){
-			reject("empty");
-			return;
-		}
+		
 		let storageNo = storage["localStorage"];
 		await setLocalStorage(storageNo, {
 			"name": value,
